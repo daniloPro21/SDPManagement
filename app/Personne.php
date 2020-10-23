@@ -12,6 +12,6 @@ class Personne extends Model
 
 
   public function dossiers(){
-    return $this->hasMany(Dossier.class,"personne_id");
+    return $this->hasMany(Dossier::class,"personne_id");
   }
 }

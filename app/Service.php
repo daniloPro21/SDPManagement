@@ -12,10 +12,10 @@ class Service extends Model
 
 
   public function dossiers(){
-    return $this->hasMany(Dossier.class,"service_id");
+    return $this->hasMany(Dossier::class, "service_id");
   }
 
   public function users(){
-    return $this->hasMany(User.class,"service_id")
+    return $this->hasMany(User::class, "service_id");
   }
 }
