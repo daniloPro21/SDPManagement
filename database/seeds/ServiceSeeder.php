@@ -1,5 +1,6 @@
 <?php
 
+use App\Service;
 use Illuminate\Database\Seeder;
 
 class ServiceSeeder extends Seeder
@@ -11,6 +12,14 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $faker = \Faker\Factory::create();
+
+        for ($i=0; $i < 3; $i++) {
+            Service::create([
+                'name' => $faker->name,
+                'description' => $faker->sentence,
+                'is_delete' => false
+            ]);
+        }
     }
 }
