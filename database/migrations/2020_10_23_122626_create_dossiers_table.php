@@ -29,8 +29,7 @@ class CreateDossiersTable extends Migration
             $table->foreign('service_id')->references('id')->on('services');
             $table->foreign('personne_id')->references('id')->on('personnes');
             $table->foreign('type_id')->references('id')->on('type_dossiers');
-            $table->timestamps();
-
+            $table->timestamps(); 
         });
     }
 
