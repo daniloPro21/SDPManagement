@@ -20,7 +20,7 @@ class PersonneSeeder extends Seeder
                 'prenom' => $faker->name,
                 'matricule' => $faker->randomNumber(),
                 'grade' => 'ECI',
-                'isDelete' => false
+                'is_delete' => false
             ]);
         }
     }

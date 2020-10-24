@@ -14,10 +14,10 @@ class StepDossier extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        for ($i=0; $i <3 ; $i++) {
+        for ($i=0; $i <100 ; $i++) {
             Step::create([
-                'dossier_id' => $faker->numberBetween(1, 99),
-                'type' => $faker->randomElements(['info', 'warning', 'move']),
+                'dossier_id' => $faker->numberBetween(1, 50),
+                'type' => $faker->randomElement(['info', 'warning', 'move']),
                 'message' => $faker->sentence,
                 'action_date' => now(),
                 'is_delete' => false
