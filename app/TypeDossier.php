@@ -10,7 +10,6 @@ class TypeDossier extends Model
       'name', 'descripiton',
   ];
 
-
   public function dossiers(){
     return $this->hasMany(Dossier::class,"type_id");
   }
