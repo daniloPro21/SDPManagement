@@ -40,13 +40,13 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        $role = auth()->user()->role;
-        // dd($role);
-        if ($role == 'admin') {
+        $user = auth()->user();
+        // dd($user);
+        if ($user->role = "admin") {
             return route('secretaire.home');
-        } elseif ($role == 'secretaire') {
+        } elseif ($user->role = '"secretaire') {
             return route('admin.home');
-        } elseif ($role == 'service') {
+        } elseif ($user->role = "service") {
             return route('service.home');
         } else {
             return route('register');
