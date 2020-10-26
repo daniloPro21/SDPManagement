@@ -82,21 +82,37 @@
     <div class="register-box-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="../../index.html" method="post">
+      <form method="POST" action="{{ route('register') }}">
+          @csrf
         <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="Full name">
+          <input type="text" class="form-control" placeholder="Full name" name="name">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          @error('name')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
         </div>
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          @error('email')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          @error('password')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+          @enderror
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation">
           <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
         </div>
         <div class="row">
@@ -114,7 +130,7 @@
           <!-- /.col -->
         </div>
       </form>
-      <a href="login.html" class="text-center">I already have a membership</a>
+      <a href="{{ route('login')}}" class="text-center">I already have a membership</a>
     </div>
     <!-- /.form-box -->
   </div>
