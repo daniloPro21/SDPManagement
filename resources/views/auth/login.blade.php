@@ -35,7 +35,7 @@
             <div class="checkbox icheck">
                 <label class="form-check-label" for="remember">
                     {{ __('Remember Me') }}
-                    <input type="checkbox"> Remember Me
+                    <input type="checkbox">
                 </label>
             </div>
           </div>
@@ -56,4 +56,3 @@
   </div>
 @endsection
 <!-- /.login-box -->
-

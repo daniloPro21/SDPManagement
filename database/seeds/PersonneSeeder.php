@@ -17,7 +17,7 @@ class PersonneSeeder extends Seeder
         for ($i=0; $i < 100; $i++) {
             Personne::create([
                 'nom' => $faker->name,
-                'prenom' => $faker->name,
+                'prenom' => $faker->lastNamep,
                 'matricule' => $faker->randomNumber(),
                 'grade' => 'ECI',
                 'is_delete' => false
