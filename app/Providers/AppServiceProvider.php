@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use App\User;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,9 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      /*
+        /*
 
-      */
+        */
     }
 
     /**
@@ -28,26 +29,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-          Schema::defaultStringLength(191);
-          Blade::if('admin', function () {
-              return auth()->check() && auth()->user()->role === 'admin';
-          });
+        Schema::defaultStringLength(191);
+        Blade::if('admin', function () {
+            return auth()->check() && auth()->user()->role === 'admin';
+        });
 
-          Blade::if('secretaire', function () {
-              return auth()->check() && auth()->user()->role === 'secretaire';
-          });
+        Blade::if('secretaire', function () {
+            return auth()->check() && auth()->user()->role === 'secretaire';
+        });
 
-          Blade::if('service', function () {
-              return auth()->check() && auth()->user()->role === 'service';
-          });
-          /*
-          Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
-              return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;
-          });
+        Blade::if('service', function () {
+            return auth()->check() && auth()->user()->role === 'service';
+        });
+        /*
+        Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
+            return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;
+        });
 
-          if(request()->server("SCRIPT_NAME") !== 'artisan') {
-              view()->share('users', User::where('is_delete', 0)->get());
-          }
-          */
+        if(request()->server("SCRIPT_NAME") !== 'artisan') {
+            view()->share('users', User::where('is_delete', 0)->get());
+        }
+        */
     }
 }
