@@ -20,11 +20,11 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $role = auth()->user()->role;
             if ($role == "admin") {
-                return redirect()->route('admin.home');
+                return route('admin.home');
             } elseif ($role == 'service') {
-                return redirect()->route('service.home');
+                return route('service.home');
             } elseif ($role == 'secretaire') {
-                return redirect()->route('secretaire.home');
+                return route('secretaire.home');
             } else {
                 return redirect()->route('register');
             }

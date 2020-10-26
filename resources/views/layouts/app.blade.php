@@ -344,8 +344,9 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
+      @admin
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -371,6 +372,46 @@
           </a>
         </li>
       </ul>
+      @endadmin
+      @secretaire
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Dossier</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Coter</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Non Coter</a></li>
+          </ul>
+        </li>
+      </ul>
+      @endsecretaire
+      @service
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Dossier Coter</span>
+          </a>
+        </li>
+      </ul>
+      @endservice
+
     </section>
     <!-- /.sidebar -->
   </aside>
