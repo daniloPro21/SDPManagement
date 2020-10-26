@@ -27,6 +27,5 @@ class UpdateUsersTable extends Migration
      */
     public function down()
     {
-
     }
 }
