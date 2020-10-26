@@ -28,10 +28,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
           Schema::defaultStringLength(191);
-        /*  Blade::if('admin', function () {
+          Blade::if('admin', function () {
               return auth()->check() && auth()->user()->role === 'admin';
           });
 
+          Blade::if('secretaire', function () {
+              return auth()->check() && auth()->user()->role === 'secretaire';
+          });
+
+          Blade::if('service', function () {
+              return auth()->check() && auth()->user()->role === 'service';
+          });
+          /*
           Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
               return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;
           });
