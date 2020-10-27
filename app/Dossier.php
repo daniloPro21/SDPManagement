@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dossier extends Model
 {
-  protected $fillable = [
+    protected $fillable = [
       'date_entre','date_sortie','note','num_dra','num_sdp','num_service','traiter', 'service_id','personne_id','type_id',
   ];
 
@@ -23,7 +23,8 @@ class Dossier extends Model
     return $this->belongsTo(Service::class,"service_id");
   }
 
-  public function steps(){
-    return $this->hasMany(Step::class,"dossier_id");
-  }
+    public function steps()
+    {
+        return $this->hasMany(Step::class, "dossier_id");
+    }
 }

@@ -15,7 +15,18 @@
   <!-- Theme style -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -157,9 +168,9 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
+      @admin
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        @admin
         <li class="active">
           <a href="{{ route('admin.home')}}">
             <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de controls")}}</span>
@@ -201,6 +212,7 @@
         @endadmin
 
         @service
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -224,6 +236,50 @@
           <a href="#">
             <i class="fa fa-home"></i>
             <span>Services</span>
+          </a>
+        </li>
+      </ul>
+      @endservice
+
+      @secretaire
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Dossier</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Coter</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Non Coter</a></li>
+          </ul>
+        </li>
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-user"></i> <span>Personnes</span>
+              </a>
+        </li>
+      </ul>
+      @endsecretaire
+      @service
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Dossier Coter</span>
           </a>
         </li>
       </ul>
@@ -260,18 +316,27 @@
 
 
 
+@yield('javascript')
 
 
+<<<<<<< HEAD
 
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+=======
+<script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+<!-- jQuery 3 -->
+<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+>>>>>>> 9ef7db83e3200d2947bad5f6e5ef4cacde48d14d
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -302,6 +367,54 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
+<<<<<<< HEAD
   @yield('js')
+=======
+<!-- jQuery 3 -->
+<!-- page script -->
+{{--  <script src="{{ asset('../../bower_components/jquery/dist/jquery.min.js') }}"></script>  --}}
+<!-- Bootstrap 3.3.7 -->
+{{--  <script src="{{ asset('../../bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>  --}}
+<!-- DataTables -->
+<script src="{{ asset('../../bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset('../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ asset('../../bower_components/fastclick/lib/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('../../dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+{{--  <script src="{{ asset('../../dist/js/demo.js') }}"></script>  --}}
+<script>
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : true,
+            'ordering'    : false,
+            'info'        : true,
+            'autoWidth'   : false,
+        })
+    })
+    $(function () {
+        $('#example3').DataTable()
+        $('#example4').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+        })
+    })
+
+</script>
+
+
+
+
+>>>>>>> 9ef7db83e3200d2947bad5f6e5ef4cacde48d14d
 </body>
 </html>
