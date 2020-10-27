@@ -14,7 +14,7 @@ class ServiceSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        for ($i=0; $i < 3; $i++) {
+        for ($i=0; $i < 4; $i++) {
             Service::create([
                 'name' => $faker->name,
                 'description' => $faker->sentence,

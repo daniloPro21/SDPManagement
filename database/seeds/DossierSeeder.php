@@ -14,6 +14,7 @@ class DossierSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+        $matricule = str_random(6);
 
         for ($i = 0; $i<=100; $i++) {
             Dossier::create([

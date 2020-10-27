@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dossier;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,11 +25,12 @@ class HomeController extends Controller
 
     public function secretaire()
     {
-        return view('Secretaire.home');
+        $dossiers = Dossier::all();
+        return view('Secretaire.home', compact('dossiers'));
     }
 
     public function service()
     {
-        return view('Secretaire.home');
+        return view('Services.home');
     }
 }
