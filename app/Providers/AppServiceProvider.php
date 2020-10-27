@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use App\User;
-use Illuminate\Support\Facades\Blade;
+use App\Dossier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,10 +45,11 @@ class AppServiceProvider extends ServiceProvider
         Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
             return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;
         });
+        */
 
         if(request()->server("SCRIPT_NAME") !== 'artisan') {
-            view()->share('users', User::where('is_delete', 0)->get());
+            view()->share('dossiers', Dossier::all());
         }
-        */
+
     }
 }

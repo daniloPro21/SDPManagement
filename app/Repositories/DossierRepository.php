@@ -7,11 +7,23 @@ use App\Dossier;
 use App\Service;
 
 
-class ProduitRepository
+class DossierRepository
 {
 
     public function getDossiers() {
         return Dossier::where('is_delete', false)->get();
+    }
+
+    public function getNewDossiers(){
+      return Dossier::where('service_id',null)->get();
+    }
+
+    public function getAssignDossiers(){
+      return Dossier::where('service_id','!=',null)->where('traiter',false)->get();
+    }
+
+    public function getDossiersTraiter(){
+      return Dossier::where('traiter',true)->get();
     }
 
 

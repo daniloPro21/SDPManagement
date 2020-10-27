@@ -13,6 +13,6 @@ class Step extends Model
 
   public function dossier()
   {
-    return $this->belongTo(Dossier::class,"dossier_id");
+    return $this->belongsTo(Dossier::class,"dossier_id");
   }
 }

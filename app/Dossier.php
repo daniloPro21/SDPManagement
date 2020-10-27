@@ -12,15 +12,15 @@ class Dossier extends Model
 
 
   public function type(){
-    return $this->belongTo(TypeDossier::class,"type_id");
+    return $this->belongsTo(TypeDossier::class,"type_id");
   }
 
   public function personne(){
-    return $this->belongTo(Personne::class,"personne_id");
+    return $this->belongsTo(Personne::class,"personne_id");
   }
 
   public function service(){
-    return $this->belongTo(Service::class,"service_id");
+    return $this->belongsTo(Service::class,"service_id");
   }
 
   public function steps(){

@@ -15,7 +15,7 @@ class CreateDossiersTable extends Migration
     {
         Schema::create('dossiers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->unsignedBigInteger('personne_id');
             $table->unsignedBigInteger('type_id');
             $table->date('date_entre');
@@ -29,7 +29,7 @@ class CreateDossiersTable extends Migration
             $table->foreign('service_id')->references('id')->on('services');
             $table->foreign('personne_id')->references('id')->on('personnes');
             $table->foreign('type_id')->references('id')->on('type_dossiers');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 
