@@ -14,9 +14,10 @@
                     <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
 
                     <div class="info-box-content">
-                      <span class="info-box-number">{{ $dossier->personne->prenom }} {{ $dossier->personne->nom }}</span>
+                      <span class="info-box-number" style="font-size: 12px;">{{ $dossier->personne->prenom }} {{ $dossier->personne->nom }}</span>
                       <span class="info-box-text">{{ $dossier->type->name}}</span>
-                      <small class="text-mu">{{ $dossier->date_entre}}</small>
+                      <small class="text-mu">{{ $dossier->date_entre}}</small><br>
+                      <small>Coter au service : {{ $dossier->service->name }}</small>
                     </div>
                     <!-- /.info-box-content -->
                   </div>

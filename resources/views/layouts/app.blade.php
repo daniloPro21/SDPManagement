@@ -244,10 +244,11 @@
       @secretaire
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
+        <li>
+            <a href="{{ route('secretaire.home') }}">
+                <i class="fa fa-dashboard"></i>
+                <span>home</span>
+              </a>
         </li>
         </li>
         <li class="treeview">
@@ -256,12 +257,13 @@
             <span>Dossier</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Coter</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Non Coter</a></li>
-          </ul>
+            <li><a href="{{ route('dossiers.list', 'coter') }}"><i class="fa fa-circle-o"></i> Coter</a></li>
+            <li><a href="{{ route('dossiers.list', 'non-coter') }}"><i class="fa fa-circle-o"></i> Non Coter</a></li>
+            <li><a href="{{ route('dossiers.list', 'traiter') }}"><i class="fa fa-circle-o"></i>traiter</a></li>
+        </ul>
         </li>
-        <li class="active treeview">
-            <a href="#">
+        <li>
+            <a href="{{ route('personne.create') }}">
                 <i class="fa fa-user"></i> <span>Personnes</span>
               </a>
         </li>

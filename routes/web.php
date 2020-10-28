@@ -14,13 +14,35 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Route Home By UserRole
+ */
 Route::get('/admin', 'HomeController@admin')->name('admin.home');
 Route::get('/secretaire', 'HomeController@secretaire')->name('secretaire.home');
 Route::get('/service', 'HomeController@service')->name('service.home');
+
+/**
+ * Route Dossier
+ */
 Route::get('/dossier/{type}', 'DossierController@listeDossier')->name('dossiers.list');
 Route::get('/dossiers', 'DossierController@dossiers')->name('dossiers.all');
 Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.detail');
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
+Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
+
+/**
+ * Route Personne
+ */
+Route::get('/personne/create', 'PersonneController@create')->name('personne.create');
+Route::post('/personne/create', 'PersonneController@store')->name('personne.store');
+Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')->name('personne.dossier');
+
+
+
+
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });

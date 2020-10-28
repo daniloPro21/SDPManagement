@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dossier extends Model
 {
     protected $fillable = [
-      'date_entre','date_sortie','note','num_dra','num_sdp','num_service','traiter', 'service_id','personne_id','type_id',
+      'date_entre','date_sortie','note','num_dra','num_sdp','traiter', 'service_id','personne_id','type_id',
   ];
 
 

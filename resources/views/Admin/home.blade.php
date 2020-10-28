@@ -92,5 +92,5 @@
                             <!-- /.widget-user -->
                       </a>
                    </div>
-            </div>
+    </div>
 @stop
