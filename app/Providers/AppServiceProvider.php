@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use App\User;
 use App\Dossier;
+use App\Service;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
 
         if(request()->server("SCRIPT_NAME") !== 'artisan') {
             view()->share('dossiers', Dossier::all());
+            view()->share('services', Service::all());
         }
 
     }

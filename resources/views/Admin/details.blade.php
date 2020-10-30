@@ -34,6 +34,20 @@
                 <tr>
                   <td>Note</td><td><b>{{ $dossier->note }}</b></td>
                 </tr>
+                @if ($dossier->service_id != null)
+                  <tr>
+                    <td>Service</td><td><b>{{ $dossier->service->name }}</b></td>
+                  </tr>
+                @else
+                  @admin
+                  <tr>
+                    <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success btn-block">Quoter a un service</button> </td>
+                  </tr>
+                  @endadmin
+                @endif
+                <tr>
+                  <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle Etiquette</button> </td>
+                </tr>
             </table>
               <!-- /.description-block -->
             </div>
@@ -50,88 +64,48 @@
                   <!-- timeline time label -->
                   <li class="time-label">
                         <span class="bg-red">
-                          10 Feb. 2014
+                          {{ Carbon\Carbon::createFromFormat("Y-m-d",$dossier->date_entre)->format("d/m/Y") }}
                         </span>
                   </li>
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-envelope bg-blue"></i>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                  @foreach ($dossier->steps as $step)
 
-                      <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                    <li>
+                      @if ($step->type=="info")
+                          <i title="Information" data-toggle="tooltip" class="fa fa-info bg-blue"></i>
+                      @elseif ($step->type=="warning")
+                          <i title="Problème" data-toggle="tooltip" class="fa fa-warning bg-red"></i>
+                      @elseif ($step->type=="success")
+                          <i title="Succèes" data-toggle="tooltip" class="fa fa-check bg-green"></i>
+                      @elseif($step->type=="move")
+                          <i title="Deplacement" data-toggle="tooltip" class="fa fa-arrows bg-aqua"></i>
+                      @endif
 
-                      <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
+
+                      <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y") }}</span>
+
+                        <h3 class="timeline-header"><a href="#">{{ $step->user->name }}</a> a signaler</h3>
+
+                        <div class="timeline-body row">
+                        <div class="col-sm-10">
+                            {!! $step->message !!}
+                        </div>
+                        <div class="col-sm-2">
+                              <a title="Supprimer" data-toggle="tooltip" href="{{ route('step.destroy',$step->id)}}" onclick="return confirm('voulez vous vraiment effecué cet action?')" class="btn pull-right btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                              <div class="clearfix">
+                        </div>
+                        </div>
+                        </div>
                       </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">Read more</a>
-                        <a class="btn btn-danger btn-xs">Delete</a>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+
+                  @endforeach
+
                   <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-user bg-aqua"></i>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                      <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-comments bg-yellow"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                      <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                      <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
-                  <!-- timeline time label -->
-                  <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
-                  </li>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-camera bg-purple"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                      <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                      <div class="timeline-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      </div>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
                   <!-- timeline item -->  <li>
                     <i class="fa fa-clock-o bg-gray"></i>
                   </li>
@@ -139,4 +113,103 @@
               </div>
               <!-- /.col -->
             </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ajouter Une Etiquette</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <div class="modal-body">
+                      @if ($errors->any())
+              <div class="alert alert-danger">
+                  <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+                      <form action="{{ route('step.store') }}" method="POST">
+                          @csrf
+                          <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="type">Type d'Etiquette</label>
+                              <select class="form-control" name="type">
+                                <option value="info">Information</option>
+                                <option value="warning">Probleme</option>
+                                <option value="move">Deplacement</option>
+                                <option value="success">Succèes</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="message">Message</label>
+                              <textarea required name="message" id="message" class="form-control"></textarea>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit"  class="btn btn-primary">Save changes</button>
+                      </form>
+                      </div>
+              </div>
+              </div>
+            </div>
+
+
+              <div class="modal fade" id="quotationModal" tabindex="-2" aria-labelledby="quotationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <div class="col-sm-12">
+                      @foreach ($services as $service)
+                        <a onclick="return confirm('Transferé le dossier a ce service ?');" href="{{ route('dossier.quotation',[$service->id,$dossier->id])}}" class="col-sm-4">
+                              <!-- Widget: user widget style 1 -->
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header bg-green-active">
+                                </div>
+                                <div class="widget-user-image">
+                                  <img class="img-circle" src="{{ asset('dist/img/2.png') }}" width="50px" height="30px" alt="Service">
+                                </div>
+                                <div class="box-footer">
+                                  <div class="row">
+                                    <!-- /.col -->
+                                  <div class="col-sm-12">
+                                      <div class="description-block">
+                                        <h5 class="description-header">{{ $service->name }}</h5>
+                                      </div>
+                                      <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                  </div>
+                                  <!-- /.row -->
+                                </div>
+                              </div>
+                              <!-- /.widget-user -->
+                        </a>
+                      @endforeach
+                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit"  class="btn btn-primary">Enregistrer</button>
+                          </div>
+                        </div>
+                </div>
+                </div>
+
 @stop

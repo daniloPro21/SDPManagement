@@ -17,7 +17,9 @@
                       <span class="info-box-number" style="font-size: 12px;">{{ $dossier->personne->prenom }} {{ $dossier->personne->nom }}</span>
                       <span class="info-box-text">{{ $dossier->type->name}}</span>
                       <small class="text-mu">{{ $dossier->date_entre}}</small><br>
-                      <small>Coter au service : {{ $dossier->service->name }}</small>
+                    @if ($dossier->service_id != null)
+                        <small>Service en Charge : {{ $dossier->service->name }}</small>
+                    @endif
                     </div>
                     <!-- /.info-box-content -->
                   </div>

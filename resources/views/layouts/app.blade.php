@@ -320,20 +320,8 @@
 
 @yield('javascript')
 
-
-<<<<<<< HEAD
-
-<!-- ./wrapper -->
-
 <!-- jQuery 3 -->
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-=======
-<script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
-<!-- jQuery 3 -->
-<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
->>>>>>> 9ef7db83e3200d2947bad5f6e5ef4cacde48d14d
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -369,9 +357,6 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
-<<<<<<< HEAD
-  @yield('js')
-=======
 <!-- jQuery 3 -->
 <!-- page script -->
 {{--  <script src="{{ asset('../../bower_components/jquery/dist/jquery.min.js') }}"></script>  --}}
@@ -413,10 +398,5 @@
     })
 
 </script>
-
-
-
-
->>>>>>> 9ef7db83e3200d2947bad5f6e5ef4cacde48d14d
 </body>
 </html>

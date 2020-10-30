@@ -11,7 +11,7 @@
             <div class="box box-widget widget-user">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-aqua-active">
-                <h3 class="widget-user-username">Dossier(s) En Cours</h3>
+                <h3 class="widget-user-username"><b>Dossier(s) En Cours</b></h3>
                 <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
               </div>
               <div class="widget-user-image">
@@ -40,7 +40,7 @@
                 <div class="box box-widget widget-user">
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header bg-green">
-                    <h3 class="widget-user-username">Dossier(s) Traité</h3>
+                    <h3 class="widget-user-username"><b>Dossier(s) Traité</b></h3>
                     <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
                   </div>
                   <div class="widget-user-image">

@@ -16,10 +16,11 @@ class CreateStepsTable extends Migration
         Schema::create('steps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('dossier_id');
-            $table->enum('type',['info','warning','move']);
+            $table->unsignedBigInteger('user_id');
+            $table->enum('type',['info','warning','move','success']);
             $table->text('message')->nullable();
             $table->date('action_date')->nullable();
-            //$table->foreign('dossier_id')->references('id')->on('dossiers');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->boolean('is_delete')->default(false);
         });

@@ -29,6 +29,7 @@ Route::get('/dossiers', 'DossierController@dossiers')->name('dossiers.all');
 Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.detail');
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
+Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
 
 /**
  * Route Personne
@@ -36,6 +37,15 @@ Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store')
 Route::get('/personne/create', 'PersonneController@create')->name('personne.create');
 Route::post('/personne/create', 'PersonneController@store')->name('personne.store');
 Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')->name('personne.dossier');
+
+
+/**
+ *Route Step
+ */
+Route::post('/step/create', 'StepController@store')->name('step.store');
+Route::get('/step/destroy/{id}', 'StepController@destroy')->name('step.destroy');
+
+
 
 
 

@@ -81,4 +81,14 @@ class DossierController extends Controller
 
         return back();
     }
+
+    public function quotation($id,$dossier_id){
+      $dossier = Dossier::findOrFail($dossier_id);
+      $dossier->service_id=$id;
+      $dossier->update();
+
+
+      return redirect()->back()->withMessage("Affectation Terminée");
+
+    }
 }

@@ -23,6 +23,7 @@ class CreateDossiersTable extends Migration
             $table->text('note')->nullable();
             $table->string('num_dra')->nullable()->unique();
             $table->string('num_sdp')->nullable()->unique();
+            $table->string('num_service')->nullable()->unique();
             $table->boolean('traiter')->default(false);
             $table->boolean('is_delete')->default(false);
             $table->foreign('service_id')->references('id')->on('services');
