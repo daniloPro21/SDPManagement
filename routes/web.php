@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/admin', 'HomeController@admin')->name('admin.home');
 Route::get('/secretaire', 'HomeController@secretaire')->name('secretaire.home');
-Route::get('/service', 'HomeController@service')->name('service.home');
-
+Route::get('/serviceHome', 'HomeController@service')->name('services.home');
 /**
  * Route Dossier
  */
@@ -62,7 +61,7 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
 Route::get('/service', 'ServiceController@index')->name('service.index');
-
+Route::get('/dossier/serive', 'DossierController@dossierService')->name('dossierServie');
 /**
  *Route d'utilisateurs
  */

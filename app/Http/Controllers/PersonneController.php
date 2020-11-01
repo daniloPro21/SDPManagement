@@ -42,7 +42,7 @@ class PersonneController extends Controller
         $personne->grade = $data['grade'];
 
         $personne->save();
-        toast->success('Personne ajouter avec success');
+        toastr()->success("Ajouter avec success");
 
         return back();
     }

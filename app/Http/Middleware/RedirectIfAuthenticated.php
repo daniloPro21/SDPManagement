@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             if ($role == "admin") {
                 return redirect()->route('admin.home');
             } elseif ($role == 'service') {
-                return redirect()->route('service.home');
+                return redirect()->route('services.home');
             } elseif ($role == 'secretaire') {
                 return redirect()->route('secretaire.home');
             } else {

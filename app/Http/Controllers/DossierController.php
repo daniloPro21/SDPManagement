@@ -17,7 +17,7 @@ class DossierController extends Controller
 
     public function listeDossier($type)
     {
-        $dossiersTrie;
+        //$dossiersTrie;
         switch ($type) {
       case 'non-coter':
         $dossiersTrie= $this->dossierRepository->getNewDossiers();
@@ -77,7 +77,7 @@ class DossierController extends Controller
         $dossier->service_id = 1;
 
         $dossier->save();
-
+        toastr()->success('Dossier ajouter avec success');
 
         return back();
     }
@@ -95,5 +95,11 @@ class DossierController extends Controller
     public function findresult(Request $request){
         $dossiersTrie= Dossier::where('num_dra',$request->recherche)->paginate(20);
         return view("Admin.listedossier", compact('dossiersTrie'));
+    }
+
+    public function dossierService()
+    {
+        $dossiers = $this->dossierRepository->getDossiersByServiceId(auth()->user()->service_id);
+        return view('Services.dossier', compact('dossiers'));
     }
 }
