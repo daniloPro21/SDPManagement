@@ -123,7 +123,9 @@
                   <tbody>
                       @foreach ($dossiers as $dossier)
                       <tr>
-                          <td>{{ $dossier->num_sdp }}</td>
+                          <td>
+                              <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a>
+                          </td>
                           <td>{{ $dossier->num_dra }} </td>
                             <td><b>Nom</b> : {{ $dossier->personne->nom }} &nbsp;&nbsp;
                                 - <b>Matricule</b> : {{ $dossier->personne->matricule }} &nbsp;&nbsp;
