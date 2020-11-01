@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
 
-  public $serviceRepository;
+    public function  index(){
+        $services=Service::all();
+        return view("Admin.service",compact('services'));
+    }
 
-  public function __construct(ServiceRepository $serviceRepository){
-
-      $this->serviceRepository = $serviceRepository;
-  }
-
-
-    public function index()
-    {
-      $services = $this->serviceRepository->getAllService();
-
-      return view('Secretaire.services', compact('services'));
-
+    public function  store(Request $request){
+        Service::create($request->all());
+        return redirect()->back()->withMessage("Enregistrement Effectué");
     }
 }

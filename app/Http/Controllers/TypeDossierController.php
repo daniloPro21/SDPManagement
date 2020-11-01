@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\TypeDossier;
+use Illuminate\Http\Request;
 
 class TypeDossierController extends Controller
 {
 
+    public function  index(){
+        $typedossiers=TypeDossier::where("is_delete",false)->get();
+        return view("Admin.typedossier",compact("typedossiers"));
+    }
 
-    public function store(Request $request)
-    {
-      //dd($request->all());
-      $data = $request->validate([
-        'name' => 'required',
-        'description' => 'required'
-      ]);
-
-      $type = new TypeDossier();
-      $type->name = $data['name'];
-      $type->description = $data['description'];
-      $type->save();
-      toastr()->success('Type de dossier ajouter avec success');
-      return back();
+    public function  store(Request $request){
+      
+        TypeDossier::create($request->all());
+        return redirect()->back()->withMessage("Enregistrement Effectué");
     }
 }
