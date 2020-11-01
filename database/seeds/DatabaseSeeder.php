@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(PersonneSeeder::class);
         //$this->call(ServiceSeeder::class);
         //$this->call(TypeDossierSeeder::class);
-        //$this->call(DossierSeeder::class);
-      $this->call(StepDossier::class);
+        $this->call(DossierSeeder::class);
+      //$this->call(StepDossier::class);
     }
 }

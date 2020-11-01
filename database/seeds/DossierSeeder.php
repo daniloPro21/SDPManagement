@@ -17,7 +17,7 @@ class DossierSeeder extends Seeder
 
         for ($i = 0; $i<=100; $i++) {
             Dossier::create([
-            'service_id' => $faker->numberBetween(1, 3),
+            'service_id' => null,
             'personne_id' => $faker->numberBetween(1, 30),
             'type_id' => $faker->numberBetween(1, 10),
             'date_entre' => now(),
