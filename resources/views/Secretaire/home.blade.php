@@ -100,6 +100,7 @@
         <div class="row">
           <div class="col-lg-12">
             <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">AJouter un Dossier</a>
+            <a href="#" data-toggle="modal" data-target="#exampleModale" class="btn btn-primary btn-lg mb-3">AJouter un Type de Dossier</a>
             <hr>
             <div class="box">
               <div class="box-header">
@@ -200,6 +201,47 @@
                             <label for="inputPassword4">note</label>
                             <textarea name="note" id="" cols="30" rows="10"></textarea>
                           </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                    </form>
+                    </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Un type de  Dossier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('typedossier.store') }}">
+                        @csrf
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="numero">Nom</label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name">
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                           @enderror
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="DHR">description</label>
+                            <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" id="description">
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                           @enderror
+                          </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

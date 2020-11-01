@@ -108,6 +108,5 @@
     </div>
     </div>
 </div>
-  <!-- /.content -->
 </div>
 @endsection

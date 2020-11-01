@@ -45,9 +45,11 @@ Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')-
 Route::post('/step/create', 'StepController@store')->name('step.store');
 Route::get('/step/destroy/{id}', 'StepController@destroy')->name('step.destroy');
 
+/**
+*Route Type Dossier
+*/
 
-
-
+Route::post('/typedossier', 'TypeDossierController@store')->name('typedossier.store')->middleware('auth');
 
 
 

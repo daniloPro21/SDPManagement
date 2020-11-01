@@ -42,12 +42,7 @@ class PersonneController extends Controller
         $personne->grade = $data['grade'];
 
         $personne->save();
-        // Personne::firstOrCreate([
-        //     'nom' => $data['nom'],
-        //     'prenom' => $data['prenom'],
-        // 'matricule' => $data['matricule'],
-        //     'grade' => $data['grade']
-        // ]);
+        toast->success('Personne ajouter avec success');
 
         return back();
     }
