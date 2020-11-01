@@ -190,12 +190,6 @@
       </a>
     </li>
 
-    <li>
-    <a href="{{ route('dossiers.find')}}">
-      <i class="fa fa-calendar"></i>
-      <span>{{ __("Statistique")}}</span>
-    </a>
-  </li>
 
       </li>
         <li class="treeview">
@@ -204,9 +198,9 @@
             <span>{{ __("Configuration")}}</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Type de Dossier</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Services</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+            <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossier</a></li>
+            <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
+           <!-- <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li> -->
           </ul>
         </li>
         @endadmin

@@ -9,22 +9,22 @@ class DossierRepository
 {
     public function getDossiers()
     {
-        return Dossier::where('is_delete', false)->paginate(10)->get();
+        return Dossier::where('is_delete', false)->paginate(20);
     }
 
     public function getNewDossiers()
     {
-        return Dossier::where('service_id', null)->get();
+        return Dossier::where('service_id', null)->paginate(20);
     }
 
     public function getAssignDossiers()
     {
-        return Dossier::where('service_id', '!=', null)->where('traiter', false)->paginate(10);
+        return Dossier::where('service_id', '!=', null)->where('traiter', false)->paginate(20);
     }
 
     public function getDossiersTraiter()
     {
-        return Dossier::where('traiter', true)->get();
+        return Dossier::where('traiter', true)->paginate(20);
     }
 
 

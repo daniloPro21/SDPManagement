@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypeDossier extends Model
 {
   protected $fillable = [
-      'name', 'descripiton',
+      'name', 'description',
   ];
 
   public function dossiers(){

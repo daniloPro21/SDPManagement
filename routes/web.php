@@ -30,6 +30,7 @@ Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.d
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
+Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
 
 /**
  * Route Personne
@@ -44,6 +45,25 @@ Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')-
  */
 Route::post('/step/create', 'StepController@store')->name('step.store');
 Route::get('/step/destroy/{id}', 'StepController@destroy')->name('step.destroy');
+
+
+/**
+ *Route Type de Dossiers
+ */
+Route::post('/type/create', 'TypeDossierController@store')->name('type.store');
+Route::get('/type', 'TypeDossierController@index')->name('type.index');
+
+/**
+ *Route de Services
+ */
+Route::post('/service/create', 'ServiceController@store')->name('service.store');
+Route::get('/service', 'ServiceController@index')->name('service.index');
+
+/**
+ *Route d'utilisateurs
+ */
+Route::post('/user/create', 'HomeController@store')->name('user.store');
+Route::get('/users', 'HomeController@index')->name('user.index');
 
 
 

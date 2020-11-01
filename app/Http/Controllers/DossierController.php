@@ -91,4 +91,9 @@ class DossierController extends Controller
       return redirect()->back()->withMessage("Affectation Terminée");
 
     }
+
+    public function findresult(Request $request){
+        $dossiersTrie= Dossier::where('num_dra',$request->recherche)->paginate(20);
+        return view("Admin.listedossier", compact('dossiersTrie'));
+    }
 }
