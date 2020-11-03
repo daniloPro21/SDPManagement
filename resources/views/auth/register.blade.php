@@ -76,11 +76,11 @@
 </div> --}}
 <div class="register-box">
     <div class="register-logo">
-      <a href="../../index2.html"><b>Admin</b>LTE</a>
+      <a href="../../index2.html">{{ config("app.name") }}</a>
     </div>
 
     <div class="register-box-body">
-      <p class="login-box-msg">Register a new membership</p>
+      <p class="login-box-msg">Register </p>
 
       <form method="POST" action="{{ route('register') }}">
           @csrf

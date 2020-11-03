@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dossier;
 use App\Repositories\DossierRepository;
+use Yoeunes\Toastr\Toastr;
 
 class DossierController extends Controller
 {
@@ -74,11 +75,11 @@ class DossierController extends Controller
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];
         $dossier->traiter = false;
-        $dossier->service_id = 1;
+        $dossier->service_id = null;
 
         $dossier->save();
 
-
+        Toastr()->success("Enregistrement Effectué");
         return back();
     }
 
@@ -87,8 +88,20 @@ class DossierController extends Controller
       $dossier->service_id=$id;
       $dossier->update();
 
+        Toastr()->success("Affectation Enregistré");
 
-      return redirect()->back()->withMessage("Affectation Terminée");
+      return redirect()->back();
+
+    }
+
+    public function traiter($id){
+        $dossier = Dossier::findOrFail($id);
+        $dossier->traiter=true;
+        $dossier->update();
+
+        Toastr()->success("Mise a Jour Effectué");
+
+        return redirect()->back();
 
     }
 

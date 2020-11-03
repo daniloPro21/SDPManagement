@@ -170,7 +170,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="inputEmail4">Personne</label>
-                              <select class="custom-select" name="personne_id">
+                              <select class="custom-select form-control" name="personne_id">
                                 {{-- <option selected>Choisir le type</option> --}}
                                 @foreach ($personnes as $item)
                                 <option value="{{ $item->id }}">{{ $item->nom }} : {{ $item->matricule }}</option>
@@ -189,7 +189,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Type</label>
-                                <select class="custom-select" name="type_id">
+                                <select class="custom-select form-control" name="type_id">
                                     {{-- <option selected>Choisir le type</option> --}}
                                     @foreach ($types as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>

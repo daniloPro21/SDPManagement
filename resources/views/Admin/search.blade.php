@@ -3,17 +3,17 @@
 
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
+    <br><br><br><br><br>
+    <div class="container bg-info">
 
-    <div class="container">
-      <br><br><br><br><br>
 
-        <h1 align="center">Recherche</h1>
+        <h1 align="center"  style="font-size: 80px;color: #FFF !important;">Recherche</h1>
   <div class=" col-sm-offset-3 col-sm-6">
 
     <form action="{{ route('dossier.result') }}" method="GET">
       {{ csrf_field() }}
-      <input type="text" class="form-control" name="recherche" placeholder="Numero DRA ici" style="text-align: center">
-      <br><br>
+      <input type="text" class="form-control"  name="recherche" placeholder="Numero DRA ici" style="text-align: center; height: 50px; border-radius: 10px;">
+      <br>
       <button class="btn btn-primary btn-lg center-block">Rechercher</button>
     </form>
   </div>

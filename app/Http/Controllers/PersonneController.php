@@ -6,6 +6,7 @@ use App\Dossier;
 use App\Personne;
 use App\Repositories\PersonneRepository;
 use Illuminate\Http\Request;
+use Yoeunes\Toastr\Toastr;
 
 class PersonneController extends Controller
 {
@@ -42,7 +43,7 @@ class PersonneController extends Controller
         $personne->grade = $data['grade'];
 
         $personne->save();
-        toast->success('Personne ajouter avec success');
+        toastr()->success('Personne ajouter avec success');
 
         return back();
     }

@@ -38,10 +38,15 @@
                   <tr>
                     <td>Service</td><td><b>{{ $dossier->service->name }}</b></td>
                   </tr>
+                    @if (!$dossier->traiter)
+                        <tr>
+                            <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier a t\'il réelement aboutie?')"  class="btn btn-success btn-block">Marquer Comme Traité</a> </td>
+                        </tr>
+                        @endif
                 @else
                   @admin
                   <tr>
-                    <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success btn-block">Quoter a un service</button> </td>
+                    <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success btn-block">Quoter à un service</button> </td>
                   </tr>
                   @endadmin
                 @endif

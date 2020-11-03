@@ -30,6 +30,7 @@ Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.d
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
+Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
 
 /**
