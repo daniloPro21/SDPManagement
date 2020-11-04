@@ -8,10 +8,10 @@
       <form action="{{route('service.store')}}" method="POST">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Remplissez le Formulaire Pour Enregistré un Nouveau Service</h3>
+            <h3 class="text-center text-uppercase">Remplissez le formulaire</h3>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
+          <div class="box-body col-sm-offset-3 col-sm-6">
 
             @if ($errors->any())
               <div class="alert alert-danger">
@@ -35,15 +35,16 @@
                 <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici"></textarea>
               </div>
             </div>
+            <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
           </div>
           <div class="box-footer">
-            <div class="pull-right"><button class="btn btn-warning" type="submit">Enregistré</button></div>
+
           </div>
         </div>
       </form>
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Liste des Services</h3>
+          <h3 class="text-center text-uppercase">Liste des services</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -25,7 +25,7 @@ class DossierSeeder extends Seeder
             'note' => $faker->sentence,
             'num_dra' => $faker->numberBetween(1, 40000),
             'num_sdp' => $faker->numberBetween(1, 40000),
-            'num_service' => $faker->numberBetween(1, 99),
+            'num_service' => $faker->numberBetween(1, 4),
             'traiter' => $faker->boolean(),
             'is_delete' => false,
           ]);

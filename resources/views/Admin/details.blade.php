@@ -40,7 +40,7 @@
                   </tr>
                     @if (!$dossier->traiter)
                         <tr>
-                            <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier a t\'il réelement aboutie?')"  class="btn btn-success btn-block">Marquer Comme Traité</a> </td>
+                            <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier a t\'il réelement aboutie?')"  class="btn btn-success btn-block">Marquer comme craité</a> </td>
                         </tr>
                         @endif
                 @else
@@ -51,7 +51,7 @@
                   @endadmin
                 @endif
                 <tr>
-                  <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle Etiquette</button> </td>
+                  <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle étiquette</button> </td>
                 </tr>
             </table>
               <!-- /.description-block -->
@@ -123,10 +123,10 @@
               <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ajouter Une Etiquette</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Ajouter une étiquette</h3>
                   </div>
                   <div class="modal-body">
                       @if ($errors->any())
@@ -143,7 +143,7 @@
                           <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <label for="type">Type d'Etiquette</label>
+                              <label for="type">Type d'étiquette</label>
                               <select class="form-control" name="type">
                                 <option value="info">Information</option>
                                 <option value="warning">Probleme</option>
@@ -160,8 +160,8 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit"  class="btn btn-primary">Save changes</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                          <button type="submit"  class="btn btn-primary">Enregistrer</button>
                       </form>
                       </div>
               </div>

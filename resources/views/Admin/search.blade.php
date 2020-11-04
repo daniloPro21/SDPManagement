@@ -4,18 +4,26 @@
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
     <br><br><br><br><br>
-    <div class="container bg-info">
-
-
-        <h1 align="center"  style="font-size: 80px;color: #FFF !important;">Recherche</h1>
+    <div class="container" style="background-color:#eee">
   <div class=" col-sm-offset-3 col-sm-6">
-
     <form action="{{ route('dossier.result') }}" method="GET">
-      {{ csrf_field() }}
-      <input type="text" class="form-control"  name="recherche" placeholder="Numero DRA ici" style="text-align: center; height: 50px; border-radius: 10px;">
-      <br>
-      <button class="btn btn-primary btn-lg center-block">Rechercher</button>
-    </form>
+      <div class="box">
+        <div class="box-header">
+          <h3 class="text-center text-uppercase">Rechercher</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body col-sm-offset-2 col-sm-8">
+
+          <div class="form-row">
+            <div class="form-group">
+                <input type="text" class="form-control"  name="recherche" placeholder="Numero DRA ici" style="text-align: center; height: 50px;">
+          </div>
+            <button class="btn btn-primary btn-block">Rechercher</button>
+        </div>
+      </div>
+      <div class="box-footer">
+
+      </div>
   </div>
     </div>
                 <!-- ./col -->

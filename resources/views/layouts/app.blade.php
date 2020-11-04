@@ -52,6 +52,8 @@
   <![endif]-->
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  {{-- ChartStyle --}}
+    <script src="{{ asset('dist/js/chart.min.js') }}" charset="utf-8"></script>
 </head>
 <body class="hold-transition skin-success sidebar-mini" >
 
@@ -195,7 +197,7 @@
             <span>{{ __("Configuration")}}</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossier</a></li>
+            <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
             <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
            <!-- <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li> -->
           </ul>
@@ -309,7 +311,7 @@
 
 
 
-@yield('javascript')
+
 @jquery
 @toastr_js
 @toastr_render
@@ -391,7 +393,7 @@
             'autoWidth'   : false
         })
     })
-
 </script>
+@yield('javascript')
 </body>
 </html>

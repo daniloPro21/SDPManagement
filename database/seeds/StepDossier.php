@@ -16,7 +16,7 @@ class StepDossier extends Seeder
 
         for ($i=0; $i <100 ; $i++) {
             Step::create([
-                'dossier_id' => $faker->numberBetween(1, 3000),
+                'dossier_id' => $faker->numberBetween(1, 100),
                 'type' => $faker->randomElement(['info', 'warning', 'move']),
                 'user_id' => $faker->numberBetween(1,4),
                 'message' => $faker->sentence,
