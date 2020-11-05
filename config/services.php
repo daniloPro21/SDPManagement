@@ -33,5 +33,11 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
+    'nexmo' => [
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
+        'sms_from' => env('SMS_FROM'),
+        'sms_to' => env('SMS_TO')
+    ],
 
 ];

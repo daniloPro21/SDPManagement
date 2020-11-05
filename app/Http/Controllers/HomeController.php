@@ -47,20 +47,21 @@ class HomeController extends Controller
       $dossierChart = new DossierChart;
         $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traité']);
         //$dossierChart->minimalist(true);
-        $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('service_id',null)->count(), Dossier::where('service_id','!=',null)->where('traiter',false)->count(), Dossier::where('traiter',true)->count()])->color($borderColors)->backgroundcolor($fillColors);
+        $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->count(), Dossier::where('service_id','!=',null)->where('traiter',false)->count(), Dossier::where('traiter',true)->count()])->color($borderColors)->backgroundcolor($fillColors);
 
         $dossier2Chart = new DossierChart;
-        $dossiers=Dossier::get()->groupBy(function($d) {
+        $dossiers=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
           return Carbon::parse($d->created_at)->format('m');
           });
           for ($i=1; $i<=12 ; $i++) {
-            $dossier2Data[]=$dossiers->get($i,collect([]))->count();
+            $key="0".$i;
+           $dossier2Data[] = ($i>=10) ? $dossiers->get($i,collect([]))->count() : $dossiers->get($key,collect([]))->count() ;
           }
         $dossier2Chart->labels(['Jan', 'Fe', 'Mar','Avr','Mai','Juin','Juillet','Aout','Sept','Oct','Nov','Dec']);
-        $dossier2Chart->dataset('Dossiers Reçus', 'line', $dossier2Data)->color("rgb(0 122 94")->backgroundcolor("rgb(0 122 94")  ;
+        $dossier2Chart->dataset('Dossiers Reçus', 'line', $dossier2Data)->color("rgb(0,122,94)")->backgroundcolor("rgb(0,122,94)")  ;
 
         $yearChart = new DossierChart;
-        $yearsData=Dossier::get()->groupBy(function($d) {
+        $yearsData=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
           return Carbon::parse($d->created_at)->format('Y');
           });
         for ($i=(int) date("Y")-10; $i<=date("Y") ; $i++) {
@@ -70,7 +71,7 @@ class HomeController extends Controller
         //dd($years);
         array_reverse($years[0]);
         $yearChart->labels($years[0]);
-        $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219 139 11)")->backgroundcolor("rgb(219 139 60)");
+        $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
         return view('Admin.home',compact("dossierChart","dossier2Chart","yearChart") );
     }
 

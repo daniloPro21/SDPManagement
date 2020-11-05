@@ -106,15 +106,15 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+              <img src="{{ asset('dist/img/armoirie.png') }}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
-              <li class="user-header">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+              <li class="user-header" style="color: #222  !important">
+                <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle" alt="User Image">
 
-                <p>
+                <p style="color: #222  !important">
                   {{ auth()->user()->name}} - {{ auth()->user()->role}}
                   <small>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->created_at)->diffForHumans() }}</small>
                 </p>
@@ -148,7 +148,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ auth()->user()->name }}</p>
@@ -167,9 +167,9 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      @admin
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">NAVIGATION</li>
+      @admin
         <li class="active">
           <a href="{{ route('admin.home')}}">
             <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de controls")}}</span>
@@ -205,7 +205,6 @@
         @endadmin
 
         @service
-        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -231,12 +230,9 @@
             <span>Services</span>
           </a>
         </li>
-      </ul>
       @endservice
 
       @secretaire
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
         <li>
             <a href="{{ route('secretaire.home') }}">
                 <i class="fa fa-dashboard"></i>
@@ -260,11 +256,8 @@
                 <i class="fa fa-user"></i> <span>Personnes</span>
               </a>
         </li>
-      </ul>
       @endsecretaire
       @service
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -277,8 +270,12 @@
             <span>Dossier Coter</span>
           </a>
         </li>
-      </ul>
+        
       @endservice
+      <li style="position:fixed;bottom:0;opacity:0.7;">
+         <center> <img src="{{ asset('dist/img/logo.png') }}" class="img-circle" alt="User Image"></center>
+    </li>
+      </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
