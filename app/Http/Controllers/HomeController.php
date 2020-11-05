@@ -89,7 +89,9 @@ class HomeController extends Controller
     public function service()
     {
         $dossiers = Dossier::all()->where('service_id', '=', auth()->user()->service_id);
+        $coter = $this->dossierRepository->getAssignDossiers()->count();
+        // dd($coter);
 
-        return view('Services.home', compact('dossiers'));
+        return view('Services.home', compact('dossiers', 'coter'));
     }
 }

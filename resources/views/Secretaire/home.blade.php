@@ -184,10 +184,6 @@
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Date sortie</label>
-                              <input type="date" name="date_sortie" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-6">
                                 <label for="inputPassword4">Type</label>
                                 <select class="custom-select form-control" name="type_id">
                                     {{-- <option selected>Choisir le type</option> --}}

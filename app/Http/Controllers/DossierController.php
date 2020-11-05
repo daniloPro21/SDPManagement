@@ -63,14 +63,13 @@ class DossierController extends Controller
             'type_id' => 'required',
             'note' => 'required',
             'date_entre' => 'required',
-            'date_sortie' => 'required'
         ));
 
         $dossier = new Dossier();
         $dossier->num_sdp = $data['num_sdp'];
         $dossier->num_dra = $data['num_dra'];
         $dossier->date_entre = $data['date_entre'];
-        $dossier->date_sortie =  $data['date_sortie'];
+
         $dossier->personne_id = $data['personne_id'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dossier;
 use App\Service;
 use Illuminate\Http\Request;
 
@@ -16,5 +17,11 @@ class ServiceController extends Controller
     public function  store(Request $request){
         Service::create($request->all());
         return redirect()->back()->withMessage("Enregistrement Effectué");
+    }
+     public function listcoter()
+    {
+        $dossiers = Dossier::all()->where('service_id', '=', auth()->user()->service_id);
+
+        return view('Services.dossiercoter', compact('dossiers') );
     }
 }
