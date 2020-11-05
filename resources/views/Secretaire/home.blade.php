@@ -108,7 +108,7 @@
               <!-- /.box-header -->
               <div class="box-body">
                   <br>
-                <table id="example1" class="table table-bordered table-hover">
+                <table id="example" class="table table-bordered table-hover">
                   <thead>
                   <tr>
                     <th>SDP</th>
@@ -122,29 +122,33 @@
                   </tr>
                   </thead>
                   <tbody>
-                      @foreach ($dossiers as $dossier)
+                      @foreach ($dossierssecre as $dossier)
                       <tr>
                           <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
                           <td>{{ $dossier->num_dra }} </td>
                             <td><b>- Nom</b> : {{ $dossier->nom }} <br>
                                 - <b>Matricule</b> : {{ $dossier->matricule }} <br>
-                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }}
+                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
 
                             </td>
                             <td> {{ $dossier->date_entre }}</td>
                             <td>{{ $dossier->date_sortie }} &nbsp;
 
                             </td>
-                            <td><a href="#" data-toggle="modal" data-target="#modifier" class="btn btn-primary btn-sm mb-3">
+                            <form action="{{ route('dossier.delete', ['id' => $dossier->id]) }}" method="post">
+                            <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
                                 <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-sm mb-3">
+                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-sm mb-3">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                        </td>
+                                    @csrf
+                                    @method('patch')
+                                    <button type="submit"  class="btn btn-danger btn-sm mb-3">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </form>
                         </tr>
                         @endforeach
 

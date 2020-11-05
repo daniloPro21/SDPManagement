@@ -64,6 +64,9 @@
                 <tr>
                   <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle étiquette</button> </td>
                 </tr>
+                <tr>
+                    <td colspan="2"><button data-toggle="modal" data-target="#modifier" class="btn btn-danger btn-block">Modifier</button> </td>
+                  </tr>
             </table>
               <!-- /.description-block -->
             </div>
@@ -228,4 +231,81 @@
                 </div>
                 </div>
 
+        <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modifierD">Ajouter Un Dossier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('dossier.update', ['id' => $dossier->id]) }}">
+                        @csrf
+                        @method('patch')
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="numero">Numero DSP</label>
+                            <input type="text" name="num_sdp" class="form-control" id="numero" value="{{ $dossier->num_sdp }}" required>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="DHR">Numero DRH</label>
+                            <input type="text" name="num_dra" value="{{ $dossier->num_dra }}" class="form-control" id="DHR" required>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Nom du Proprietaier</label>
+                              <input type="text" name="nom" id="" value="{{ $dossier->nom }}" class="form-control" placeholder="entre le nom du proprietaire" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Prenom</label>
+                                <input type="text" name="prenom" id="" value="{{ $dossier->prenom }}" class="form-control" placeholder="entre le prenom du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Matricule</label>
+                                <input type="text" name="matricule" id="" value="{{ $dossier->matricule }}" class="form-control" placeholder="entre le matricule du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">grade</label>
+                                <input type="text" name="grade" id="" value="{{ $dossier->grade }}" class="form-control" placeholder="entre le grade du proprietaire" required>
+                              </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">date Entre</label>
+                              <input type="date" name="date_entre" value="{{ $dossier->date_entre }}" class="form-control" id="inputPassword4" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">date de sortie</label>
+                                <input type="date" name="date_sortie" class="form-control" value="{{ $dossier->date_sortie }}" id="inputPassword4" required>
+                              </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Type</label>
+                                <select class="custom-select form-control" name="type_id">
+                                    {{-- <option selected>Choisir le type</option> --}}
+                                    @foreach ($types as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">note</label>
+                            <textarea name="note" id="" cols="30" value="{{ $dossier->note }}" rows="10"></textarea>
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                    </form>
+                    </div>
+            </div>
+            </div>
+        </div>
 @stop

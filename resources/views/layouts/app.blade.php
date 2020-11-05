@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -92,7 +94,7 @@
                 <ul class="menu">
                   @foreach ($dossiers->where('service_id','!=',null) as $dossier)
                     <li>
-                      <a href="#">
+                      <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">
                         <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
                       </a>
                     </li>
@@ -339,6 +341,15 @@
 <script src="{{ asset('../../bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('../../dist/js/adminlte.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 {{--  <script src="{{ asset('../../dist/js/demo.js') }}"></script>  --}}
@@ -365,6 +376,15 @@
             'autoWidth'   : false
         })
     })
+
+    $(document).ready(function() {
+      $('#example').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
+      } );
+  } );
 </script>
 @yield('javascript')
 </body>

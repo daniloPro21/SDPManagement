@@ -4,7 +4,7 @@
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
 
-    <div class="container"><br><br><br><br> <br><br><br>
+    <div class="container"><br><br>
 
 
         <a href="{{ route('dossiers.list','coter')}}">
@@ -66,7 +66,58 @@
                 <!-- /.widget-user -->
             </div>
 
-        </a> </div>
+        </a> 
+        <br><br> 
+    <section>
+        
+        <table id="example" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>SDP</th>
+              <th>DRH</th>
+              <th>Appartien A</th>
+              <th>Date entre</th>
+              <th>Date Sortie</th>
+              <th>Actions</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+                @foreach ($dossiers as $dossier)
+                <tr>
+                    <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
+                    <td>{{ $dossier->num_dra }} </td>
+                      <td><b>- Nom</b> : {{ $dossier->nom }} <br>
+                          - <b>Matricule</b> : {{ $dossier->matricule }} <br>
+                          - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
+
+                      </td>
+                      <td> {{ $dossier->date_entre }}</td>
+                      <td>{{ $dossier->date_sortie }} &nbsp;
+
+                      </td>
+                      <form action="{{ route('dossier.delete', ['id' => $dossier->id]) }}" method="post">
+                      <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
+                          <i class="fa fa-edit"></i>
+                          </a>
+                          <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
+                              <i class="fa fa-eye"></i>
+                          </a>
+                              @csrf
+                              @method('patch')
+                              <button type="submit"  class="btn btn-danger btn-sm mb-3">
+                                  <i class="fa fa-trash"></i>
+                              </button>
+                          </td>
+                      </form>
+                  </tr>
+                  @endforeach
+
+          </tbody>
+          </table>
+    </section>
+    </div>
                 <!-- ./col -->
             </div>
 @stop
