@@ -76,14 +76,18 @@ class HomeController extends Controller
 
     public function secretaire()
     {
-
+        $dossierssecre = Dossier::all()->where('is_delete', false);
+        //dd($dossierssecre);
         $types = TypeDossier::all();
-        return view('Secretaire.home', compact('types'));
+        return view('Secretaire.home', compact('types','dossierssecre'));
     }
 
     public function service()
     {
-        $dossiers = Dossier::all()->where('service_id', '=', auth()->user()->service_id);
+        $dossiers = Dossier::all()
+        ->where('service_id', '=', auth()->user()->service_id)
+        ->where('is_delete' ,'=', false);
+
         $coter = $this->dossierRepository->getAssignDossiers()->count();
         // dd($coter);
 

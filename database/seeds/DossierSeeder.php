@@ -20,7 +20,7 @@ class DossierSeeder extends Seeder
             'service_id' => $faker->numberBetween(1, 4),
             'type_id' => $faker->numberBetween(1, 10),
             'date_entre' => now(),
-            'date_sortie' => $faker->date('Y-m-d', $max = '01-01/2030'),
+            'date_sortie' => $faker->date('Y-m-d', $max = '01-01-2030'),
             'note' => $faker->sentence,
             'num_dra' => $faker->numberBetween(40000, 1000000),
             'num_sdp' => $faker->numberBetween(40000, 1000000),

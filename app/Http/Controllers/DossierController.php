@@ -111,13 +111,22 @@ class DossierController extends Controller
 
         //dd($dossier);
 
-        
 
+        Dossier::where('id', $id)->update($data);
 
         Toastr()->success("Modification Effectué");
 
 
         return back()->with("Error");
+
+    }
+
+    public function delete($id)
+    {
+        Dossier::where('id', $id)->update(['is_delete' => true]);
+        Toastr()->success("Suppression Effectué");
+
+        return back();
 
     }
 

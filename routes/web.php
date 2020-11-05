@@ -33,6 +33,7 @@ Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation'
 Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
 Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
+Route::patch('/dossier/delete/{id}', 'DossierController@delete')->name('dossier.delete');
 
 /**
  * Route Personne
