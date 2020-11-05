@@ -92,7 +92,7 @@
                 <ul class="menu">
                   @foreach ($dossiers->where('service_id','!=',null) as $dossier)
                     <li>
-                      <a href="#">
+                      <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">
                         <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
                       </a>
                     </li>
