@@ -6,82 +6,53 @@
 @section('content')
 <div class="row justify-content-center d-flex align-items-center">
 
-    <div class="container" style="padding-top:5%;">
-      <a href="{{ route('dossiers.list','non-coter')}}" class="col-md-4">
-            <!-- Widget: user widget style 1 -->
-            <div class="box box-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-yellow-active">
-                <h3 class="widget-user-username">{{ __("Dossier(s) Non Quoté")}}</h3>
-                <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle" src="{{ asset('dist/img/2.png') }}" alt="User Avatar">
-              </div>
-              <div class="box-footer">
-                <div class="row">
-                  <!-- /.col -->
-                <div class="col-sm-12">
-                    <div class="description-block">
-                      <h5 class="description-header">{{ $ncote }}</h5>
-                      <span class="description-text">Dossier(s)</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.widget-user -->
-      </a>
-
-                    <a href="{{ route('dossiers.list','coter')}}" class="col-md-4">
-                          <!-- Widget: user widget style 1 -->
-                          <div class="box box-widget widget-user">
+    <div class="container" style="padding-top:2%;">
+                    <a href="{{ route('dossiers.list','non-coter')}}" class="col-md-4">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="box box-widget widget-user">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-green-active">
-                              <h3 class="widget-user-username">{{ __("Dossier(s) Quoté")}}</h3>
-                              <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
+                            <div class="widget-user-header bg-yellow-active">
+                            <h3 class="widget-user-username"><b>{{ __("Dossier(s) Non Quoté(s)")}}</b></h3>
+                            <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
                             </div>
                             <div class="widget-user-image">
-                              <img class="img-circle" src="{{ asset('dist/img/3.jpeg') }}" alt="User Avatar">
+                            <img class="img-circle" src="{{ asset('dist/img/2.png') }}" alt="User Avatar">
                             </div>
                             <div class="box-footer">
-                              <div class="row">
+                            <div class="row">
                                 <!-- /.col -->
-                              <div class="col-sm-12">
-                                  <div class="description-block">
-                                    <h5 class="description-header">{{ $coter }}</h5>
+                            <div class="col-sm-12">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ $dossiers->where('service_id',null)->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
-                                  </div>
-                                  <!-- /.description-block -->
+                                </div>
+                                <!-- /.description-block -->
                                 </div>
                                 <!-- /.col -->
-                              </div>
-                              <!-- /.row -->
                             </div>
-                          </div>
-                          <!-- /.widget-user -->
+                            <!-- /.row -->
+                            </div>
+                        </div>
+                        <!-- /.widget-user -->
                     </a>
-                    <!-- ./col -->
-                      <a href="{{ route('dossiers.list','traiter')}}" class="col-md-4">
+
+                      <a href="{{ route('dossiers.list','coter')}}" class="col-md-4">
                             <!-- Widget: user widget style 1 -->
                             <div class="box box-widget widget-user">
-                              <!-- Add the bg color to the header aqua any of the bg-* classes -->
-                              <div class="widget-user-header bg-aqua-active">
-                                <h3 class="widget-user-username">{{ __("Dossier(s) Traité")}}</h3>
+                              <!-- Add the bg color to the header using any of the bg-* classes -->
+                              <div class="widget-user-header bg-green-active">
+                                <h3 class="widget-user-username"><b>{{ __("Dossier(s) Quoté(s)")}}</b></h3>
                                 <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
                               </div>
                               <div class="widget-user-image">
-                                <img class="img-circle" src="{{ asset('dist/img/index.png') }}" alt="User Avatar">
+                                <img class="img-circle" src="{{ asset('dist/img/3.jpeg') }}" alt="User Avatar">
                               </div>
                               <div class="box-footer">
                                 <div class="row">
                                   <!-- /.col -->
                                 <div class="col-sm-12">
                                     <div class="description-block">
-                                      <h5 class="description-header">{{ $traiter }}</h5>
+                                      <h5 class="description-header">{{ $dossiers->where('service_id','!=',null)->where('traiter',false)->count() }}</h5>
                                       <span class="description-text">Dossier(s)</span>
                                     </div>
                                     <!-- /.description-block -->
@@ -93,14 +64,42 @@
                             </div>
                             <!-- /.widget-user -->
                       </a>
-                   </div>
-    </div>
+                      <!-- ./col -->
+                        <a href="{{ route('dossiers.list','traiter')}}" class="col-md-4">
+                              <!-- Widget: user widget style 1 -->
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header aqua any of the bg-* classes -->
+                                <div class="widget-user-header bg-aqua-active">
+                                  <h3 class="widget-user-username"><b>{{ __("Dossier(s) Traité(s)")}}</b></h3>
+                                  <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
+                                </div>
+                                <div class="widget-user-image">
+                                  <img class="img-circle" src="{{ asset('dist/img/index.png') }}" alt="User Avatar">
+                                </div>
+                                <div class="box-footer">
+                                  <div class="row">
+                                    <!-- /.col -->
+                                  <div class="col-sm-12">
+                                      <div class="description-block">
+                                        <h5 class="description-header">{{ $dossiers->where('traiter',true)->count() }}</h5>
+                                        <span class="description-text">Dossier(s)</span>
+                                      </div>
+                                      <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                  </div>
+                                  <!-- /.row -->
+                                </div>
+                              </div>
+                              <!-- /.widget-user -->
+                        </a>
+                     </div>
          <!-- Main content -->
     <section class="content">
         <div class="row">
           <div class="col-lg-12">
             <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">AJouter un Dossier</a>
-            <a href="#" data-toggle="modal" data-target="#exampleModale" class="btn btn-primary btn-lg mb-3">AJouter un Type de Dossier</a>
+            <a href="#" data-toggle="modal" data-target="#typedossier" class="btn btn-primary btn-lg mb-3">AJouter un type de dossier</a>
             <hr>
             <div class="box">
               <div class="box-header">
@@ -117,21 +116,35 @@
                     <th>Appartien A</th>
                     <th>Date entre</th>
                     <th>Date Sortie</th>
+                    <th>Actions</th>
+
 
                   </tr>
                   </thead>
                   <tbody>
                       @foreach ($dossiers as $dossier)
                       <tr>
-                          <td>{{ $dossier->num_sdp }}</td>
+                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
                           <td>{{ $dossier->num_dra }} </td>
-                            <td><b>Nom</b> : {{ $dossier->personne->nom }} &nbsp;&nbsp;
-                                - <b>Matricule</b> : {{ $dossier->personne->matricule }} &nbsp;&nbsp;
-                                - <b>Grade: &nbsp;</b> {{ $dossier->personne->grade }}
+                            <td><b>- Nom</b> : {{ $dossier->nom }} <br>
+                                - <b>Matricule</b> : {{ $dossier->matricule }} <br>
+                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }}
 
                             </td>
                             <td> {{ $dossier->date_entre }}</td>
-                            <td>{{ $dossier->date_sortie }}</td>
+                            <td>{{ $dossier->date_sortie }} &nbsp;
+
+                            </td>
+                            <td><a href="#" data-toggle="modal" data-target="#modifier" class="btn btn-primary btn-sm mb-3">
+                                <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-sm mb-3">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                        </td>
                         </tr>
                         @endforeach
 
@@ -160,33 +173,39 @@
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="numero">Numero DSP</label>
-                            <input type="text" name="num_sdp" class="form-control" id="numero">
+                            <input type="text" name="num_sdp" class="form-control" id="numero" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="DHR">Numero DRH</label>
-                            <input type="text" name="num_dra" class="form-control" id="DHR">
+                            <input type="text" name="num_dra" class="form-control" id="DHR" required>
                           </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Personne</label>
-                              <select class="custom-select form-control" name="personne_id">
-                                {{-- <option selected>Choisir le type</option> --}}
-                                @foreach ($personnes as $item)
-                                <option value="{{ $item->id }}">{{ $item->nom }} : {{ $item->matricule }}</option>
-                                @endforeach
-                              </select>
+                              <label for="inputEmail4">Nom du Proprietaier</label>
+                              <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
                             </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Prenom</label>
+                                <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Matricule</label>
+                                <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">grade</label>
+                                <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
+                              </div>
                             <div class="form-group col-md-6">
                               <label for="inputPassword4">date Entre</label>
-                              <input type="date" name="date_entre" class="form-control" id="inputPassword4">
+                              <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
                             </div>
                           </div>
                           <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <label for="inputEmail4">Date sortie</label>
-                              <input type="date" name="date_sortie" class="form-control" id="inputEmail4">
-                            </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Type</label>
                                 <select class="custom-select form-control" name="type_id">
@@ -210,11 +229,89 @@
             </div>
             </div>
         </div>
-        <div class="modal fade" id="exampleModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter Un type de  Dossier</h5>
+                <h5 class="modal-title" id="modifierD">Ajouter Un Dossier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('dossier.store') }}">
+                        @csrf
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="numero">Numero DSP</label>
+                            <input type="text" name="num_sdp" class="form-control" id="numero" required>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="DHR">Numero DRH</label>
+                            <input type="text" name="num_dra" class="form-control" id="DHR" required>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Nom du Proprietaier</label>
+                              <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Prenom</label>
+                                <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Matricule</label>
+                                <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">grade</label>
+                                <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
+                              </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">date Entre</label>
+                              <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">date de sortie</label>
+                                <input type="date" name="date_sortie" class="form-control" id="inputPassword4" required>
+                              </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Type</label>
+                                <select class="custom-select form-control" name="type_id">
+                                    {{-- <option selected>Choisir le type</option> --}}
+                                    @foreach ($types as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">note</label>
+                            <textarea name="note" id="" cols="30" rows="10"></textarea>
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                    </form>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="typedossier" tabindex="-1" aria-labelledby="typedossierm" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="typedossierm">Ajouter Un type de  Dossier</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

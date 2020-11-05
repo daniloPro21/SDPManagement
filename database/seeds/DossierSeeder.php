@@ -17,16 +17,19 @@ class DossierSeeder extends Seeder
 
         for ($i = 0; $i<=100; $i++) {
             Dossier::create([
-            'service_id' => null,
-            'personne_id' => $faker->numberBetween(1, 30),
+            'service_id' => $faker->numberBetween(1, 4),
             'type_id' => $faker->numberBetween(1, 10),
-            'date_entre' => now(),
-            'date_sortie' => $faker->date('Y-m-d', $max = '01-01/2030'),
+            'date_entre' => $faker->dateTimeBetween($startDate = '+1 years', $endDate = 'now'),
+            'date_sortie' => $faker->date('Y-m-d', $max = '2020-01-01'),
             'note' => $faker->sentence,
-            'num_dra' => $faker->numberBetween(1, 40000),
-            'num_sdp' => $faker->numberBetween(1, 40000),
+            'num_dra' => $faker->numberBetween(40000, 1000000),
+            'num_sdp' => $faker->numberBetween(40000, 1000000),
             'num_service' => $faker->numberBetween(1, 4),
-            'traiter' => $faker->boolean(),
+            'traiter' => false,
+            'nom' => $faker->name,
+            'prenom' => $faker->lastName,
+            'matricule' => $faker->randomNumber(),
+            'grade' => 'ECI',
             'is_delete' => false,
           ]);
         }

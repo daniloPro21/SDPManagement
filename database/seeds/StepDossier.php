@@ -18,7 +18,7 @@ class StepDossier extends Seeder
             Step::create([
                 'dossier_id' => $faker->numberBetween(1, 100),
                 'type' => $faker->randomElement(['info', 'warning', 'move']),
-                'user_id' => $faker->numberBetween(1,4),
+                'user_id' => 1,
                 'message' => $faker->sentence,
                 'action_date' => now(),
                 'is_delete' => false

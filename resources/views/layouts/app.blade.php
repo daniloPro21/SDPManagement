@@ -93,7 +93,7 @@
                   @foreach ($dossiers->where('service_id','!=',null) as $dossier)
                     <li>
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i> {{ $dossier->personne->nom }} - {{ $dossier->type->name }}
+                        <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
                       </a>
                     </li>
                   @endforeach
@@ -204,34 +204,6 @@
         </li>
         @endadmin
 
-        @service
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-book"></i>
-            <span>Dossier</span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-home"></i>
-            <span>Services</span>
-          </a>
-        </li>
-      @endservice
-
       @secretaire
         <li>
             <a href="{{ route('secretaire.home') }}">
@@ -257,22 +229,25 @@
               </a>
         </li>
       @endsecretaire
+      
       @service
-        <li class="active treeview">
-          <a href="#">
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION {{  auth()->user()->role }}</li>
+        <li class="active">
+          <a href="{{ route('service.home') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{ route('service.coter') }}">
             <i class="fa fa-book"></i>
             <span>Dossier Coter</span>
           </a>
         </li>
         
       @endservice
-      <li style="position:fixed;bottom:0;opacity:0.7;">
+      <li style="position:fixed;bottom:5%;opacity:0.7;">
          <center> <img src="{{ asset('dist/img/logo.png') }}" class="img-circle" alt="User Image"></center>
     </li>
       </ul>

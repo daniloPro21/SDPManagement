@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Dossier extends Model
 {
     protected $fillable = [
-      'date_entre','date_sortie','note','num_dra','num_sdp','traiter', 'service_id','personne_id','type_id',
+      'date_entre','note','num_dra','num_sdp','traiter','type_id','nom','prenom','matricule','grade'
   ];
 
 
   public function type(){
     return $this->belongsTo(TypeDossier::class,"type_id");
-  }
-
-  public function personne(){
-    return $this->belongsTo(Personne::class,"personne_id");
   }
 
   public function service(){

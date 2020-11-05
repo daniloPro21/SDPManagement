@@ -3,12 +3,12 @@
 
 @section('content')
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-sm-offset-1 col-md-5">
       <!-- Widget: user widget style 1 -->
       <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
-          <h3 class="widget-user-username text-capitalize">{{ $dossier->personne->prenom }} {{ $dossier->personne->nom }}</h3>
+          <h3 class="widget-user-username text-capitalize">{{ $dossier->prenom }} {{ $dossier->nom }}</h3>
           <h5 class="widget-user-desc">{{ $dossier->date_entre }}</h5>
         </div>
         <div class="widget-user-image">
@@ -20,14 +20,25 @@
           <div class="col-sm-12">
             <table class="table table-responsive table-striped text-capitalize">
               <tr>
-                <td>Nom </td><td><b>{{ $dossier->personne->nom }}</b></td>
+                <td>Numero DRA </td><td><b>{{ $dossier->num_dra }}</b></td>
               </tr>
               <tr>
-                <td>Prenom</td><td><b>{{ $dossier->personne->prenom }}</b></td>
+                <td>Numero SDP </td><td><b>{{ $dossier->num_sdp }}</b></td>
               </tr>
-                <tr>
-                  <td>Objet</td><td><b>{{ $dossier->type->name }}</b></td>
-                </tr>
+              @if ($dossier->num_service != null)
+              <tr>
+                <td>Numero Service </td><td><b>{{ $dossier->num_service }}</b></td>
+              </tr>
+              @endif
+              <tr>
+                <td>Nom </td><td><b>{{ $dossier->nom }}</b></td>
+              </tr>
+              <tr>
+                <td>Prenom</td><td><b>{{ $dossier->prenom }}</b></td>
+              </tr>
+              <tr>
+                <td>Objet</td><td><b>{{ $dossier->type->name }}</b></td>
+              </tr>
                 <tr>
                   <td>Date D'Entrée</td><td><b>{{ $dossier->date_entre }}</b></td>
                 </tr>
@@ -63,7 +74,7 @@
       </div>
       <!-- /.widget-user -->
     </div>
-              <div class="col-md-7">
+              <div class="col-md-5">
                 <!-- The time line -->
                 <ul class="timeline">
                   <!-- timeline time label -->
