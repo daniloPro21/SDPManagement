@@ -24,4 +24,6 @@ class ServiceController extends Controller
 
         return view('Services.dossiercoter', compact('dossiers') );
     }
+
+   
 }

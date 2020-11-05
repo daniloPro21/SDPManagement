@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Dossier;
-use App\Repositories\DossierRepository;
+use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Repositories\DossierRepository;
 
 class DossierController extends Controller
 {
@@ -46,7 +47,8 @@ class DossierController extends Controller
     public function detail($id)
     {
         $dossier=Dossier::findOrFail($id);
-        return view('Admin.details', compact('dossier'));
+        $types = TypeDossier::all();
+        return view('Admin.details', compact('dossier','types'));
     }
 
     public function find()
@@ -85,6 +87,34 @@ class DossierController extends Controller
 
 
         Toastr()->success("Enregistrement Effectué");
+
+
+        return back()->with("Error");
+
+    }
+
+    public function update(Request $request, $id)
+    {
+         //dd($request->all());
+         $data = $request->validate(array(
+            'num_sdp' => 'required',
+            'num_dra' => 'required',
+            'type_id' => 'required',
+            'note' => 'required',
+            'date_entre' => 'required',
+            'date_sortie' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'grade' => 'required',
+            'matricule'=> 'required'
+        ));
+
+        //dd($dossier);
+
+        
+
+
+        Toastr()->success("Modification Effectué");
 
 
         return back()->with("Error");

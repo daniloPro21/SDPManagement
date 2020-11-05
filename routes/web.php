@@ -32,6 +32,7 @@ Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store')
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
 Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
+Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
 
 /**
  * Route Personne
@@ -62,6 +63,7 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  *Route de Services
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
+
 Route::get('/service', 'ServiceController@index')->name('service.index');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
 

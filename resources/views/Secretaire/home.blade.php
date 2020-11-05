@@ -135,10 +135,10 @@
                             <td>{{ $dossier->date_sortie }} &nbsp;
 
                             </td>
-                            <td><a href="#" data-toggle="modal" data-target="#modifier" class="btn btn-primary btn-sm mb-3">
+                            <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
                                 <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-sm mb-3">
+                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-sm mb-3">
