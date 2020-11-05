@@ -18,7 +18,7 @@ class DossierController extends Controller
 
     public function listeDossier($type)
     {
-        $dossiersTrie;
+        //$dossiersTrie;
         switch ($type) {
       case 'non-coter':
         $dossiersTrie= $this->dossierRepository->getNewDossiers();
@@ -56,30 +56,39 @@ class DossierController extends Controller
 
     public function store(Request $request)
     {
+       //dd($request->all());
         $data = $request->validate(array(
             'num_sdp' => 'required',
             'num_dra' => 'required',
-            'personne_id' => 'required',
             'type_id' => 'required',
             'note' => 'required',
             'date_entre' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'grade' => 'required',
+            'matricule'=> 'required'
         ));
 
         $dossier = new Dossier();
         $dossier->num_sdp = $data['num_sdp'];
         $dossier->num_dra = $data['num_dra'];
         $dossier->date_entre = $data['date_entre'];
-
-        $dossier->personne_id = $data['personne_id'];
+        $dossier->nom = $data['nom'];
+        $dossier->prenom = $data['prenom'];
+        $dossier->grade = $data['grade'];
+        $dossier->matricule = $data['matricule'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];
-        $dossier->traiter = false;
-        $dossier->service_id = null;
+        //dd($dossier);
 
         $dossier->save();
 
+
         Toastr()->success("Enregistrement Effectué");
-        return back();
+
+
+        return back()->with("Error");
+
     }
 
     public function quotation($id,$dossier_id){

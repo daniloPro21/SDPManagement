@@ -8,7 +8,7 @@
       <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
-          <h3 class="widget-user-username text-capitalize">{{ $dossier->personne->prenom }} {{ $dossier->personne->nom }}</h3>
+          <h3 class="widget-user-username text-capitalize">{{ $dossier->prenom }} {{ $dossier->nom }}</h3>
           <h5 class="widget-user-desc">{{ $dossier->date_entre }}</h5>
         </div>
         <div class="widget-user-image">
@@ -20,10 +20,10 @@
           <div class="col-sm-12">
             <table class="table table-responsive table-striped text-capitalize">
               <tr>
-                <td>Nom </td><td><b>{{ $dossier->personne->nom }}</b></td>
+                <td>Nom </td><td><b>{{ $dossier->nom }}</b></td>
               </tr>
               <tr>
-                <td>Prenom</td><td><b>{{ $dossier->personne->prenom }}</b></td>
+                <td>Prenom</td><td><b>{{ $dossier->prenom }}</b></td>
               </tr>
                 <tr>
                   <td>Objet</td><td><b>{{ $dossier->type->name }}</b></td>
@@ -143,7 +143,7 @@
                           <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <label for="type">Type d'étiquette</label>
+                              <label for="type">Type d étiquette</label>
                               <select class="form-control" name="type">
                                 <option value="info">Information</option>
                                 <option value="warning">Probleme</option>

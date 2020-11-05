@@ -93,7 +93,7 @@
                   @foreach ($dossiers->where('service_id','!=',null) as $dossier)
                     <li>
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i> {{ $dossier->personne->nom }} - {{ $dossier->type->name }}
+                        <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
                       </a>
                     </li>
                   @endforeach
@@ -224,11 +224,6 @@
             <li><a href="{{ route('dossiers.list', 'non-coter') }}"><i class="fa fa-circle-o"></i> Non Coter</a></li>
             <li><a href="{{ route('dossiers.list', 'traiter') }}"><i class="fa fa-circle-o"></i>traiter</a></li>
         </ul>
-        </li>
-        <li>
-            <a href="{{ route('personne.create') }}">
-                <i class="fa fa-user"></i> <span>Personnes</span>
-              </a>
         </li>
       </ul>
       @endsecretaire

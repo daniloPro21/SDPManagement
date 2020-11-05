@@ -5,6 +5,15 @@
 
 @section('content')
 <div class="row justify-content-center d-flex align-items-center">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
          <!-- Main content -->
          <div class="container" style="padding-top:5%;">
             <a href="{{ route('service.coter')}}" class="col-md-4">
@@ -68,9 +77,9 @@
                       <tr>
                           <td><a href="{{ route("dossier.detail", ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
                           <td>{{ $dossier->num_dra }} </td>
-                            <td><b>Nom</b> : {{ $dossier->personne->nom }} &nbsp;&nbsp;
-                                - <b>Matricule</b> : {{ $dossier->personne->matricule }} &nbsp;&nbsp;
-                                - <b>Grade: &nbsp;</b> {{ $dossier->personne->grade }}
+                            <td><b>Nom</b> : {{ $dossier->nom }} &nbsp;&nbsp;
+                                - <b>Matricule</b> : {{ $dossier->matricule }} &nbsp;&nbsp;
+                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }}
 
                             </td>
                             <td> {{ $dossier->date_entre }}</td>

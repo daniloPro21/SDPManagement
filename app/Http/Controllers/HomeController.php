@@ -21,10 +21,10 @@ class HomeController extends Controller
     public $dossierRepository;
     public $personneRepository;
 
-    public function __construct(DossierRepository $dossierRepository, PersonneRepository $personneRepository)
+    public function __construct(DossierRepository $dossierRepository)
     {
         $this->dossierRepository=$dossierRepository;
-        $this->personneRepository = $personneRepository;
+
         $this->middleware('auth');
     }
 
@@ -76,14 +76,9 @@ class HomeController extends Controller
 
     public function secretaire()
     {
-        $dossiers = Dossier::all()->where('service_id', '=', auth()->user()->service_id);
-        $coter = $this->dossierRepository->getAssignDossiers()->count();
-        // dd($coter);
-        $ncote = $this->dossierRepository->getNewDossiers()->count();
-        $traiter = $this->dossierRepository->getDossiersTraiter()->count();
-        $personnes = $this->personneRepository->getAllPersonne();
+
         $types = TypeDossier::all();
-        return view('Secretaire.home', compact('dossiers', 'coter', 'ncote', 'traiter', 'personnes', 'types'));
+        return view('Secretaire.home', compact('types'));
     }
 
     public function service()
