@@ -47,7 +47,7 @@ class HomeController extends Controller
       $dossierChart = new DossierChart;
         $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traité']);
         //$dossierChart->minimalist(true);
-        $dossierChart->dataset('Statistiques', 'doughnut', [10, 25, 13])->color($borderColors)->backgroundcolor($fillColors);
+        $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('service_id',null)->count(), Dossier::where('service_id','!=',null)->where('traiter',false)->count(), Dossier::where('traiter',true)->count()])->color($borderColors)->backgroundcolor($fillColors);
 
         $dossier2Chart = new DossierChart;
         $dossiers=Dossier::get()->groupBy(function($d) {
