@@ -16,6 +16,7 @@ class TypeDossierController extends Controller
     public function  store(Request $request){
       
         TypeDossier::create($request->all());
+        Toastr()->success("Enregistrement Effectué");
         return redirect()->back()->withMessage("Enregistrement Effectué");
     }
 }

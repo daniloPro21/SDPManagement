@@ -51,18 +51,18 @@ class HomeController extends Controller
 
         $dossier2Chart = new DossierChart;
         $dossiers=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
-          return Carbon::parse($d->created_at)->format('m');
+          return Carbon::parse($d->date_entre)->format('m');
           });
           for ($i=1; $i<=12 ; $i++) {
             $key="0".$i;
            $dossier2Data[] = ($i>=10) ? $dossiers->get($i,collect([]))->count() : $dossiers->get($key,collect([]))->count() ;
           }
-        $dossier2Chart->labels(['Jan', 'Fe', 'Mar','Avr','Mai','Juin','Juillet','Aout','Sept','Oct','Nov','Dec']);
-        $dossier2Chart->dataset('Dossiers Reçus', 'line', $dossier2Data)->color("rgb(0,122,94)")->backgroundcolor("rgb(0,122,94)")  ;
+        $dossier2Chart->labels(['Jan', 'Fev', 'Mar','Avr','Mai','Juin','Juillet','Aout','Sept','Oct','Nov','Dec']);
+        $dossier2Chart->dataset('Dossiers Reçus', 'line', $dossier2Data)->color("rgb(0,122,94)");
 
         $yearChart = new DossierChart;
         $yearsData=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
-          return Carbon::parse($d->created_at)->format('Y');
+          return Carbon::parse($d->date_entre)->format('Y');
           });
         for ($i=(int) date("Y")-10; $i<=date("Y") ; $i++) {
           $years[0][]=$i;

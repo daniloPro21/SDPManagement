@@ -153,7 +153,19 @@ class DossierController extends Controller
     }
 
     public function findresult(Request $request){
-        $dossiersTrie= Dossier::where('num_dra',$request->recherche)->paginate(20);
+        $data="%".$request->recherche."%";
+        $dossiersTrie= Dossier::where('num_dra',$request->recherche)->orWhere('nom',"LIKE",$data)->orWhere('matricule',"LIKE",$data)->paginate(21);
         return view("Admin.listedossier", compact('dossiersTrie'));
+    }
+
+    public function group(){
+        $typedossiers=TypeDossier::where("is_delete",false)->get();
+        return view("typedossiers.liste",compact("typedossiers"));
+    }
+
+    public function ShowGroup($id){
+        $dossiersFiltrer=Dossier::where('is_delete',false)->where('type_id',$id)->get();
+        $typeDossier=TypeDossier::findOrFail($id);
+        return view("typedossiers.dossiers",compact("dossiersFiltrer","typeDossier"));
     }
 }

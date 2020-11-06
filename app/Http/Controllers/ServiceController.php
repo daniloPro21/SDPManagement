@@ -16,6 +16,7 @@ class ServiceController extends Controller
 
     public function  store(Request $request){
         Service::create($request->all());
+        Toastr()->success("Enregistrement Effectué");
         return redirect()->back()->withMessage("Enregistrement Effectué");
     }
      public function listcoter()

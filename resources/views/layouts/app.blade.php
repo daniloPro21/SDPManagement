@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SDP Admin Dashboard</title>
+  <title> SDP - @yield("title")</title>
   @toastr_css
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -15,26 +15,13 @@
   <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- Theme style -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="{{ asset('dist/css/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('dist/css/buttons.dataTables.min.css') }}">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
-  <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
@@ -49,11 +36,10 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   @yield('css')
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="{{ asset('dist/js/respond.min.js') }}"></script>
   <![endif]-->
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="{{ asset('dist/css/source.css') }}">
   {{-- ChartStyle --}}
     <script src="{{ asset('dist/js/chart.min.js') }}" charset="utf-8"></script>
 </head>
@@ -123,9 +109,6 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
@@ -158,11 +141,11 @@
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+      <form action="{{ route('dossier.result') }}" method="GET" class="sidebar-form">
         <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <input type="text" name="recherche" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
         </div>
@@ -174,7 +157,7 @@
       @admin
         <li class="active">
           <a href="{{ route('admin.home')}}">
-            <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de controls")}}</span>
+            <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de contrôle")}}</span>
           </a>
         </li>
         <li>
@@ -226,9 +209,14 @@
         </ul>
         </li>
         <li>
-            <a href="{{ route('personne.create') }}">
-                <i class="fa fa-user"></i> <span>Personnes</span>
+            <a href="{{ route('dossier.group') }}">
+                <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
               </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.home')}}">
+            <i class="fa fa-dashboard"></i> <span>{{ __("Statistiques")}}</span>
+          </a>
         </li>
       @endsecretaire
       
@@ -333,23 +321,23 @@
 <!-- Bootstrap 3.3.7 -->
 {{--  <script src="{{ asset('../../bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>  --}}
 <!-- DataTables -->
-<script src="{{ asset('../../bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script src="{{ asset('../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ asset('../../bower_components/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('../../dist/js/adminlte.min.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('dist/js/jquery-3.5.1.js') }}"></script>
+<script src="{{ asset('dist/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dist/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('dist/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('dist/js/jszip.min.js') }}"></script>
+<script src="{{ asset('dist/js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('dist/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('dist/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('dist/js/buttons.print.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 
 {{--  <script src="{{ asset('../../dist/js/demo.js') }}"></script>  --}}

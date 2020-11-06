@@ -15,7 +15,7 @@
               <span class="info-box-text">{{ $dossier->type->name}}</span>
               <small class="text-mu">{{ $dossier->date_entre}}</small><br>
             @if ($dossier->service_id != null)
-                <small>Service en Charge : {{ $dossier->service->name }}</small>
+                <small><i class="text-truncate" style="font-size: 12px"> {{ $dossier->service->name }}</i></small>
             @endif
             </div>
             <!-- /.info-box-content -->

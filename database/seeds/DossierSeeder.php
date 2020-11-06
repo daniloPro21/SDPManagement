@@ -17,9 +17,9 @@ class DossierSeeder extends Seeder
 
         for ($i = 0; $i<=100; $i++) {
             Dossier::create([
-            'service_id' => $faker->numberBetween(1, 4),
-            'type_id' => $faker->numberBetween(1, 10),
-            'date_entre' => $faker->dateTimeBetween($startDate = '+1 years', $endDate = 'now'),
+            'service_id' => $faker->numberBetween(1, 3),
+            'type_id' => $faker->numberBetween(1, 7),
+            'date_entre' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
             'date_sortie' => $faker->date('Y-m-d', $max = '2020-01-01'),
             'note' => $faker->sentence,
             'num_dra' => $faker->numberBetween(40000, 1000000),

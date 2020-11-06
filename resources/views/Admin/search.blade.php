@@ -16,7 +16,7 @@
 
           <div class="form-row">
             <div class="form-group">
-                <input type="text" class="form-control"  name="recherche" placeholder="Numero DRA ici" style="text-align: center; height: 50px;">
+                <input type="text" class="form-control"  name="recherche" placeholder="Mot Clé" style="text-align: center; height: 50px;">
           </div>
             <button class="btn btn-primary btn-block">Rechercher</button>
         </div>

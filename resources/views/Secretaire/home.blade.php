@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 
-
+@section('title')
+    Dossiers
+@endsection
 
 @section('content')
 <div class="row justify-content-center d-flex align-items-center">
@@ -95,7 +97,7 @@
                         </a>
                      </div>
          <!-- Main content -->
-    <section class="content">
+    <section class="container">
         <div class="row">
           <div class="col-lg-12">
             <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">AJouter un Dossier</a>
@@ -113,7 +115,7 @@
                   <tr>
                     <th>SDP</th>
                     <th>DRH</th>
-                    <th>Appartien A</th>
+                    <th>Proprietaire</th>
                     <th>Date entre</th>
                     <th>Date Sortie</th>
                     <th>Actions</th>
@@ -126,10 +128,10 @@
                       <tr>
                           <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
                           <td>{{ $dossier->num_dra }} </td>
-                            <td><b>- Nom</b> : {{ $dossier->nom }} <br>
-                                - <b>Matricule</b> : {{ $dossier->matricule }} <br>
-                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
-
+                            <td>
+                              <div><b>- Nom</b> : {{ $dossier->nom }}</div> 
+                              <div><b>- Matricule</b> : {{ $dossier->matricule }} </div>
+                              <div><b>- Grade: &nbsp;</b> {{ $dossier->grade }}</div>
                             </td>
                             <td> {{ $dossier->date_entre }}</td>
                             <td>{{ $dossier->date_sortie }} &nbsp;
@@ -177,16 +179,16 @@
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="numero">Numero DSP</label>
-                            <input type="text" name="num_sdp" class="form-control" id="numero" required>
+                            <input type="text" name="num_sdp" class="form-control" id="numero" autocomplete="false" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="DHR">Numero DRH</label>
-                            <input type="text" name="num_dra" class="form-control" id="DHR" required>
+                            <input type="text" name="num_dra" class="form-control" id="DHR"  autocomplete="false" required>
                           </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Nom du Proprietaier</label>
+                              <label for="inputEmail4">Nom du Proprietaire</label>
                               <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
                             </div>
 
@@ -249,11 +251,11 @@
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="numero">Numero DSP</label>
-                            <input type="text" name="num_sdp" class="form-control" id="numero" required>
+                            <input type="text" name="num_sdp" class="form-control"  autocomplete="false" id="numero" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="DHR">Numero DRH</label>
-                            <input type="text" name="num_dra" class="form-control" id="DHR" required>
+                            <input type="text" name="num_dra" class="form-control"  autocomplete="false" id="DHR" required>
                           </div>
                         </div>
                         <div class="form-row">

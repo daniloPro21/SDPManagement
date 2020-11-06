@@ -29,6 +29,8 @@ Route::get('/dossiers', 'DossierController@dossiers')->name('dossiers.all');
 Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.detail');
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
+Route::get('/Dossier/group', 'DossierController@group')->name('dossier.group');
+Route::get('/Dossier/group/{id}', 'DossierController@showGroup')->name('dossier.group.show');
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
 Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');

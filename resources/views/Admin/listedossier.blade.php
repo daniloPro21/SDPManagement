@@ -7,7 +7,7 @@
           <div class="row">
 
             <div class="container">
-              @foreach ($dossiersTrie as $dossier)
+              @forelse($dossiersTrie as $dossier)
                 <!-- /.col -->
                 <a href="{{route('dossier.detail',$dossier->id)}}" style="text-decoration:none;color:black" class="col-md-4 col-sm-6 col-xs-12">
                   <div class="info-box">
@@ -18,13 +18,15 @@
                       <span class="info-box-text">{{ $dossier->type->name}}</span>
                       <small class="text-mu">{{ $dossier->date_entre}}</small><br>
                     @if ($dossier->service_id != null)
-                        <small>Service en Charge : {{ $dossier->service->name }}</small>
+                        <small><i class="text-truncate" style="font-size: 12px">{{  $dossier->service->name }}</i></small>
                     @endif
                     </div>
                     <!-- /.info-box-content -->
                   </div>
                 </a>
-              @endforeach
+                @empty
+                <h1 align="center" style="color:rgba(128, 128, 128, 0.781);font-size: 95px !important;position: absolute;top: 40%;left:35%;">Aucun Resultat !</h1>
+              @endforelse
             </div>
          <div class="col-sm-offset-4">   {{ $dossiersTrie->links() }}</div>
           </div>

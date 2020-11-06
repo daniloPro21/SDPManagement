@@ -51,13 +51,13 @@
                   </tr>
                     @if (!$dossier->traiter)
                         <tr>
-                            <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier a t\'il réelement aboutie?')"  class="btn btn-success btn-block">Marquer comme craité</a> </td>
+                            <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier passeras automatiquement à l\'etat traité')"  class="btn btn-success btn-block">Marquer comme Traité</a> </td>
                         </tr>
                         @endif
                 @else
                   @admin
                   <tr>
-                    <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success btn-block">Quoter à un service</button> </td>
+                    <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-theme text-white  btn-block">Quoter à un service</button> </td>
                   </tr>
                   @endadmin
                 @endif
@@ -65,7 +65,7 @@
                   <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle étiquette</button> </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button data-toggle="modal" data-target="#modifier" class="btn btn-danger btn-block">Modifier</button> </td>
+                    <td colspan="2"><button data-toggle="modal" data-target="#modifier" class="btn btn-info btn-block">Modifier</button> </td>
                   </tr>
             </table>
               <!-- /.description-block -->
