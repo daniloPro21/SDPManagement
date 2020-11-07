@@ -68,7 +68,8 @@ class DossierController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'grade' => 'required',
-            'matricule'=> 'required'
+            'matricule'=> 'required',
+            'telephone' => 'required'
         ));
 
         $dossier = new Dossier();
@@ -78,6 +79,7 @@ class DossierController extends Controller
         $dossier->nom = $data['nom'];
         $dossier->prenom = $data['prenom'];
         $dossier->grade = $data['grade'];
+        $dossier->telephone = $data['telephone'];
         $dossier->matricule = $data['matricule'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];

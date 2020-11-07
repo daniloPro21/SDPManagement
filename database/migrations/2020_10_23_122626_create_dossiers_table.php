@@ -25,6 +25,7 @@ class CreateDossiersTable extends Migration
             $table->string('prenom')->nullable();
             $table->string('matricule')->nullable();
             $table->string('grade')->nullable();
+            $table->string('telephone');
             $table->string('num_dra')->nullable()->unique();
             $table->string('num_sdp')->nullable()->unique();
             $table->string('num_service')->nullable();
