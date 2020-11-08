@@ -134,9 +134,9 @@
                 </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+        <aside class="main-sidebar bg-success">
             <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+            <section class="sidebar text-white">
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
@@ -162,7 +162,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">NAVIGATION</li>
             @admin
-                <li class="active">
+                <li class="text-white">
                 <a href="{{ route('admin.home')}}">
                     <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de contrôle")}}</span>
                 </a>
@@ -194,6 +194,7 @@
                 <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
                 </ul>
                 </li>
+
                 @endadmin
 
             @secretaire
@@ -225,6 +226,8 @@
                     <i class="fa fa-dashboard"></i> <span>{{ __("Statistiques")}}</span>
                 </a>
                 </li>
+
+
             @endsecretaire
 
             @service
@@ -244,9 +247,7 @@
                 </li>
 
             @endservice
-            <li style="position:fixed;bottom:5%;opacity:0.7;">
-                <center> <img src="{{ asset('dist/img/logo.png') }}" class="img-circle" alt="User Image"></center>
-            </li>
+
             </ul>
             </section>
             <!-- /.sidebar -->

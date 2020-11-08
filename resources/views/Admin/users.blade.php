@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="row justify-content-center d-flex align-items-center">
-    <div class="container mr-5">
+
+    <div class="container">
         <a href="#" href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">Ajouter un utilisateur</a>
         <hr>
         <div class="row">
@@ -118,4 +119,7 @@
     </div>
     </div>
 </div>
+
+
 @endsection
+
