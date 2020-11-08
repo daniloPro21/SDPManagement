@@ -258,7 +258,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Paneau de Control
+                    Panneau de Control
                     <small>C{{ auth()->user()->service->name }}</small>
                 </h1>
                 <ol class="breadcrumb">
