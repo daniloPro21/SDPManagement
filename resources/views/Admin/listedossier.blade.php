@@ -31,4 +31,4 @@
          <div class="col-sm-offset-4">   {{ $dossiersTrie->links() }}</div>
           </div>
 
-@stop
+@endsection
