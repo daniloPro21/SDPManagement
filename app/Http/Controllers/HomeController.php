@@ -33,7 +33,7 @@ class HomeController extends Controller
 
     public function admin()
     {
-
+       // dd(auth()->user()->unreadNotifications);
       $borderColors = [
             "rgba(255, 99, 132, 1.0)",
             "rgba(255, 205, 86, 1.0)",

@@ -78,14 +78,14 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">{{ $dossiers->where('service_id','!=',null)->count() }}</span>
+                        <span class="label label-warning">{{  auth()->user()->unreadNotifications->count() }}</span>
                         </a>
                         <ul class="dropdown-menu">
-                        <li class="header">Vous avez {{ $dossiers->where('service_id','!=',null)->count() }} nouveaux dossier(s)</li>
+                        <li class="header">Vous avez {{ count(auth()->user()->unreadNotifications) }} nouveaux dossier(s)</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                            @foreach ($dossiers->where('service_id','!=',null) as $dossier)
+                            @foreach (auth()->user()->unreadNotifications as $dossier)
                                 <li>
                                 <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">
                                     <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
@@ -134,7 +134,7 @@
                 </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar bg-success">
+        <aside class="main-sidebar bg-success ">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar text-white">
             <!-- Sidebar user panel -->
