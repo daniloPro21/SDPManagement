@@ -54,7 +54,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-white sidebar-mini">
+<body class="hold-transition  sidebar-mini">
     <div class="wrapper">
 
         <header class="main-header">
@@ -260,9 +260,10 @@
         <!-- Content Wrapper. Contains page content -->
 
             <div class="contant-wrapper">
-                <section class="content mr-3">
-                    @yield('content')
-                  </section>
+
+                    <section class="justify-content-center">
+                        @yield('content')
+                      </section>
             </div>
 
 
