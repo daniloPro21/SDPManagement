@@ -92,7 +92,7 @@ class DossierController extends Controller
         Toastr()->success("Enregistrement Effectué");
 
 
-        return back()->with("Error");
+        return redirect()->back();
 
     }
 
@@ -120,7 +120,7 @@ class DossierController extends Controller
         Toastr()->success("Modification Effectué");
 
 
-        return back()->with("Error");
+        return redirect()->back();
 
     }
 
@@ -129,7 +129,7 @@ class DossierController extends Controller
         Dossier::where('id', $id)->update(['is_delete' => true]);
         Toastr()->success("Suppression Effectué");
 
-        return back();
+        return redirect()->back();
 
     }
 

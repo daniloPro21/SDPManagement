@@ -124,7 +124,7 @@ class HomeController extends Controller
 
         $user->save();
 
-        toastr()->success('Utilisateur ajouter avec success');
+        toastr()->success('Utilisateur ajouter avec succès');
 
             return back();
     }
@@ -141,7 +141,7 @@ class HomeController extends Controller
 
         $data['password'] = bcrypt($request->input('password'));
         User::where('id', $id)->update($data);
-        toastr()->success('Mise a jour  avec success');
+        toastr()->success('Mise a jour effectué  avec succès');
 
             return back();
     }

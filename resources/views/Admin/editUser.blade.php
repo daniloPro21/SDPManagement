@@ -34,7 +34,7 @@
 
                   <div class="form-group col-md-6">
                     <label for="service">Choisir le service:</label>
-                        <select name="service_id" id="service">
+                        <select name="service_id" id="service" class="form-control">
                             @foreach ($services as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach

@@ -8,6 +8,11 @@ use Nexmo\Laravel\Facade\Nexmo;
 
 class StepController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request){
 
         $step = new Step;
@@ -31,12 +36,12 @@ class StepController extends Controller
         }
         Toastr()->success("Enregistrement Effectué");
 
-        return redirect()->back()->withMessage("Insertion Terminée");
+        return redirect()->back();
     }
 
     public function destroy($id){
       Step::destroy($id);
-
-      return redirect()->back()->withMessage("Supression Terminée");
+      Toastr()->success("Supression Terminée");
+      return redirect()->back();
     }
 }

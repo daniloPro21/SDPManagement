@@ -8,9 +8,9 @@
             <!-- Widget: user widget style 1 -->
             <div class="box box-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua-active">
+                <div class="widget-user-header @if($dossier->traiter)  bg-green-active @else  bg-aqua-active @endif">
                 <h3 class="widget-user-username text-capitalize">{{ $dossier->prenom }} {{ $dossier->nom }}</h3>
-                <h5 class="widget-user-desc">{{ $dossier->date_entre }}</h5>
+                <h5 class="widget-user-desc"> @if($dossier->traiter)  Dossier Traité @else {{ $dossier->date_entre }} @endif</h5>
                 </div>
                 <div class="widget-user-image">
                 <img class="img-circle" src="{{ asset('dist/img/3.jpeg') }}" alt="User Avatar">
@@ -236,7 +236,7 @@
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="modifierD">Ajouter Un Dossier</h5>
+                        <h5 class="modal-title" id="modifierD">Modification du Dossier</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
