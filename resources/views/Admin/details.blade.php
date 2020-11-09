@@ -58,7 +58,7 @@
                         @else
                         @admin
                         <tr>
-                            <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-theme text-white  btn-block">Quoter à un service</button> </td>
+                            <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success text-white  btn-block">Quoter à un service</button> </td>
                         </tr>
                         @endadmin
                         @endif
@@ -98,7 +98,7 @@
                             @elseif ($step->type=="warning")
                                 <i title="Problème" data-toggle="tooltip" class="fa fa-warning bg-red"></i>
                             @elseif ($step->type=="success")
-                                <i title="Succèes" data-toggle="tooltip" class="fa fa-check bg-green"></i>
+                                <i title="Succès" data-toggle="tooltip" class="fa fa-check bg-green"></i>
                             @elseif($step->type=="move")
                                 <i title="Deplacement" data-toggle="tooltip" class="fa fa-arrows bg-aqua"></i>
                             @endif
@@ -161,9 +161,9 @@
                                     <label for="type">Type d étiquette</label>
                                     <select class="form-control" name="type">
                                         <option value="info">Information</option>
-                                        <option value="warning">Probleme</option>
-                                        <option value="move">Deplacement</option>
-                                        <option value="success">Succèes</option>
+                                        <option value="warning">Problème</option>
+                                        <option value="move">Déplacement</option>
+                                        <option value="success">Succès</option>
                                     </select>
                                     </div>
                                 </div>

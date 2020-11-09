@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="login-box">
+    <center><img src="{{ asset('dist/img/logo.png') }}" width="100px" height="100px" alt=""></center>
     <div class="login-logo">
-      <a href="../../index2.html"><b>DSP</b>Mangement</a>
+      <a href="../../index2.html"><b>SDP</b>Mangement</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -13,7 +14,8 @@
         @csrf
 
         <div class="form-group has-feedback">
-          <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <label for="email">Email</label>
+          <input id="email" placeholder="Email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           @error('email')
           <span class="invalid-feedback" role="alert">
@@ -22,7 +24,8 @@
          @enderror
         </div>
         <div class="form-group has-feedback">
-          <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <label for="password"> Mot de passe</label>
+          <input id="password" placeholder="*********" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           @error('password')
           <span class="invalid-feedback" role="alert">

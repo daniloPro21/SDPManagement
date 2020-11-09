@@ -15,7 +15,9 @@
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header bg-aqua-active">
                     <h3 class="widget-user-username">{{ $item->name }}</h3>
+                      @if($item->service != null)
                     <h5 class="widget-user-desc">{{ $item->service->name }}</h5>
+                      @endif
                   </div>
                   <div class="widget-user-image">
                     <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}" alt="User Avatar">

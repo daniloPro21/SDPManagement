@@ -12,9 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        //$this->call(ServiceSeeder::class);
-        //$this->call(TypeDossierSeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(TypeDossierSeeder::class);
         $this->call(DossierSeeder::class);
-        //$this->call(StepDossier::class);
+        $this->call(StepDossier::class);
     }
 }

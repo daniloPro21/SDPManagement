@@ -69,6 +69,7 @@ Route::post('/service/create', 'ServiceController@store')->name('service.store')
 
 Route::get('/service', 'ServiceController@index')->name('service.index');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
+Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
 
 
 /**

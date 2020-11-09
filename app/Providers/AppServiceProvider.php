@@ -49,8 +49,8 @@ class AppServiceProvider extends ServiceProvider
         */
 
         if(request()->server("SCRIPT_NAME") !== 'artisan') {
-            view()->share('dossiers', Dossier::all());
-            view()->share('services', Service::all());
+            view()->share('dossiers', Dossier::orderByDesc('id')->get());
+            view()->share('services', Service::orderByDesc('id')->get());
         }
 
     }
