@@ -7,6 +7,8 @@ use App\Repositories\DossierRepository;
 use App\Repositories\PersonneRepository;
 use App\TypeDossier;
 use App\Charts\DossierChart;
+use App\Service;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
@@ -31,7 +33,7 @@ class HomeController extends Controller
 
     public function admin()
     {
-
+       // dd(auth()->user()->unreadNotifications);
       $borderColors = [
             "rgba(255, 99, 132, 1.0)",
             "rgba(255, 205, 86, 1.0)",
@@ -93,5 +95,68 @@ class HomeController extends Controller
         // dd($coter);
 
         return view('Services.home', compact('dossiers', 'coter'));
+    }
+
+    public function index()
+    {
+        $users = User::all()->where('is_delete', '=', false);
+        $services = Service::all();
+
+        return view('Admin.users', compact('users', 'services'));
+    }
+
+    public function saveUser(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'service_id' => 'required'
+        ]);
+
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->role = $data['role'];
+        $user->service_id  = $data['service_id'];
+
+        $user->save();
+
+        toastr()->success('Utilisateur ajouter avec success');
+
+            return back();
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'service_id' => 'required'
+        ]);
+
+        $data['password'] = bcrypt($request->input('password'));
+        User::where('id', $id)->update($data);
+        toastr()->success('Mise a jour  avec success');
+
+            return back();
+    }
+
+    public function deletetUser($id)
+    {
+        User::where('id', $id)->update(['is_delete' => true]);
+
+        Toastr()->success("Suppression Effectué");
+
+        return back();
+    }
+
+    public function edit(User $user)
+    {
+        return view('Admin.editUser', compact('user'));
     }
 }

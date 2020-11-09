@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dossier;
+use App\Notifications\DossierNotification;
 use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -68,7 +69,8 @@ class DossierController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'grade' => 'required',
-            'matricule'=> 'required'
+            'matricule'=> 'required',
+            'telephone' => 'required'
         ));
 
         $dossier = new Dossier();
@@ -78,13 +80,14 @@ class DossierController extends Controller
         $dossier->nom = $data['nom'];
         $dossier->prenom = $data['prenom'];
         $dossier->grade = $data['grade'];
+        $dossier->telephone = $data['telephone'];
         $dossier->matricule = $data['matricule'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];
         //dd($dossier);
 
         $dossier->save();
-
+        auth()->user()->notify(new DossierNotification($dossier, auth()->user()));
 
         Toastr()->success("Enregistrement Effectué");
 

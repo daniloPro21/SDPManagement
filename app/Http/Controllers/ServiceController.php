@@ -21,9 +21,16 @@ class ServiceController extends Controller
     }
      public function listcoter()
     {
-        $dossiers = Dossier::all()->where('service_id', '=', auth()->user()->service_id);
+        $newDossiers = Dossier::where('service_id', auth()->user()->service_id)->where("traiter",false)->paginate(21);
 
-        return view('Services.dossiercoter', compact('dossiers') );
+        return view('Services.dossiercoter', compact('newDossiers') );
+    }
+
+    public function listTraiter()
+    {
+        $dossiersTraiters = Dossier::where('service_id', auth()->user()->service_id)->where("traiter",true)->get();
+
+        return view('Services.dossiertraiter', compact('dossiersTraiters') );
     }
 
 

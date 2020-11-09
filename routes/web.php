@@ -69,6 +69,7 @@ Route::post('/service/create', 'ServiceController@store')->name('service.store')
 
 Route::get('/service', 'ServiceController@index')->name('service.index');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
+Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
 
 
 /**
@@ -76,6 +77,12 @@ Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service
  */
 Route::post('/user/create', 'HomeController@store')->name('user.store');
 Route::get('/users', 'HomeController@index')->name('user.index');
+Route::get('/users/edit/{user}', 'HomeController@edit')->name('user.edit');
+Route::post('/users', 'HomeController@saveUser')->name('user.store');
+Route::patch('/users/update/{id}', 'HomeController@updateUser')->name('user.update');
+Route::patch('/users/delete//{id}', 'HomeController@deletetUser')->name('user.delete');
+
+
 
 
 

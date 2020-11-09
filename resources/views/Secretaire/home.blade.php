@@ -129,7 +129,7 @@
                           <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
                           <td>{{ $dossier->num_dra }} </td>
                             <td>
-                              <div><b>- Nom</b> : {{ $dossier->nom }}</div> 
+                              <div><b>- Nom</b> : {{ $dossier->nom }}</div>
                               <div><b>- Matricule</b> : {{ $dossier->matricule }} </div>
                               <div><b>- Grade: &nbsp;</b> {{ $dossier->grade }}</div>
                             </td>
@@ -205,6 +205,11 @@
                               <div class="form-group col-md-6">
                                 <label for="inputEmail4">grade</label>
                                 <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">telephone</label>
+                                <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
                               </div>
                             <div class="form-group col-md-6">
                               <label for="inputPassword4">date Entre</label>

@@ -4,7 +4,7 @@
 @section('content')
 
 
-          <div class="row">
+          <div class="row justify-content-center d-flex align-items-center">
 
             <div class="container">
               @forelse($dossiersTrie as $dossier)
@@ -31,4 +31,4 @@
          <div class="col-sm-offset-4">   {{ $dossiersTrie->links() }}</div>
           </div>
 
-@stop
+@endsection

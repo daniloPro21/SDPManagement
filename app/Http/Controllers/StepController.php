@@ -9,13 +9,6 @@ use Nexmo\Laravel\Facade\Nexmo;
 class StepController extends Controller
 {
     public function store(Request $request){
-      if ($request->type == "warning" || $request->type == "success") {
-        Nexmo::message()->send([
-          'to'   => '237673151975',
-          'from' => 'SDP MINSANTE',
-          'text' => $request->message
-      ]);
-      }
 
         $step = new Step;
         $step->dossier_id=$request->dossier_id;
@@ -23,6 +16,19 @@ class StepController extends Controller
         $step->message=nl2br($request->message);
         $step->user_id=auth()->user()->id;
         $step->save();
+
+        if ($step->type == "warning" || $step->type == "success") {
+
+            $msg=strtoupper("Ministère de la santé publique")."\n \n". strtoupper("Service Du Personnels")  ."\n \n M.Mme  ".$step->dossier->prenom." ".$step->dossier->nom." \n".$request->message.
+                " Le "
+                .\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y")."  \n \n";
+
+            Nexmo::message()->send([
+                'to'   => '237673151975',
+                'from' => 'MINSANTE',
+                'text' => $msg
+            ]);
+        }
         Toastr()->success("Enregistrement Effectué");
 
         return redirect()->back()->withMessage("Insertion Terminée");
