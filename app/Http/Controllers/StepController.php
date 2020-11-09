@@ -19,9 +19,9 @@ class StepController extends Controller
 
         if ($step->type == "warning" || $step->type == "success") {
 
-            $msg="Ministère de la santé publique \n \n Service Du Personnel  \n Monsieur".$step->dossier->prenom." ".$step->dossier->nom." \n".$request->message.
+            $msg=strtoupper("Ministère de la santé publique")."\n \n". strtoupper("Service Du Personnels")  ."\n \n M.Mme  ".$step->dossier->prenom." ".$step->dossier->nom." \n".$request->message.
                 " Le "
-                .Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y")." ";
+                .\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y")."  \n \n";
 
             Nexmo::message()->send([
                 'to'   => '237673151975',
