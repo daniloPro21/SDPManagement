@@ -12,7 +12,7 @@ class StepController extends Controller
       if ($request->type == "warning" || $request->type == "success") {
         Nexmo::message()->send([
           'to'   => '237673151975',
-          'from' => 'SDP',
+          'from' => 'SDP MINSANTE',
           'text' => $request->message
       ]);
       }
