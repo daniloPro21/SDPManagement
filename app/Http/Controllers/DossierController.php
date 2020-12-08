@@ -84,10 +84,9 @@ class DossierController extends Controller
         $dossier->matricule = $data['matricule'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];
-        //dd($dossier);
+    
 
         $dossier->save();
-        auth()->user()->notify(new DossierNotification($dossier, auth()->user()));
 
         Toastr()->success("Enregistrement Effectué");
 
@@ -98,7 +97,7 @@ class DossierController extends Controller
 
     public function update(Request $request, $id)
     {
-         //dd($request->all());
+
          $data = $request->validate(array(
             'num_sdp' => 'required',
             'num_dra' => 'required',
@@ -112,7 +111,7 @@ class DossierController extends Controller
             'matricule'=> 'required'
         ));
 
-        //dd($dossier);
+
 
 
         Dossier::where('id', $id)->update($data);

@@ -35,7 +35,7 @@
                       <!-- /.col -->
                       <div class="col-sm-4 border-right">
                         <div class="description-block">
-                          <h5 class="description-header">{{ $item->role }}</h5>
+                          <h5 class="description-header" style="text-transform: capitalize;">{{ $item->role }}</h5>
                         </div>
                         <!-- /.description-block -->
                       </div>

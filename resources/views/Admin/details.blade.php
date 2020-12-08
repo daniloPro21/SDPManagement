@@ -52,7 +52,7 @@
                         </tr>
                             @if (!$dossier->traiter)
                                 <tr>
-                                    <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le Dossier passeras automatiquement à l\'etat traité')"  class="btn btn-success btn-block">Marquer comme Traité</a> </td>
+                                    <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le dossier sera considéré comme traité')"  class="btn btn-success btn-block">Marquer comme Traité</a> </td>
                                 </tr>
                                 @endif
                         @else
@@ -107,7 +107,7 @@
                             <div class="timeline-item">
                                 <span class="time"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y") }}</span>
 
-                                <h3 class="timeline-header"><a href="#">{{ $step->user->name }}</a> a signaler</h3>
+                                <h3 class="timeline-header"><a href="#">{{ $step->user->name }}</a> à signaler</h3>
 
                                 <div class="timeline-body row">
                                 <div class="col-sm-10">
@@ -175,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                                 <button type="submit"  class="btn btn-primary">Enregistrer</button>
                             </form>
                             </div>
@@ -225,7 +225,7 @@
                             </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                                     <button type="submit"  class="btn btn-primary">Enregistrer</button>
                                 </div>
                                 </div>
@@ -302,8 +302,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit"  class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                <button type="submit"  class="btn btn-primary">Enregistrer</button>
                             </form>
                             </div>
                     </div>

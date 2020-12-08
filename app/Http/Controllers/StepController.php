@@ -24,7 +24,7 @@ class StepController extends Controller
 
         if ($step->type == "warning" || $step->type == "success") {
 
-            $msg=strtoupper("Ministère de la santé publique")."\n \n". strtoupper("Service Du Personnels")  ."\n \n M.Mme  ".$step->dossier->prenom." ".$step->dossier->nom." \n".$request->message.
+            $msg=strtoupper("SDP MINSANTE")."\n \n".strtoupper("Service Du Personnel")  ."\n \n".strtoupper("Notification sur votre dossier"). " \n  M\Mme  ".$step->dossier->prenom."".$step->dossier->nom."  \n".$request->message.
                 " Le "
                 .\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y")."  \n \n";
 

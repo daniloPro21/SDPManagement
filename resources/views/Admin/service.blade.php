@@ -8,7 +8,7 @@
       <form action="{{route('service.store')}}" method="POST">
         <div class="box">
           <div class="box-header">
-            <h3 class="text-center text-uppercase">Remplissez le formulaire</h3>
+            <h3 class="text-center text-uppercase">Veuillez remplir le formulaire</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body col-sm-offset-3 col-sm-6">

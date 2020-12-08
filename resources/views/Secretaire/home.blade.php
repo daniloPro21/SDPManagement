@@ -100,8 +100,12 @@
     <section class="container">
         <div class="row">
           <div class="col-lg-12">
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">AJouter un Dossier</a>
-            <a href="#" data-toggle="modal" data-target="#typedossier" class="btn btn-primary btn-lg mb-3">AJouter un type de dossier</a>
+              <div style="display: flex; justify-content: center;">
+                  <a href="#" data-toggle="modal" data-target="#exampleModal" class="d-flex btn btn-primary btn-sm mb-3">Ajouter un dossier</a>
+                  &nbsp;
+                  <a href="#" data-toggle="modal" data-target="#typedossier" class="btn btn-primary btn-sm mb-3">Ajouter un type de dossier</a>
+
+              </div>
             <hr>
             <div class="box">
               <div class="box-header">
@@ -178,22 +182,22 @@
                         @csrf
                         <div class="form-row">
                           <div class="form-group col-md-6">
-                            <label for="numero">Numero DSP</label>
+                            <label for="numero">Numéro SDP</label>
                             <input type="text" name="num_sdp" class="form-control" id="numero" autocomplete="false" required>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="DHR">Numero DRH</label>
+                            <label for="DHR">Numéro DRH</label>
                             <input type="text" name="num_dra" class="form-control" id="DHR"  autocomplete="false" required>
                           </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Nom du Proprietaire</label>
+                              <label for="inputEmail4">Nom du Propriétaire</label>
                               <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Prenom</label>
+                                <label for="inputEmail4">Prénom</label>
                                 <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
                               </div>
 
@@ -203,16 +207,16 @@
                               </div>
 
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">grade</label>
+                                <label for="inputEmail4">Grade</label>
                                 <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
                               </div>
 
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">telephone</label>
+                                <label for="inputEmail4">Téléphone</label>
                                 <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
                               </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">date Entre</label>
+                              <label for="inputPassword4">Date D'entrée</label>
                               <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
                             </div>
                           </div>
@@ -228,13 +232,13 @@
                               </div>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputPassword4">note</label>
+                            <label for="inputPassword4">Note</label>
                             <textarea name="note" id="" cols="30" rows="10"></textarea>
                           </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit"  class="btn btn-primary">Enregistrer</button>
                     </form>
                     </div>
             </div>
@@ -255,7 +259,7 @@
                         @csrf
                         <div class="form-row">
                           <div class="form-group col-md-6">
-                            <label for="numero">Numero DSP</label>
+                            <label for="numero">Numero SDP</label>
                             <input type="text" name="num_sdp" class="form-control"  autocomplete="false" id="numero" required>
                           </div>
                           <div class="form-group col-md-6">
@@ -265,12 +269,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">Nom du Proprietaier</label>
+                              <label for="inputEmail4">Nom du Propriétaire</label>
                               <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Prenom</label>
+                                <label for="inputEmail4">Prénom</label>
                                 <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
                               </div>
 
@@ -280,16 +284,16 @@
                               </div>
 
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">grade</label>
+                                <label for="inputEmail4">Grade</label>
                                 <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
                               </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">date Entre</label>
+                              <label for="inputPassword4">Date d entrée</label>
                               <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">date de sortie</label>
+                                <label for="inputapssword4">date de sortie</label>
                                 <input type="date" name="date_sortie" class="form-control" id="inputPassword4" required>
                               </div>
                           </div>
@@ -305,13 +309,13 @@
                               </div>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputPassword4">note</label>
+                            <label for="inputPassword4">Note</label>
                             <textarea name="note" id="" cols="30" rows="10"></textarea>
                           </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit"  class="btn btn-primary">Enregistrer</button>
                     </form>
                     </div>
             </div>

@@ -258,8 +258,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Panneau de Control
-                    <small>{{ auth()->user()->name }}</small>
+                    Panneau de Contrôle du Service
+                    <small>{{ auth()->user()->service->name }}</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -281,9 +281,9 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 1.2.0
+                <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; <a href="https://dreamcashgroup.com">Dreamcash SA</a>.</strong> All rights reserved.
+            <strong>Powered by <a href="https://dreamcashgroup.com" style="color: rgb(247, 0, 0);">Dreamcash </a>.</strong> All rights reserved.
         </footer>
     </div>
     <!-- ./wrapper -->
