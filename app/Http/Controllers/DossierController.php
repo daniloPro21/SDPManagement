@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dossier;
+use App\Models\Personnel;
 use App\Notifications\DossierNotification;
 use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
@@ -73,6 +74,8 @@ class DossierController extends Controller
             'telephone' => 'required'
         ));
 
+
+
         $dossier = new Dossier();
         $dossier->num_sdp = $data['num_sdp'];
         $dossier->num_dra = $data['num_dra'];
@@ -87,7 +90,29 @@ class DossierController extends Controller
         //dd($dossier);
 
         $dossier->save();
+
+        /*
+         * Création du personnel en cas d'absence du matricule en BD
+         * TODO : verifier la fonctionnalité
+         */
+
+        $personnel = Personnel::where("matricule",$dossier->matricule)->first();
+
+        if (!$personnel){
+            $personnel = new Personnel();
+            $personnel->nom=$dossier->nom;
+            $personnel->prenom=$dossier->prenom;
+            $personnel->grade=$dossier->grade;
+            $personnel->telephone=$dossier->telephone;
+            $personnel->matricule=$dossier->matricule;
+            $personnel->save();
+        }
+
         auth()->user()->notify(new DossierNotification($dossier, auth()->user()));
+
+        /*
+         * fin de creation
+         */
 
         Toastr()->success("Enregistrement Effectué");
 

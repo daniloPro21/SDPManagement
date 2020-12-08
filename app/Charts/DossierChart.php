@@ -13,6 +13,7 @@ class DossierChart extends Chart
      */
     public function __construct()
     {
+        //$this->loader(false);
         parent::__construct();
     }
 }

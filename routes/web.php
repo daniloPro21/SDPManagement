@@ -38,11 +38,19 @@ Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.
 Route::patch('/dossier/delete/{id}', 'DossierController@delete')->name('dossier.delete');
 
 /**
- * Route Personne
+ * Route Personnel
  */
-Route::get('/personne/create', 'PersonneController@create')->name('personne.create');
-Route::post('/personne/create', 'PersonneController@store')->name('personne.store');
-Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')->name('personne.dossier');
+Route::get('/personnels', 'PersonnelController@index')->name('personnel.index');
+Route::post('/personnels', 'PersonnelController@store')->name('personnel.store');
+Route::get('/personnels/{id}', 'PersonnelController@edit')->name('personnel.edit');
+Route::post('/personnels/{id}', 'PersonnelController@update')->name('personnel.update');
+/*
+ * poste routes
+ */
+Route::get('/postes', 'PosteController@index')->name('poste.index');
+Route::post('/postes', 'PosteController@store')->name('poste.store');
+Route::get('/postes/{id}', 'PosteController@edit')->name('poste.edit');
+Route::post('/postes/{id}', 'PosteController@update')->name('poste.update');
 
 
 /**

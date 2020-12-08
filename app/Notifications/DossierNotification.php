@@ -24,7 +24,7 @@ class DossierNotification extends Notification
     public function __construct(Dossier $dossier, User $user)
     {
         $this->dossier = $dossier;
-        $this->usee = $user;
+        $this->user = $user;
 
     }
 
