@@ -88,7 +88,7 @@
                             @foreach (auth()->user()->unreadNotifications as $dossier)
                                 <li>
                                 <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">
-                                    <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }} - {{ $dossier->type->name }}
+                                    <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }}
                                 </a>
                                 </li>
                             @endforeach
@@ -98,6 +98,8 @@
                         </ul>
                     </li>
                     @endadmin
+
+                    @auth
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -126,6 +128,7 @@
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
+                    @endauth
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
@@ -180,6 +183,12 @@
                 <span>{{ __("Recherche")}}</span>
             </a>
             </li>
+                <li>
+                    <a href="{{ route('dossiers.find')}}">
+                        <i class="fa fa-vcard-o"></i>
+                        <span>{{ __("Affectations")}}</span>
+                    </a>
+                </li>
                 <li class="treeview">
                 <a href="#">
                     <i class="fa fa-gears"></i>
@@ -189,6 +198,8 @@
                     <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
                     <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
                 <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+                    <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnel</a></li>
+                    <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Poste</a></li>
                 </ul>
                 </li>
 
