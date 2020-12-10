@@ -16,6 +16,7 @@ class CreateStructuresTable extends Migration
         Schema::create('structures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nom');
+            $table->boolean('is_delete')->nullable();
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('catagorie_id');
             $table->foreign('district_id')->references('id')->on('districts');

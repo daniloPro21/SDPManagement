@@ -21,20 +21,20 @@ class DossierController extends Controller
     {
         //$dossiersTrie;
         switch ($type) {
-      case 'non-coter':
-        $dossiersTrie= $this->dossierRepository->getNewDossiers();
-        break;
-      case 'coter':
-          $dossiersTrie= $this->dossierRepository->getAssignDossiers();
-        break;
-      case 'traiter':
-            $dossiersTrie= $this->dossierRepository->getDossiersTraiter();
-        break;
+            case 'non-coter':
+                $dossiersTrie= $this->dossierRepository->getNewDossiers();
+                break;
+            case 'coter':
+                $dossiersTrie= $this->dossierRepository->getAssignDossiers();
+                break;
+            case 'traiter':
+                $dossiersTrie= $this->dossierRepository->getDossiersTraiter();
+                break;
 
-      default:
-          $dossiersTrie=$this->dossierRepository->getDossiers();
-        break;
-    }
+            default:
+                $dossiersTrie=$this->dossierRepository->getDossiers();
+                break;
+        }
 
         return view("Admin.listedossier", compact('dossiersTrie'));
     }
@@ -58,7 +58,7 @@ class DossierController extends Controller
 
     public function store(Request $request)
     {
-       //dd($request->all());
+        //dd($request->all());
         $data = $request->validate(array(
             'num_sdp' => 'required',
             'num_dra' => 'required',
@@ -97,7 +97,7 @@ class DossierController extends Controller
     public function update(Request $request, $id)
     {
 
-         $data = $request->validate(array(
+        $data = $request->validate(array(
             'num_sdp' => 'required',
             'num_dra' => 'required',
             'type_id' => 'required',
@@ -132,13 +132,13 @@ class DossierController extends Controller
     }
 
     public function quotation($id,$dossier_id){
-      $dossier = Dossier::findOrFail($dossier_id);
-      $dossier->service_id=$id;
-      $dossier->update();
+        $dossier = Dossier::findOrFail($dossier_id);
+        $dossier->service_id=$id;
+        $dossier->update();
 
         Toastr()->success("Affectation Enregistré");
 
-      return redirect()->back();
+        return redirect()->back();
 
     }
 
