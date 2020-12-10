@@ -15,6 +15,11 @@ class CreateAffectationsTable extends Migration
     {
         Schema::create('affectations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('poste_id');
+            $table->unsignedBigInteger('personnel_id');
+            $table->unsignedBigInteger('fiche_affectation_id');
+            $table->string('motif')->nullable();
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

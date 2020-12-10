@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Affectation;
 use App\Models\FicheAffectation;
+use App\Models\Personnel;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Toastr;
 
@@ -36,7 +37,8 @@ class FicheAffectationController extends Controller
 
     public  function manage($id){
            $fiche =  FicheAffectation::FindOrFail($id);
-           dd($fiche);
+           $personnels = Personnel::all();
+           return view("affectations.manage",compact("fiche","personnels"));
     }
 
     public  function delete($id){

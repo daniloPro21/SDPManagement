@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Affectation extends Model
 {
-    protected $fillable = ["date","personnel_id","poste_id","fiche_affectation_id"];
+    protected $fillable = ["date","personnel_id","poste_id","fiche_affectation_id","motif"];
 
 
     public function  personnel(){
