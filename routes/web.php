@@ -59,14 +59,11 @@ Route::post('/postes/{id}', 'PosteController@update')->name('poste.update');
 Route::post('/step/create', 'StepController@store')->name('step.store');
 Route::get('/step/destroy/{id}', 'StepController@destroy')->name('step.destroy');
 
-/**
-*Route Type Dossier
-*/
 
-Route::post('/typedossier', 'TypeDossierController@store')->name('typedossier.store')->middleware('auth');
 /**
  *Route Type de Dossiers
  */
+Route::post('/typedossier', 'TypeDossierController@store')->name('typedossier.store')->middleware('auth');
 Route::post('/type/create', 'TypeDossierController@store')->name('type.store');
 Route::get('/type', 'TypeDossierController@index')->name('type.index');
 
@@ -74,7 +71,6 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  *Route de Services
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
-
 Route::get('/service', 'ServiceController@index')->name('service.index');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
 Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
@@ -90,8 +86,46 @@ Route::post('/users', 'HomeController@saveUser')->name('user.store');
 Route::patch('/users/update/{id}', 'HomeController@updateUser')->name('user.update');
 Route::patch('/users/delete//{id}', 'HomeController@deletetUser')->name('user.delete');
 
+/**
+ * Route Categorie
+ */
+Route::get('/categorie', 'CategorielController@index')->name('categorie.index');
+Route::post('/categorie', 'CategorielController@store')->name('categorie.store');
+Route::patch('/categorie/{id}', 'CategorielController@update')->name('categorie.update');
+Route::delete('/categorie/{id}', 'CategorielController@delete')->name('categorie.delete');
 
 
+/**
+ * Route District
+ */
+Route::get('/district', 'DistrictController@index')->name('district.index');
+Route::post('/district', 'DistrictController@store')->name('district.store');
+Route::patch('/district/{id}', 'DistrictController@update')->name('district.update');
+Route::delete('/district/{id}', 'DistrictController@delete')->name('district.delete');
+
+/**
+ * Route Groupe
+ */
+Route::get('/groupe', 'GroupeController@index')->name('groupe.index');
+Route::post('/groupe', 'GroupeController@store')->name('groupe.store');
+Route::patch('/groupe/{id}', 'GroupeController@update')->name('groupe.update');
+Route::delete('/groupe/{id}', 'GroupeController@delete')->name('groupe.delete');
+
+/**
+ * Route Region
+ */
+Route::get('/region', 'RegionController@index')->name('region.index');
+Route::post('/region', 'RegionController@store')->name('region.store');
+Route::patch('/region/{id}', 'RegionController@update')->name('region.update');
+Route::delete('/region/{id}', 'RegionController@delete')->name('region.delete');
+
+/**
+ * Route Structure
+ */
+Route::get('/structure', 'StructureController@index')->name('structure.index');
+Route::post('/structure', 'StructureController@store')->name('structure.store');
+Route::patch('/structure/{id}', 'StructureController@update')->name('structure.update');
+Route::delete('/structure/{id}', 'StructureController@delete')->name('structure.delete');
 
 
 
@@ -103,5 +137,4 @@ Auth::routes();
 /*
  * Route Pour les affectations
  */
-
 Route::get("/affectations","FicheAffectationController@index")->name("affectation.index");
