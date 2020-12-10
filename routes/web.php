@@ -89,10 +89,10 @@ Route::patch('/users/delete//{id}', 'HomeController@deletetUser')->name('user.de
 /**
  * Route Categorie
  */
-Route::get('/categorie', 'CategorielController@index')->name('categorie.index');
-Route::post('/categorie', 'CategorielController@store')->name('categorie.store');
-Route::patch('/categorie/{id}', 'CategorielController@update')->name('categorie.update');
-Route::delete('/categorie/{id}', 'CategorielController@delete')->name('categorie.delete');
+Route::get('/categorie', 'CategorieController@index')->name('categorie.index');
+Route::post('/categorie', 'CategorieController@store')->name('categorie.store');
+Route::patch('/categorie/{id}', 'CategorieController@update')->name('categorie.update');
+Route::delete('/categorie/{id}', 'CategorieController@destroy')->name('categorie.delete');
 
 
 /**
@@ -101,7 +101,7 @@ Route::delete('/categorie/{id}', 'CategorielController@delete')->name('categorie
 Route::get('/district', 'DistrictController@index')->name('district.index');
 Route::post('/district', 'DistrictController@store')->name('district.store');
 Route::patch('/district/{id}', 'DistrictController@update')->name('district.update');
-Route::delete('/district/{id}', 'DistrictController@delete')->name('district.delete');
+Route::delete('/district/{id}', 'DistrictController@destroy')->name('district.delete');
 
 /**
  * Route Groupe
@@ -109,7 +109,7 @@ Route::delete('/district/{id}', 'DistrictController@delete')->name('district.del
 Route::get('/groupe', 'GroupeController@index')->name('groupe.index');
 Route::post('/groupe', 'GroupeController@store')->name('groupe.store');
 Route::patch('/groupe/{id}', 'GroupeController@update')->name('groupe.update');
-Route::delete('/groupe/{id}', 'GroupeController@delete')->name('groupe.delete');
+Route::delete('/groupe/{id}', 'GroupeController@destroy')->name('groupe.delete');
 
 /**
  * Route Region
@@ -117,7 +117,7 @@ Route::delete('/groupe/{id}', 'GroupeController@delete')->name('groupe.delete');
 Route::get('/region', 'RegionController@index')->name('region.index');
 Route::post('/region', 'RegionController@store')->name('region.store');
 Route::patch('/region/{id}', 'RegionController@update')->name('region.update');
-Route::delete('/region/{id}', 'RegionController@delete')->name('region.delete');
+Route::delete('/region/{id}', 'RegionController@destroy')->name('region.delete');
 
 /**
  * Route Structure
@@ -125,7 +125,7 @@ Route::delete('/region/{id}', 'RegionController@delete')->name('region.delete');
 Route::get('/structure', 'StructureController@index')->name('structure.index');
 Route::post('/structure', 'StructureController@store')->name('structure.store');
 Route::patch('/structure/{id}', 'StructureController@update')->name('structure.update');
-Route::delete('/structure/{id}', 'StructureController@delete')->name('structure.delete');
+Route::delete('/structure/{id}', 'StructureController@destroy')->name('structure.delete');
 
 
 

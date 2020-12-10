@@ -9,7 +9,7 @@ class Groupe extends Model
 
 
     protected $fillable = [
-      'nom'
+      'nom', 'categorie_id'
     ];
 
     public function categorie()

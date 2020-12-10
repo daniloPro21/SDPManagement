@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
+use App\District;
+use App\Region;
 use App\Structure;
 use Illuminate\Http\Request;
 
@@ -10,12 +13,15 @@ class StructureController extends Controller
    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $structure =  Structure::all();
-        return view('Structure.index', compact('structure'));
+        $structures =  Structure::all()->where('is_delete', '=', false);
+        $categories =  Categorie::all()->where('is_delete', '=', false);
+        $districts =  District::all()->where('is_delete', '=', false);
+
+        return view('Structure.index', compact('structures','districts', 'categories'));
     }
 
     /**
@@ -37,6 +43,9 @@ class StructureController extends Controller
     public function store(Request $request)
     {
         Structure::create($request->all());
+        Toastr()->success("Effectué");
+
+        return redirect()->back();
     }
 
     /**

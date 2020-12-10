@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Groupe;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Goto_;
@@ -15,8 +16,10 @@ class GroupeController extends Controller
      */
     public function index()
     {
-        $groupe =  Groupe::all();
-        return view('Groupe.index', compact('groupe'));
+        $groupes =  Groupe::all()->where('is_delete', '=', false);
+        $categories =  Categorie::all()->where('is_delete', '=', false);
+
+        return view('Groupe.index', compact('groupes', 'categories'));
     }
 
     /**
@@ -38,6 +41,9 @@ class GroupeController extends Controller
     public function store(Request $request)
     {
         Groupe::create($request->all());
+        Toastr()->success("Effectué");
+
+        return redirect()->back();
     }
 
     /**

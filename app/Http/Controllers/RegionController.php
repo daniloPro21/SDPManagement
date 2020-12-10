@@ -14,8 +14,8 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $region =  Region::all();
-        return view('region.index', compact('region'));
+        $regions =  Region::all()->where('is_delete','=',false);
+        return view('region.index', compact('regions'));
     }
 
     /**
@@ -32,11 +32,13 @@ class RegionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         Region::create($request->all());
+        Toastr()->success("Ajout avec Effectué");
+        return back();
     }
 
     /**
@@ -80,7 +82,7 @@ class RegionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
