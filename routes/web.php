@@ -89,10 +89,10 @@ Route::patch('/users/delete//{id}', 'HomeController@deletetUser')->name('user.de
 /**
  * Route Categorie
  */
-Route::get('/categorie', 'CategorielController@index')->name('categorie.index');
-Route::post('/categorie', 'CategorielController@store')->name('categorie.store');
-Route::patch('/categorie/{id}', 'CategorielController@update')->name('categorie.update');
-Route::delete('/categorie/{id}', 'CategorielController@delete')->name('categorie.delete');
+Route::get('/categorie', 'CategorieController@index')->name('categorie.index');
+Route::post('/categorie', 'CategorieController@store')->name('categorie.store');
+Route::patch('/categorie/{id}', 'CategorieController@update')->name('categorie.update');
+Route::delete('/categorie/{id}', 'CategorieController@delete')->name('categorie.delete');
 
 
 /**

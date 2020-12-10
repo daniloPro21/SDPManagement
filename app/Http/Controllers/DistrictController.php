@@ -14,8 +14,8 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $district =  District::all();
-        return view('District.index', compact('district'));
+        $districts =  District::all();
+        return view('District.index', compact('districts'));
     }
 
     /**

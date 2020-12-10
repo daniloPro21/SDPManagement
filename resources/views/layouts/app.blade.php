@@ -220,6 +220,31 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('district.index') }}">
+                        <i class="fa fa-address-card"></i> <span>Districts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('region.index') }}">
+                        <i class="fa fa-address-card"></i> <span>Regions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('structure.index') }}">
+                        <i class="fa fa-address-card"></i> <span>Structures</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('groupe.index') }}">
+                        <i class="fa fa-address-card"></i> <span>Groupes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('categorie.index') }}">
+                        <i class="fa fa-address-card"></i> <span>Categories</span>
+                    </a>
+                </li>
+                <li>
                 <a href="{{ route('admin.home')}}">
                     <i class="fa fa-dashboard"></i> <span>{{ __("Statistiques")}}</span>
                 </a>

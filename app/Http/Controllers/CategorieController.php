@@ -38,6 +38,8 @@ class CategorieController extends Controller
     public function store(Request $request)
     {
         Categorie::create($request->all());
+        Toastr()->success("Mise à jour Effectué");
+        return back();
     }
 
     /**
