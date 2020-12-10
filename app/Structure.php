@@ -9,7 +9,7 @@ class Structure extends Model
 
 
     protected $fillable = [
-        'nom'
+        'nom','categorie_id','district_id'
     ];
 
     public function categorie()

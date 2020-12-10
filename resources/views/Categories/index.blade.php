@@ -26,18 +26,19 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" name="nom" required class="form-control"  id="nom">
+                                <input type="text" name="nom" required class="form-control" id="nom">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="prenom">Description</label>
-                                <input type="text" name="description" required class="form-control"  id="description">
+                                <input type="text" name="description" required class="form-control" id="description">
                             </div>
                         </div>
 
                         <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
                     </div>
+
                     <div class="box-footer">
 
                     </div>
@@ -64,7 +65,13 @@
                                 <td>{{$categorie->id}}</td>
                                 <td>{{ $categorie->nom }}</td>
                                 <td>{{ $categorie->description }}</td>
-                                <td><a class="btn btn-warning" href="{{ route("categorie.delete",$categorie->id) }}">Supprimer</a></td>
+                                <form action="{{ route('categorie.delete', $categorie->id)  }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <td>
+                                        <button type="submit" class="btn btn-warning">Supprimer</button>
+                                    </td>
+                                </form>
                             </tr>
                         @endforeach
                         </tbody>
@@ -85,12 +92,12 @@
         $(function () {
             //$('#dossiers').DataTable()
             $('#dossiers').DataTable({
-                'paging'      : true,
+                'paging': true,
                 'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : true,
-                'autoWidth'   : true
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
             })
         })
     </script>

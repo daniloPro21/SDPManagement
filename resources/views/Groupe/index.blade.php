@@ -5,7 +5,7 @@
     <div class="row justify-content-center d-flex align-items-center">
 
         <div class="container">
-            <form action="{{route('categorie.store')}}" method="POST">
+            <form action="{{route('groupe.store')}}" method="POST">
                 <div class="box">
                     <div class="box-header">
                         <h3 class="text-center text-uppercase">Remplissez le formulaire</h3>
@@ -26,15 +26,19 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" name="nom" required class="form-control"  id="nom">
+                                <input type="text" name="nom" required class="form-control"  id="nom" >
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="prenom">Prenom</label>
-                                <input type="text" name="description" required class="form-control"  id="description">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select</label>
+                                    <select name="categorie_id" class="form-control" required>
+                                        @foreach($categories as $categorie)
+                                            <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
                         <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
                     </div>
@@ -45,7 +49,7 @@
             </form>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="text-center text-uppercase">Liste Du Personnel</h3>
+                    <h3 class="text-center text-uppercase">Liste Des Groupes</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -54,27 +58,21 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Grade</th>
-                            <th>Matricule</th>
-                            <th>Sexe</th>
-                            <th>Date de Naissance</th>
-                            <th>Contact</th>
+                            <th>Categorie</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($personnels as $personnel)
+                        @foreach($groupes as $groupe)
                             <tr>
-                                <td>{{$personnel->id}}</td>
-                                <td>{{ $personnel->nom }}</td>
-                                <td>{{ $personnel->prenom }}</td>
-                                <td>{{ $personnel->grade }}</td>
-                                <td>{{ $personnel->matricule }}</td>
-                                <td>{{ $personnel->sexe }}</td>
-                                <td>{{ $personnel->date_naissance }}</td>
-                                <td>{{ $personnel->telephone }}</td>
-                                <td><a class="btn btn-warning" href="{{ route("personnel.edit",$personnel->id) }}">Modifier</a></td>
+                                <td>{{$groupe->id}}</td>
+                                <td>{{ $groupe->nom }}</td>
+                                <td>{{ $groupe->categorie->nom }}</td>
+                                <form action="{{ route('groupe.delete', ['id' => $groupe->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                <td><button type="submit" class="btn btn-warning">Supprimer</button></td>
+                                </form>
                             </tr>
                         @endforeach
                         </tbody>

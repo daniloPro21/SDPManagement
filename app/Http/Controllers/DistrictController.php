@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\District;
+use App\Region;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
@@ -14,8 +16,9 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $districts =  District::all();
-        return view('District.index', compact('districts'));
+        $districts =  District::all()->where('is_delete', '=', false);
+        $regions = Region::all()->where('is_delete', '=', false);
+        return view('District.index', compact('districts', 'regions'));
     }
 
     /**
@@ -37,6 +40,9 @@ class DistrictController extends Controller
     public function store(Request $request)
     {
         District::create($request->all());
+        Toastr()->success("Effectué");
+
+        return redirect()->back();
     }
 
     /**

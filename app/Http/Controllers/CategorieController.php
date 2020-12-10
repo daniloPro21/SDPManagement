@@ -15,7 +15,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories =  Categorie::all();
+        $categories =  Categorie::all()->where('is_delete', '=', false);
         return view('Categories.index', compact('categories'));
     }
 

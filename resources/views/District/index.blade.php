@@ -5,7 +5,7 @@
     <div class="row justify-content-center d-flex align-items-center">
 
         <div class="container">
-            <form action="{{route('categorie.store')}}" method="POST">
+            <form action="{{route('district.store')}}" method="POST">
                 <div class="box">
                     <div class="box-header">
                         <h3 class="text-center text-uppercase">Remplissez le formulaire</h3>
@@ -26,13 +26,17 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" name="nom" required class="form-control"  id="nom">
+                                <input type="text" name="nom" required class="form-control" id="nom">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="categorie">Reigion</label>
-                                <input type="text" name="region_id" required class="form-control"  id="description">
+                                <label>Select</label>
+                                <select name="region_id" class="form-control">
+                                    @foreach($regions as $region)
+                                    <option value="{{$region->id}}">{{$region->nom}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -45,7 +49,7 @@
             </form>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="text-center text-uppercase">Liste Du Personnel</h3>
+                    <h3 class="text-center text-uppercase">Liste Des Districts</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -64,7 +68,11 @@
                                 <td>{{$district->id}}</td>
                                 <td>{{ $district->nom }}</td>
                                 <td>{{ $district->region->nom }}</td>
-                                <td><a class="btn btn-warning" href="{{ route("personnel.edit",$personnel->id) }}">Modifier</a></td>
+                                <form action="{{route('district.delete',$district->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                <td><button class="btn btn-warning">Supprimer</button></td>
+                                </form>
                             </tr>
                         @endforeach
                         </tbody>
@@ -85,12 +93,12 @@
         $(function () {
             //$('#dossiers').DataTable()
             $('#dossiers').DataTable({
-                'paging'      : true,
+                'paging': true,
                 'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : true,
-                'autoWidth'   : true
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
             })
         })
     </script>

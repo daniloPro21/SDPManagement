@@ -5,7 +5,7 @@
     <div class="row justify-content-center d-flex align-items-center">
 
         <div class="container">
-            <form action="{{route('categorie.store')}}" method="POST">
+            <form action="{{route('structure.store')}}" method="POST">
                 <div class="box">
                     <div class="box-header">
                         <h3 class="text-center text-uppercase">Remplissez le formulaire</h3>
@@ -26,19 +26,27 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" name="nom" required class="form-control"  id="nom">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="prenom">Categorie</label>
-                                <input type="text" name="categorie_id" required class="form-control"  id="description">
+                                <input type="text" name="nom" required class="form-control" id="nom">
                             </div>
                         </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="prenom">District</label>
-                                    <input type="text" name="district_id" required class="form-control"  id="description">
+                                    <label>Select</label>
+                                    <select name="categorie_id" class="form-control" required>
+                                        @foreach($categories as $categorie)
+                                            <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select</label>
+                                    <select name="district_id" class="form-control" required>
+                                        @foreach($districts as $district)
+                                            <option value="{{$district->id}}">{{$district->nom}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -60,19 +68,23 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Categorie</th>
-                            <th>Reegion</th>
+                            <th>Catégorie</th>
+                            <th>Region</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($personnels as $personnel)
+                        @foreach($structures as $struc)
                             <tr>
-                                <td>{{$personnel->id}}</td>
-                                <td>{{ $personnel->nom }}</td>
-                                <td>{{ $personnel->categorie->nom }}</td>
-                                <td>{{ $personnel->district->nom }}</td>
-                                <td><a class="btn btn-warning" href="{{ route("personnel.edit",$personnel->id) }}">Modifier</a></td>
+                                <td>{{$struc->id}}</td>
+                                <td>{{ $struc->nom }}</td>
+                                <td>{{ $struc->categorie->nom }}</td>
+                                <td>{{ $struc->district->nom }}</td>
+                                <form action="{{route('structure.delete', $struc->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                <td><button class="btn btn-warning">Supprimer</button></td>
+                                </form>
                             </tr>
                         @endforeach
                         </tbody>
@@ -93,12 +105,12 @@
         $(function () {
             //$('#dossiers').DataTable()
             $('#dossiers').DataTable({
-                'paging'      : true,
+                'paging': true,
                 'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : true,
-                'autoWidth'   : true
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
             })
         })
     </script>
