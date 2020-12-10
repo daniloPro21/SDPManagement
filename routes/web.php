@@ -99,3 +99,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
+
+/*
+ * Route Pour les affectations
+ */
+
+Route::get("/affectations","FicheAffectationController@index")->name("affectation.index");

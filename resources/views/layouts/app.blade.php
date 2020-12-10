@@ -184,7 +184,7 @@
             </a>
             </li>
                 <li>
-                    <a href="{{ route('dossiers.find')}}">
+                    <a href="{{ route('affectation.index')}}">
                         <i class="fa fa-vcard-o"></i>
                         <span>{{ __("Affectations")}}</span>
                     </a>
@@ -268,10 +268,9 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>
-                    Panneau de Contrôle du Service
-                    <small>{{ auth()->user()->service->name }}</small>
-                </h1>
+                <h3>
+                    Panneau de Contrôle
+                </h3>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="">Dashboard</li>
