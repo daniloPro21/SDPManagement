@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/admin', 'HomeController@admin')->name('admin.home');
 Route::get('/secretaire', 'HomeController@secretaire')->name('secretaire.home');
-Route::get('/services', 'HomeController@service')->name('service.home');
-
+Route::get('/serviceHome', 'HomeController@service')->name('services.home');
 /**
  * Route Dossier
  */
@@ -29,28 +28,15 @@ Route::get('/dossiers', 'DossierController@dossiers')->name('dossiers.all');
 Route::get('/dossiers/detail/{id}', 'DossierController@detail')->name('dossier.detail');
 Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
-Route::get('/Dossier/group', 'DossierController@group')->name('dossier.group');
-Route::get('/Dossier/group/{id}', 'DossierController@showGroup')->name('dossier.group.show');
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
-Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
-Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
-Route::patch('/dossier/delete/{id}', 'DossierController@delete')->name('dossier.delete');
 
 /**
- * Route Personnel
+ * Route Personne
  */
-Route::get('/personnels', 'PersonnelController@index')->name('personnel.index');
-Route::post('/personnels', 'PersonnelController@store')->name('personnel.store');
-Route::get('/personnels/{id}', 'PersonnelController@edit')->name('personnel.edit');
-Route::post('/personnels/{id}', 'PersonnelController@update')->name('personnel.update');
-/*
- * poste routes
- */
-Route::get('/postes', 'PosteController@index')->name('poste.index');
-Route::post('/postes', 'PosteController@store')->name('poste.store');
-Route::get('/postes/{id}', 'PosteController@edit')->name('poste.edit');
-Route::post('/postes/{id}', 'PosteController@update')->name('poste.update');
+Route::get('/personne/create', 'PersonneController@create')->name('personne.create');
+Route::post('/personne/create', 'PersonneController@store')->name('personne.store');
+Route::get('/personne/dossier/{idpersonne}', 'PersonneController@aboutDossier')->name('personne.dossier');
 
 
 /**
@@ -74,23 +60,13 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  *Route de Services
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
-
 Route::get('/service', 'ServiceController@index')->name('service.index');
-Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
-Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
-
-
+Route::get('/dossier/serive', 'DossierController@dossierService')->name('dossierServie');
 /**
  *Route d'utilisateurs
  */
 Route::post('/user/create', 'HomeController@store')->name('user.store');
 Route::get('/users', 'HomeController@index')->name('user.index');
-Route::get('/users/edit/{user}', 'HomeController@edit')->name('user.edit');
-Route::post('/users', 'HomeController@saveUser')->name('user.store');
-Route::patch('/users/update/{id}', 'HomeController@updateUser')->name('user.update');
-Route::patch('/users/delete//{id}', 'HomeController@deletetUser')->name('user.delete');
-
-
 
 
 

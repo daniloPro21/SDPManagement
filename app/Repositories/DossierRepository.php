@@ -27,6 +27,11 @@ class DossierRepository
         return Dossier::where('traiter', true)->where('is_delete', false)->orderByDesc('id')->paginate(21);
     }
 
+    public function getDossiersByServiceId()
+    {
+        return Dossier::where('service_id', '=', auth()->user()->service_id)->where('traiter', false)->paginate(20);
+    }
+
 
     public function save(Dossier $dossier)
     {
