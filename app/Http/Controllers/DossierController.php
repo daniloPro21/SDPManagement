@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Dossier;
-use App\Notifications\DossierNotification;
 use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -84,7 +83,7 @@ class DossierController extends Controller
         $dossier->matricule = $data['matricule'];
         $dossier->type_id = $data['type_id'];
         $dossier->note = $data['note'];
-    
+
 
         $dossier->save();
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config("app.name") }} | @Yield("Title")</title>
+    <title>{{ config("app.name") }} | @yield("title")</title>
 
         @toastr_css
     <!-- CSRF Token -->
@@ -78,23 +78,11 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">{{  auth()->user()->unreadNotifications->count() }}</span>
+                        <span class="label label-warning"></span>
                         </a>
                         <ul class="dropdown-menu">
-                        <li class="header">Vous avez {{ count(auth()->user()->unreadNotifications) }} nouveaux dossier(s)</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                            @foreach (auth()->user()->unreadNotifications as $dossier)
-                                <li>
-                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">
-                                    <i class="fa fa-users text-aqua"></i> {{ $dossier->nom }}
-                                </a>
-                                </li>
-                            @endforeach
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                        <li class="header"></li>
+                            <li class="footer"><a href="#">View all</a></li>
                         </ul>
                     </li>
                     @endadmin
@@ -146,7 +134,9 @@
                 <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
+                    @auth
                 <p>{{ auth()->user()->name }}</p>
+                    @endauth
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

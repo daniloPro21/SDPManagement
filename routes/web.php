@@ -105,3 +105,7 @@ Auth::routes();
  */
 
 Route::get("/affectations","FicheAffectationController@index")->name("affectation.index");
+Route::post("/affectations","FicheAffectationController@store")->name("affectation.store");
+Route::get("/affectations/{id}","FicheAffectationController@edit")->name("affectation.edit");
+Route::post("/affectations/{id}","FicheAffectationController@update")->name("affectation.update");
+Route::get("/affectations/{id}/manage","FicheAffectationController@manage")->name("affectation.manage");
