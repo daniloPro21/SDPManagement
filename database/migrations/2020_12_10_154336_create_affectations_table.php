@@ -17,9 +17,14 @@ class CreateAffectationsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('poste_id');
             $table->unsignedBigInteger('personnel_id');
+            $table->unsignedBigInteger('structure_id');
             $table->unsignedBigInteger('fiche_affectation_id');
             $table->string('motif')->nullable();
             $table->string('date')->nullable();
+            $table->foreign("poste_id")->references("id")->on("postes");
+            $table->foreign("personnel_id")->references("id")->on("personnels");
+            $table->foreign("structure_id")->references("id")->on("structures");
+            $table->foreign("fiche_affectation_id")->references("id")->on("fiche_affectations");
             $table->timestamps();
         });
     }

@@ -141,4 +141,11 @@ Route::get("/affectations","FicheAffectationController@index")->name("affectatio
 Route::post("/affectations","FicheAffectationController@store")->name("affectation.store");
 Route::get("/affectations/{id}","FicheAffectationController@edit")->name("affectation.edit");
 Route::post("/affectations/{id}","FicheAffectationController@update")->name("affectation.update");
+Route::get("/affectations/{id}/print","FicheAffectationController@print")->name("affectation.print");
 Route::get("/affectations/{id}/manage","FicheAffectationController@manage")->name("affectation.manage");
+Route::post("/affectations/{id}/manage/add","AffectationController@new")->name("affectation.new");
+Route::get("/affectations/{id}/delete","AffectationController@delete")->name("affectation.delete");
+Route::get("/personnel/verificate/{mat}/{fiche}","AffectationController@getPersonnelFromMat")->name("personnel.find");
+Route::get("/affectation/pdf",function(){
+    return view("affectations.pdf");
+})->name("affect.pdf");

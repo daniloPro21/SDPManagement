@@ -16,4 +16,8 @@ class District extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function  structures(){
+        return $this->hasMany(Structure::class);
+    }
+
 }

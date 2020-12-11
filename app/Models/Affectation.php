@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\Structure;
 use Illuminate\Database\Eloquent\Model;
 
 class Affectation extends Model
 {
-    protected $fillable = ["date","personnel_id","poste_id","fiche_affectation_id","motif"];
+    protected $fillable = ["date","personnel_id","poste_id","structure_id","fiche_affectation_id","motif"];
 
 
     public function  personnel(){
-        return $this->belongsTo(Personnel::class,"Personnel_id");
+        return $this->belongsTo(Personnel::class,"personnel_id");
+    }
+
+    public function  structure(){
+        return $this->belongsTo(Structure::class,"structure_id");
     }
 
     public function  poste(){

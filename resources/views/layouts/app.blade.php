@@ -394,8 +394,15 @@
               ]
           } );
       } );
+        function imprimer(){
+            $('#no-print').remove();
+            var fiche=$('#fiche').html();
+            $('body').html(fiche);
+            window.print();
+            window.location.reload();
+        }
     </script>
-
+    @yield('extra-js')
 </body>
 
 </html>
