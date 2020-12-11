@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\District;
+use App\Groupe;
 use App\Models\Affectation;
 use App\Models\FicheAffectation;
 use App\Models\Personnel;
@@ -74,8 +75,9 @@ class FicheAffectationController extends Controller
 
     public  function  print($id){
         $fiche = FicheAffectation::findOrFail($id);
+        $groupes = Groupe::all();
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("affectations.pdf",$fiche);
+        $pdf->loadView("affectations.pdf",compact("fiche","groupes"));
         return $pdf->stream();
     }
 

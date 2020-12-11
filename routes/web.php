@@ -147,5 +147,7 @@ Route::post("/affectations/{id}/manage/add","AffectationController@new")->name("
 Route::get("/affectations/{id}/delete","AffectationController@delete")->name("affectation.delete");
 Route::get("/personnel/verificate/{mat}/{fiche}","AffectationController@getPersonnelFromMat")->name("personnel.find");
 Route::get("/affectation/pdf",function(){
-    return view("affectations.pdf");
+    $fiche = \App\Models\FicheAffectation::findOrFail(1);
+    dd($fiche->affectations->first()->poste);
+    return view("affectations.pdf",compact('fiche'));
 })->name("affect.pdf");

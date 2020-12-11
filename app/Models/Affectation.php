@@ -18,7 +18,7 @@ class Affectation extends Model
         return $this->belongsTo(Structure::class,"structure_id");
     }
 
-    public function  poste(){
+    public function poste(){
         return $this->belongsTo(Poste::class,"poste_id");
     }
 
