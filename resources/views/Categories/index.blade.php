@@ -37,7 +37,7 @@
                         </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Select</label>
+                                    <label>Selectionnez le groupe</label>
                                     <select name="groupe_id" class="form-control" required>
                                         @foreach($groupes as $groupe)
                                             <option value="{{$groupe->id}}">{{$groupe->nom}}</option>
@@ -66,6 +66,7 @@
                             <th>ID</th>
                             <th>Nom</th>
                             <th>description</th>
+                            <th>groupe</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -75,6 +76,7 @@
                                 <td>{{$categorie->id}}</td>
                                 <td>{{ $categorie->nom }}</td>
                                 <td>{{ $categorie->description }}</td>
+                                <td>{{ $categorie->groupe->nom }}</td>
                                 <form action="{{ route('categorie.delete', $categorie->id)  }}" method="POST">
                                     @csrf
                                     @method('DELETE')

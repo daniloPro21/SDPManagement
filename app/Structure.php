@@ -9,12 +9,12 @@ class Structure extends Model
 
 
     protected $fillable = [
-        'nom','catagorie_id','district_id'
+        'nom','categorie_id','district_id'
     ];
 
     public function categorie()
     {
-        return $this->belongsTo(Categorie::class, 'catagorie_id');
+        return $this->belongsTo(Categorie::class, 'categorie_id');
     }
 
     public function district()
