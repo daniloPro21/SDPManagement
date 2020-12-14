@@ -8,20 +8,22 @@
         .table {
             width: 100%;
             margin-bottom: 0.5rem;
-            color: #212529;
         }
+
         .table th,
         .table td {
             padding: 0.50rem;
             vertical-align: top;
-            border-top: 1px solid #dee2e6;
+            border-top: 1px solid #222;
         }
+
         .table thead th {
             vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
+            border-bottom: 2px solid #222;
         }
+
         .table tbody + tbody {
-            border-top: 2px solid #dee2e6;
+            border-top: 2px solid #222;
         }
 
         .table-sm th,
@@ -30,12 +32,14 @@
         }
 
         .table-bordered {
-            border: 1px solid #dee2e6;
+            border: 1px solid #222;
         }
+
         .table-bordered th,
         .table-bordered td {
-            border: 1px solid #dee2e6;
+            border: 1px solid #222;
         }
+
         .table-bordered thead th,
         .table-bordered thead td {
             border-bottom-width: 2px;
@@ -47,13 +51,25 @@
         .table-borderless tbody + tbody {
             border: 0;
         }
+
         #listeP {
             border-collapse: collapse;
             text-align: center;
         }
-        #listeP{
+
+        #listeP {
             padding: 0 !important;
         }
+
+        #listeP .firsthead{
+            background-color: rgb(148,138,84) !important;
+        }
+
+        #listeP .secondhead{
+            background-color: rgb(196,188,150) !important;
+        }
+
+
         <!--
         /* Font Definitions */
         @font-face {
@@ -268,15 +284,16 @@
 
         -->
     </style>
+    <title> {{ $fiche->titre }}</title>
 
 </head>
 
 <body lang=EN-US link=blue vlink=purple style='word-wrap:break-word'>
 
 <div class=WordSection1>
-<!--
-TODO Ajust header here
--->
+    <!--
+    TODO Ajust header here
+    -->
     <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
            width=760 style='width:500.75pt;border-collapse:collapse;margin-left:4.8pt;
  margin-right:4.8pt'>
@@ -351,21 +368,22 @@ TODO Ajust header here
                                                                     style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>&nbsp;</span>
     </p>
 
-    <p  style="text-align: center"><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif;
+    <p style="text-align: center"><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif;
 color:black'>   DECISION N°</span><span lang=FR style='font-family:"Tahoma",sans-serif;
-color:black'>___________  /</span><span lang=FR style='font-size:11.0pt;
-font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR style='font-family:"Tahoma",sans-serif;color:black'>/</span><span
+color:black'><u>{{ $fiche->numero_decision }}</u> /</span><span lang=FR style='font-size:11.0pt;
+font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
+                                                           style='font-family:"Tahoma",sans-serif;color:black'>/</span><span
             lang=FR
-            style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span lang=FR style='font-family:"Tahoma",sans-serif;color:black'>
-___________</span></p>
+            style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span
+            lang=FR style='font-family:"Tahoma",sans-serif;color:black'><u> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</u></span></p>
 
     <p class=MsoNormal align=center style='margin-top:0in;margin-right:49.6pt;
 margin-bottom:0in;margin-left:56.7pt;margin-bottom:.0001pt;text-align:center'><b><span
                 lang=FR style='font-size:2.0pt;font-family:"Tahoma",sans-serif;color:black'>&nbsp;</span></b></p>
 
-    <p class=MsoNormal style='text-align: center;'><b><span lang=FR
-                                                            style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'>   Portant
-affectation de personnels en service au Ministère de la Santé Publique</span></b></p>
+    <p class=MsoNormal style='text-align: center;'><b><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
+        {{ $fiche->titre }}
+        </b></p>
 
     <p class=MsoNormal align=center style='text-align:center'><span lang=FR
                                                                     style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span>
@@ -505,38 +523,41 @@ affectation de personnels en service au Ministère de la Santé Publique</span><
 0in;margin-left:70.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:
 -70.9pt'><b><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'><u>Article
 1</u><sup>er</sup> : </span></b><span
-            lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>A compter de
-la date de signature de la présente Décision, les personnels dont les noms
-suivent, en service au Ministère de la Santé Publique, sont affectés ainsi
-qu’il suit&nbsp;:</span></p>
+            lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>
+            {!! $fiche->decision !!}
+        </span></p>
 
     <p class=MsoNormal style='margin-right:-.05pt'><span lang=FR style='font-size:
 8.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
 
     <p class=MsoNormal style='margin-top:0in;margin-right:-.05pt;margin-bottom:
 0in;margin-left:70.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:
--70.9pt'><b><u><span lang=FR ><span
+-70.9pt'><b><u><span lang=FR><span
                         style='text-decoration:none'>&nbsp;</span></span></u></b></p>
-<table style='font-size: 12px;font-family:"Tahoma",sans-serif;width: 100%;border: 1px solid #222;' id="listeP" class="table table-bordered">
-   <thead>
-   <tr>
-       <th>Nom et Prenom</th>
-       <th>Matricule</th>
-       <th>Structure d'Affectation</th>
-       <th>Poste</th>
-   </tr>
-   </thead>
-    <tbody>
-    @foreach($fiche->affectations as $affectation)
-        <tr>
-            <td>{{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</td>
-            <td>{{ $affectation->personnel->matricule }}</td>
-            <td>{{ $affectation->structure->nom }}</td>
-            <td>{{ $affectation->poste->nom }}</td>
+    <table style='font-size: 12px;font-family:"Tahoma",sans-serif;width: 100%;border: 1px solid #222;' id="listeP"
+           class="table table-bordered">
+        <thead>
+        <tr class="firsthead">
+            <td colspan="3" style="font-weight: bold;">
+                {{ "Struture Rare" }}
+            </td>
         </tr>
-    @endforeach
-    </tbody>
-</table>
+        <tr class="secondhead" style="text-transform: uppercase">
+            <th>N°</th>
+            <th>Nom et Prenom</th>
+            <th>Structure d'Affectation</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($fiche->affectations as $affectation)
+            <tr>
+                <td>{{ $loop->index+1 }}</td>
+                <td style="text-align: left !important;">@if($affectation->personnel->sexe == "Feminin") Madame @else Monsieur @endif <b style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b></td>
+                <td style="text-align: left !important;">{{ $affectation->structure->nom }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
     <p class=MsoNormal style='margin-left:70.9pt;text-align:justify;text-indent:
 -70.9pt'><b><u><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Article
 2</span></u></b><b><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>.-</span></b><span
@@ -551,7 +572,7 @@ jours qui suivent la signature de la présente Décision.</span></p>
 -70.9pt'><b><u><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Article
 3</span></u></b><b><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>.-</span></b><span
             lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>  La présente
-Décision sera enregistrée, publiée puis communiquée partout où besoin sera. /- </span></p>
+Décision sera enregistrée, publiée puis communiquée partout où besoin sera. </span></p>
 
     <p class=MsoListParagraphCxSpFirst style='margin-left:14.2pt'><b><span lang=FR
                                                                            style='font-size:6.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b>

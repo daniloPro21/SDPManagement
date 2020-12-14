@@ -24,13 +24,14 @@ Affectation
                         <div class="info-box-content">
                             <span class="info-box-number" style="font-size: 12px;">{{ $affectation->type }}</span>
                             <span class="info-box-text">{{ $affectation->numero_decision}}</span>
-                            <small class="text-mu">
+                            <br>
+                            <small class="text-muted">
                                 {{ Carbon\Carbon::createFromFormat("Y-m-d",$affectation->date)->format("d/m/Y") }}</small><br>
-                            <small style="display: flex;justify-content: right">
+                            <small style="display: flex;justify-content: right;bottom: 0;">
                               @if($affectation->etat=="ouvert")
-                                    <i class="text-truncate badge badge-green bg-green">{{  $affectation->etat }}</i>
+                                    <i class="badge badge-green bg-green">{{  $affectation->etat }}</i>
                                   @else
-                                    <i class="text-truncate badge badge-red bg-red">Cloturé</i>
+                                    <i class="badge badge-red bg-red">Cloturé</i>
                                 @endif
                             </small>
                         </div>
@@ -77,15 +78,15 @@ Affectation
                         <div class="form-group col-md-12">
                             <label for="type">Type</label>
                             <select name="type" class="form-control" id="type">
-                                <option value="AFFECTATION LAUREAT Concours Direct">AFFECTATION LAUREAT Concours Direct</option>
-                                <option value="AFFECTATION MOTIFS DIVERS">AFFECTATION MOTIFS DIVERS</option>
-                                <option value="AFFECTATION DE PERSONNELS DE RETOUR DE STAGE">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
+                                <option value="1">AFFECTATION LAUREAT Concours Direct</option>
+                                <option value="2">AFFECTATION MOTIFS DIVERS</option>
+                                <option value="3">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
                             </select>
                         </div>
                     </div>
                         <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="decision">Decision</label>
+                            <label for="decision">Article 1<sup>er</sup></label>
                             <textarea name="note" id="decision"  rows="10" class="form-control"></textarea>
                         </div>
                 </div>

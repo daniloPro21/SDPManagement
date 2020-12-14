@@ -19,7 +19,7 @@ class CreateFicheAffectationsTable extends Migration
             $table->string("type");
             $table->string("date")->nullable();
             $table->string("numero_decision")->nullable();
-            $table->string("titre")->nullable();
+            $table->text("titre")->nullable();
             $table->text("decision")->nullable();
             $table->enum("etat",["ouvert","cloturer"])->default("ouvert");
             $table->timestamps();
