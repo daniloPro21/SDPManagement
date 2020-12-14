@@ -7,12 +7,12 @@
 
         .table {
             width: 100%;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.1rem;
         }
 
         .table th,
         .table td {
-            padding: 0.50rem;
+            padding: 0.10rem;
             vertical-align: top;
             border-top: 1px solid #222;
         }
@@ -376,19 +376,9 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
             lang=FR
             style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span
             lang=FR style='font-family:"Tahoma",sans-serif;color:black'><u> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</u></span></p>
-
-    <p class=MsoNormal align=center style='margin-top:0in;margin-right:49.6pt;
-margin-bottom:0in;margin-left:56.7pt;margin-bottom:.0001pt;text-align:center'><b><span
-                lang=FR style='font-size:2.0pt;font-family:"Tahoma",sans-serif;color:black'>&nbsp;</span></b></p>
-
     <p class=MsoNormal style='text-align: center;'><b><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
         {{ $fiche->titre }}
         </b></p>
-
-    <p class=MsoNormal align=center style='text-align:center'><span lang=FR
-                                                                    style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span>
-    </p>
-
     <p class=MsoFooter align=center style='text-align:center'><b><span lang=FR
                                                                        style='font-family:"Tahoma",sans-serif'>LE MINISTRE DE LA SANTE PUBLIQUE</span></b><span
             lang=FR style='font-size:14.0pt;font-family:"Tahoma",sans-serif'>,</span></p>
@@ -534,30 +524,32 @@ margin-bottom:0in;margin-left:56.7pt;margin-bottom:.0001pt;text-align:center'><b
 0in;margin-left:70.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:
 -70.9pt'><b><u><span lang=FR><span
                         style='text-decoration:none'>&nbsp;</span></span></u></b></p>
-    <table style='font-size: 12px;font-family:"Tahoma",sans-serif;width: 100%;border: 1px solid #222;' id="listeP"
-           class="table table-bordered">
-        <thead>
-        <tr class="firsthead">
-            <td colspan="3" style="font-weight: bold;">
-                {{ "Struture Rare" }}
-            </td>
-        </tr>
-        <tr class="secondhead" style="text-transform: uppercase">
-            <th>N°</th>
-            <th>Nom et Prenom</th>
-            <th>Structure d'Affectation</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($fiche->affectations as $affectation)
-            <tr>
-                <td>{{ $loop->index+1 }}</td>
-                <td style="text-align: left !important;">@if($affectation->personnel->sexe == "Feminin") Madame @else Monsieur @endif <b style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b></td>
-                <td style="text-align: left !important;">{{ $affectation->structure->nom }}</td>
+    @foreach($donnees as $key => $donnee)
+        <table style='font-size: 12px;font-family:"Tahoma",sans-serif;width: 100%;border: 1px solid #222;' id="listeP"
+               class="table table-bordered">
+            <thead>
+            <tr class="firsthead">
+                <td colspan="3" style="font-weight: bold;">
+                    {{ $key }}
+                </td>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            <tr class="secondhead" style="text-transform: uppercase">
+                <th>N°</th>
+                <th>Nom et Prenom</th>
+                <th>Structure d'Affectation</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($donnee->affectations as $affectation)
+                <tr>
+                    <td>{{ $loop->index+1 }}</td>
+                    <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin") Madame @else Monsieur @endif <b style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b></td>
+                    <td style="text-align: left !important; padding-left: 2%">{{ $affectation->structure->nom }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endforeach
     <p class=MsoNormal style='margin-left:70.9pt;text-align:justify;text-indent:
 -70.9pt'><b><u><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Article
 2</span></u></b><b><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>.-</span></b><span
@@ -573,19 +565,6 @@ jours qui suivent la signature de la présente Décision.</span></p>
 3</span></u></b><b><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>.-</span></b><span
             lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif'>  La présente
 Décision sera enregistrée, publiée puis communiquée partout où besoin sera. </span></p>
-
-    <p class=MsoListParagraphCxSpFirst style='margin-left:14.2pt'><b><span lang=FR
-                                                                           style='font-size:6.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b>
-    </p>
-
-    <p class=MsoListParagraphCxSpMiddle style='margin-left:14.2pt'><b><span
-                lang=FR style='font-size:6.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b></p>
-
-    <p class=MsoListParagraphCxSpMiddle style='margin-left:14.2pt'><b><span
-                lang=FR style='font-size:6.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b></p>
-
-    <p class=MsoListParagraphCxSpMiddle style='margin-left:14.2pt'><b><span
-                lang=FR style='font-size:6.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b></p>
 
     <p class=MsoListParagraphCxSpMiddle style='margin-left:14.2pt'><span
             style='position:relative;z-index:2;left:-9px;top:2px;width:226px;height:176px'>

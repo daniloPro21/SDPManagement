@@ -101,12 +101,22 @@
                     <div class="row" id="no-print">
                         <div class="col-xs-12">
                             <a href="{{ route('affectation.print',$fiche->id) }}"  class="btn btn-success"><i class="fa fa-print"></i> Imprimer</a>
-
-                            <button type="button" class="btn btn-primary pull-right mr-3"
-                                    style="margin-right: 3% !important;" data-toggle="modal"
-                                    data-target="#affectationModal"><i class="fa fa-plus-circle"></i> Nouvelle
-                                affectation
-                            </button>
+                            @if($fiche->etat == "ouvert")
+                                <button type="button" class="btn btn-primary pull-right mr-3"
+                                        style="margin-right: 3% !important;" data-toggle="modal"
+                                        data-target="#affectationModal"><i class="fa fa-plus-circle"></i> Nouvelle
+                                    affectation
+                                </button>
+                                <a href="{{ route("affectation.lock",$fiche->id) }}" onclick="return confirm('Voulez vous réelement cloturé ce dossier?');" class="btn btn-warning pull-right mr-3"
+                                   style="margin-right: 3% !important;"
+                                ><i class="fa fa-lock"></i> Clotûrer la liste
+                                </a>
+                                @else
+                                <a href="{{ route("affectation.unlock",$fiche->id) }}" onclick="return confirm('Voulez vous réelement Ré-ouvrir ce dossier?');" class="btn btn-primary pull-right mr-3"
+                                   style="margin-right: 3% !important;"
+                                ><i class="fa fa-unlock"></i>  Ré-ouvrir le dossier
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </section>

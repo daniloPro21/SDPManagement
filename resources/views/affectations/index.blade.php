@@ -24,7 +24,6 @@ Affectation
                         <div class="info-box-content">
                             <span class="info-box-number" style="font-size: 12px;">{{ $affectation->type }}</span>
                             <span class="info-box-text">{{ $affectation->numero_decision}}</span>
-                            <br>
                             <small class="text-muted">
                                 {{ Carbon\Carbon::createFromFormat("Y-m-d",$affectation->date)->format("d/m/Y") }}</small><br>
                             <small style="display: flex;justify-content: right;bottom: 0;">
@@ -60,34 +59,33 @@ Affectation
                     <input type="hidden" name="etat" value="ouvert">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="titre">Titre</label>
-                                <input type="text" name="num_sdp" class="form-control" id="titre" autocomplete="false" required>
-                            </div>
+                                <label for="decision">Numero de Decision</label>
+                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="entre le nom du proprietaire"></div>
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
-                                <input type="date" name="date" class="form-control" id="date"  autocomplete="false" required>
+                                <input type="date" name="date" class="form-control" style="padding: 0 !important; padding-left: 4% !important;" id="date"  autocomplete="false" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="decision">Numero de Decision</label>
-                                <input type="text" name="nom" id="" class="form-control" autocomplete="false" placeholder="entre le nom du proprietaire">
+                                <label for="titre">Titre</label>
+                                <textarea name="titre" class="form-control" rows="4" id="titre" autocomplete="false" required></textarea>
                             </div>
                         </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="type">Type</label>
                             <select name="type" class="form-control" id="type">
-                                <option value="1">AFFECTATION LAUREAT Concours Direct</option>
-                                <option value="2">AFFECTATION MOTIFS DIVERS</option>
-                                <option value="3">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
+                                <option value="AFFECTATION LAUREAT CONCOURS DIRECT">AFFECTATION LAUREAT CONCOURS DIRECT</option>
+                                <option value="AFFECTATION MOTIFS DIVERS">AFFECTATION MOTIFS DIVERS</option>
+                                <option value="AFFECTATION DE PERSONNELS DE RETOUR DE STAGE">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
                             </select>
                         </div>
                     </div>
                         <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="decision">Article 1<sup>er</sup></label>
-                            <textarea name="note" id="decision"  rows="10" class="form-control"></textarea>
+                            <textarea name="decision" id="decision"  rows="6" class="form-control"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">

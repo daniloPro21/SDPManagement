@@ -138,6 +138,8 @@ Auth::routes();
  * Route Pour les affectations
  */
 Route::get("/affectations","FicheAffectationController@index")->name("affectation.index");
+Route::get("/affectations/lock/{id}","FicheAffectationController@lock")->name("affectation.lock");
+Route::get("/affectations/unlock/{id}","FicheAffectationController@unlock")->name("affectation.unlock");
 Route::post("/affectations","FicheAffectationController@store")->name("affectation.store");
 Route::get("/affectations/{id}","FicheAffectationController@edit")->name("affectation.edit");
 Route::post("/affectations/{id}","FicheAffectationController@update")->name("affectation.update");
