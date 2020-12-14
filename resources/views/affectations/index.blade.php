@@ -22,7 +22,7 @@ Affectation
                         <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-number" style="font-size: 12px;">{{ $affectation->type }}</span>
+                            <span class="info-box-number" style="font-size: 12px;">{{ substr($affectation->type,0,30) }}</span>
                             <span class="info-box-text">{{ $affectation->numero_decision}}</span>
                             <small class="text-muted">
                                 {{ Carbon\Carbon::createFromFormat("Y-m-d",$affectation->date)->format("d/m/Y") }}</small><br>
@@ -60,7 +60,7 @@ Affectation
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="decision">Numero de Decision</label>
-                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="entre le nom du proprietaire"></div>
+                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="Numero de Decision"></div>
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
                                 <input type="date" name="date" class="form-control" style="padding: 0 !important; padding-left: 4% !important;" id="date"  autocomplete="false" required>
