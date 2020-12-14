@@ -24,8 +24,15 @@ Affectation
                         <div class="info-box-content">
                             <span class="info-box-number" style="font-size: 12px;">{{ $affectation->type }}</span>
                             <span class="info-box-text">{{ $affectation->numero_decision}}</span>
-                            <small class="text-mu">{{ $affectation->date}}</small><br>
-                            <small><i class="text-truncate" style="font-size: 12px">{{  $affectation->etat }}</i></small>
+                            <small class="text-mu">
+                                {{ Carbon\Carbon::createFromFormat("Y-m-d",$affectation->date)->format("d/m/Y") }}</small><br>
+                            <small style="display: flex;justify-content: right">
+                              @if($affectation->etat=="ouvert")
+                                    <i class="text-truncate badge badge-green bg-green">{{  $affectation->etat }}</i>
+                                  @else
+                                    <i class="text-truncate badge badge-red bg-red">Cloturé</i>
+                                @endif
+                            </small>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -86,8 +93,8 @@ Affectation
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="submit"  class="btn btn-primary">Enregistrer</button>
                 </div>
-                </form>
             </div>
+                </form>
         </div>
     </div>
 
