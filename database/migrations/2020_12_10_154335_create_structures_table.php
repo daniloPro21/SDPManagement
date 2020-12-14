@@ -18,9 +18,9 @@ class CreateStructuresTable extends Migration
             $table->string('nom');
             $table->boolean('is_delete')->nullable();
             $table->unsignedBigInteger('district_id');
-            $table->unsignedBigInteger('catagorie_id');
+            $table->unsignedBigInteger('categorie_id');
             $table->foreign('district_id')->references('id')->on('districts');
-            $table->foreign('catagorie_id')->references('id')->on('categories');
+            $table->foreign('categorie_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@
                         </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Select</label>
+                                    <label>Selectionner la categorie</label>
                                     <select name="categorie_id" class="form-control" required>
                                         @foreach($categories as $categorie)
                                             <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Select</label>
+                                    <label>Selectionner le district</label>
                                     <select name="district_id" class="form-control" required>
                                         @foreach($districts as $district)
                                             <option value="{{$district->id}}">{{$district->nom}}</option>

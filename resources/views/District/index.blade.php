@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>Select</label>
+                                <label>Selectionnez la region</label>
                                 <select name="region_id" class="form-control">
                                     @foreach($regions as $region)
                                     <option value="{{$region->id}}">{{$region->nom}}</option>

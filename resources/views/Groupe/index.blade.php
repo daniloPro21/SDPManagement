@@ -48,7 +48,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Categorie</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -57,7 +56,6 @@
                             <tr>
                                 <td>{{$groupe->id}}</td>
                                 <td>{{ $groupe->nom }}</td>
-                                <td>{{ $groupe->categorie->nom }}</td>
                                 <form action="{{ route('groupe.delete', ['id' => $groupe->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
