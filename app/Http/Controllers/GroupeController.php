@@ -17,9 +17,7 @@ class GroupeController extends Controller
     public function index()
     {
         $groupes =  Groupe::all()->where('is_delete', '=', false);
-        $categories =  Categorie::all()->where('is_delete', '=', false);
-
-        return view('Groupe.index', compact('groupes', 'categories'));
+        return view('Groupe.index', compact('groupes'));
     }
 
     /**

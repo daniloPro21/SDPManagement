@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorie;
+use App\Groupe;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class CategorieController extends Controller
     public function index()
     {
         $categories =  Categorie::all()->where('is_delete', '=', false);
-        return view('Categories.index', compact('categories'));
+        $groupes =  Groupe::all()->where('is_delete', '=', false);
+
+        return view('Categories.index', compact('categories','groupes'));
     }
 
     /**

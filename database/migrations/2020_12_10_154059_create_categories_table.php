@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->String('nom');
             $table->string('description');
             $table->boolean('is_delete')->nullable();
+            $table->unsignedBigInteger('groupe_id');
+            $table->foreign('groupe_id')->references('id')->on('groupes');
             $table->timestamps();
         });
     }

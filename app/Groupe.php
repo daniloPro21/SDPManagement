@@ -9,12 +9,9 @@ class Groupe extends Model
 
 
     protected $fillable = [
-      'nom', 'categorie_id'
+      'nom',
     ];
 
-    public function categorie()
-    {
-        return $this->belongsTo(Categorie::class, 'categorie_id');
-    }
+
 
 }

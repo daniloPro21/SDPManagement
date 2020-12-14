@@ -29,16 +29,6 @@
                                 <input type="text" name="nom" required class="form-control"  id="nom" >
                             </div>
                         </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Select</label>
-                                    <select name="categorie_id" class="form-control" required>
-                                        @foreach($categories as $categorie)
-                                            <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
 
                         <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
                     </div>
