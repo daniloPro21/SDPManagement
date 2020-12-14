@@ -7,7 +7,7 @@
 
         .table {
             width: 100%;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.5rem;
         }
 
         .table th,
@@ -540,7 +540,7 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
             </tr>
             </thead>
             <tbody>
-            @foreach($donnee->affectations as $affectation)
+            @foreach($donnee as $affectation)
                 <tr>
                     <td>{{ $loop->index+1 }}</td>
                     <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin") Madame @else Monsieur @endif <b style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b></td>
