@@ -29,7 +29,7 @@ class AffectationController extends Controller
         $present = false;
         if ($personnel) {
             foreach ($ficheAf->affectations as $affectation) {
-                if ($affectation->personnel_id = $personnel->id) {
+                if ($affectation->personnel_id == $personnel->id) {
                     $present = true;
                 }
             }
@@ -69,7 +69,7 @@ class AffectationController extends Controller
             $pers->present = false;
             $ficheAf = FicheAffectation::findOrFail($fiche);
             foreach ($ficheAf->affectations as $affectation) {
-                if ($affectation->personnel_id = $pers->id) {
+                if ($affectation->personnel_id == $pers->id) {
                     $pers->present = true;
                 }
             }

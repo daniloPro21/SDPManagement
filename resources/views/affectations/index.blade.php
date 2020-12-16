@@ -22,15 +22,15 @@ Affectation
                         <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-number" style="font-size: 12px;">{{ $affectation->type }}</span>
+                            <span class="info-box-number" style="font-size: 12px;">{{ substr($affectation->type,0,30) }}</span>
                             <span class="info-box-text">{{ $affectation->numero_decision}}</span>
-                            <small class="text-mu">
+                            <small class="text-muted">
                                 {{ Carbon\Carbon::createFromFormat("Y-m-d",$affectation->date)->format("d/m/Y") }}</small><br>
-                            <small style="display: flex;justify-content: right">
+                            <small style="display: flex;justify-content: right;bottom: 0;">
                               @if($affectation->etat=="ouvert")
-                                    <i class="text-truncate badge badge-green bg-green">{{  $affectation->etat }}</i>
+                                    <i class="badge badge-green bg-green">{{  $affectation->etat }}</i>
                                   @else
-                                    <i class="text-truncate badge badge-red bg-red">Cloturé</i>
+                                    <i class="badge badge-red bg-red">Cloturé</i>
                                 @endif
                             </small>
                         </div>
@@ -59,25 +59,24 @@ Affectation
                     <input type="hidden" name="etat" value="ouvert">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="titre">Titre</label>
-                                <input type="text" name="num_sdp" class="form-control" id="titre" autocomplete="false" required>
-                            </div>
+                                <label for="decision">Numero de Decision</label>
+                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="Numero de Decision"></div>
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
-                                <input type="date" name="date" class="form-control" id="date"  autocomplete="false" required>
+                                <input type="date" name="date" class="form-control" style="padding: 0 !important; padding-left: 4% !important;" id="date"  autocomplete="false" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="decision">Numero de Decision</label>
-                                <input type="text" name="nom" id="" class="form-control" autocomplete="false" placeholder="entre le nom du proprietaire">
+                                <label for="titre">Titre</label>
+                                <textarea name="titre" class="form-control" rows="4" id="titre" autocomplete="false" required></textarea>
                             </div>
                         </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="type">Type</label>
                             <select name="type" class="form-control" id="type">
-                                <option value="AFFECTATION LAUREAT Concours Direct">AFFECTATION LAUREAT Concours Direct</option>
+                                <option value="AFFECTATION LAUREAT CONCOURS DIRECT">AFFECTATION LAUREAT CONCOURS DIRECT</option>
                                 <option value="AFFECTATION MOTIFS DIVERS">AFFECTATION MOTIFS DIVERS</option>
                                 <option value="AFFECTATION DE PERSONNELS DE RETOUR DE STAGE">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
                             </select>
@@ -85,8 +84,8 @@ Affectation
                     </div>
                         <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="decision">Decision</label>
-                            <textarea name="note" id="decision"  rows="10" class="form-control"></textarea>
+                            <label for="decision">Article 1<sup>er</sup></label>
+                            <textarea name="decision" id="decision"  rows="6" class="form-control"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
