@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dossier;
+use App\Models\Personnel;
 use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -72,22 +73,41 @@ class DossierController extends Controller
             'telephone' => 'required'
         ));
 
-        $dossier = new Dossier();
-        $dossier->num_sdp = $data['num_sdp'];
-        $dossier->num_dra = $data['num_dra'];
-        $dossier->date_entre = $data['date_entre'];
-        $dossier->nom = $data['nom'];
-        $dossier->prenom = $data['prenom'];
-        $dossier->grade = $data['grade'];
-        $dossier->telephone = $data['telephone'];
-        $dossier->matricule = $data['matricule'];
-        $dossier->type_id = $data['type_id'];
-        $dossier->note = $data['note'];
 
 
-        $dossier->save();
+       try{
+           $dossier = new Dossier();
+           $dossier->num_sdp = $data['num_sdp'];
+           $dossier->num_dra = $data['num_dra'];
+           $dossier->date_entre = $data['date_entre'];
+           $dossier->nom = $data['nom'];
+           $dossier->prenom = $data['prenom'];
+           $dossier->grade = $data['grade'];
+           $dossier->telephone = $data['telephone'];
+           $dossier->matricule = $data['matricule'];
+           $dossier->type_id = $data['type_id'];
+           $dossier->note = $data['note'];
 
-        Toastr()->success("Enregistrement Effectué");
+
+           $verification = Personnel::where("matricule",$data['matricule'])->count();
+
+
+           if($verification<=0){
+               $personnel = new Personnel();
+               $personnel->nom = $data['nom'];
+               $personnel->prenom = $data['prenom'];
+               $personnel->matricule = $data['matricule'];
+               $personnel->sexe = $request->sexe;
+               $personnel->grade = $data['grade'];
+               $personnel->telephone = $data['telephone'];
+               $personnel->save();
+           }
+
+           $dossier->save();
+           Toastr()->success("Enregistrement Effectué","terminé");
+       }catch (\Exception  $exception){
+           Toastr()->error("Erreur durant la sauvegarde ".$exception->getMessage(),"Echec");
+       }
 
 
         return redirect()->back();

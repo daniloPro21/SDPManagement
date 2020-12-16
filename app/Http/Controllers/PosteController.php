@@ -14,13 +14,18 @@ class PosteController extends Controller
     }
 
     public  function  store(Request $request){
-        $poste = Poste::create($request->all());
-        Toastr()->success("Enregistrement Effectué");
+        try{
+            $poste = Poste::create($request->all());
+           Toastr()->success("Enregistrement Effectué","terminé");
+       }catch (\Exception  $exception){
+            Toastr()->error("Erreur durant la sauvegarde ".$exception->getMessage(),"Echec");
+        }
         return redirect()->back();
     }
 
     public  function  edit($id){
         $poste = Poste::findOrFail($id);
+
         return view("postes.update",compact("poste"));
     }
 

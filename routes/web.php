@@ -142,6 +142,9 @@ Route::get("/affectations/lock/{id}","FicheAffectationController@lock")->name("a
 Route::get("/affectations/unlock/{id}","FicheAffectationController@unlock")->name("affectation.unlock");
 Route::post("/affectations","FicheAffectationController@store")->name("affectation.store");
 Route::get("/affectations/{id}","FicheAffectationController@edit")->name("affectation.edit");
+
+Route::get("/ficheaffectation/delete/{id}","FicheAffectationController@delete")->name("ficheaffectation.delete");
+
 Route::post("/affectations/{id}","FicheAffectationController@update")->name("affectation.update");
 Route::get("/affectations/{id}/print","FicheAffectationController@print")->name("affectation.print");
 Route::get("/affectations/{id}/manage","FicheAffectationController@manage")->name("affectation.manage");

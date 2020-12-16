@@ -61,14 +61,13 @@
             padding: 0 !important;
         }
 
-        #listeP .firsthead{
-            background-color: rgb(148,138,84) !important;
+        #listeP .firsthead {
+            background-color: rgb(148, 138, 84) !important;
         }
 
-        #listeP .secondhead{
-            background-color: rgb(196,188,150) !important;
+        #listeP .secondhead {
+            background-color: rgb(196, 188, 150) !important;
         }
-
 
         <!--
         /* Font Definitions */
@@ -375,9 +374,12 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
                                                            style='font-family:"Tahoma",sans-serif;color:black'>/</span><span
             lang=FR
             style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span
-            lang=FR style='font-family:"Tahoma",sans-serif;color:black'><u> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</u></span></p>
-    <p class=MsoNormal style='text-align: center;'><b><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
-        {{ $fiche->titre }}
+            lang=FR
+            style='font-family:"Tahoma",sans-serif;color:black'><u> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</u></span>
+    </p>
+    <p class=MsoNormal style='text-align: center;'><b><span lang=FR
+                                                            style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
+            {{ $fiche->titre }}
         </b></p>
     <p class=MsoFooter align=center style='text-align:center'><b><span lang=FR
                                                                        style='font-family:"Tahoma",sans-serif'>LE MINISTRE DE LA SANTE PUBLIQUE</span></b><span
@@ -543,7 +545,10 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
             @foreach($donnee as $affectation)
                 <tr>
                     <td>{{ $loop->index+1 }}</td>
-                    <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin") Madame @else Monsieur @endif <b style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b></td>
+                    <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin")
+                            Madame @else Monsieur @endif <b
+                            style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b>
+                    </td>
                     <td style="text-align: left !important; padding-left: 2%">{{ $affectation->structure->nom }}</td>
                 </tr>
             @endforeach

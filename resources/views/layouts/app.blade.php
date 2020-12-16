@@ -355,6 +355,7 @@
     <script src="{{ asset('dist/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('dist/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('dist/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function () {
             $('#example1').DataTable();
@@ -394,6 +395,11 @@
             window.print();
             window.location.reload();
         }
+        // TODO : customize textarea editor
+       /* $('.textareaFeat').wysihtml5({
+            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+        }); */
+       // CKEDITOR.replace('decision')
     </script>
     @yield('extra-js')
 </body>

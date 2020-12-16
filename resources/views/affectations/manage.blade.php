@@ -15,10 +15,9 @@
                     <!-- title row -->
                     <div class="row">
                         <div class="col-xs-12">
+                            <a onclick="return confirm('voulez vous vraiment effectuer cette action')" href="{{ route("ficheaffectation.delete",$fiche->id) }}" class="btn btn-danger pull-right">Supprimer</a>
                             <h2 class="page-header">
-                                <i class="fa fa-edit"></i> {{ $fiche->type }}
-                                <small
-                                    class="pull-right"> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</small>
+                                <i class="fa fa-edit"></i> {{ $fiche->type }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}
                             </h2>
                         </div>
                         <!-- /.col -->

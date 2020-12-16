@@ -230,11 +230,20 @@
                                     @endforeach
                                   </select>
                               </div>
+                              <div class="form-group col-md-6">
+                                  <label for="sexe">Sexe</label>
+                                  <select class="form-control" name="sexe">
+                                      <option value="Masculin">Masculin</option>
+                                      <option value="Feminin">Feminin</option>
+                                  </select>
+                              </div>
                           </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputPassword4">Note</label>
-                            <textarea name="note" id="" cols="30" rows="10"></textarea>
-                          </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputPassword4">Note</label>
+                                <textarea name="note" class="form-control" id=""  rows="8"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -307,11 +316,20 @@
                                     @endforeach
                                   </select>
                               </div>
+                              <div class="form-group col-md-6">
+                                  <label for="sexe">Sexe</label>
+                                  <select class="form-control" name="sexe">
+                                      <option value="Masculin">Masculin</option>
+                                      <option value="Feminin">Feminin</option>
+                                  </select>
+                              </div>
                           </div>
-                          <div class="form-group col-md-6">
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
                             <label for="inputPassword4">Note</label>
                             <textarea name="note" id="" cols="30" rows="10"></textarea>
                           </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

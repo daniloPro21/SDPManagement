@@ -83,9 +83,9 @@ Affectation
                         </div>
                     </div>
                         <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12" style="font-size: 12px !important;">
                             <label for="decision">Article 1<sup>er</sup></label>
-                            <textarea name="decision" id="decision"  rows="6" class="form-control"></textarea>
+                            <textarea name="decision" id="decision"  rows="6" class="form-control textareaFeat"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">

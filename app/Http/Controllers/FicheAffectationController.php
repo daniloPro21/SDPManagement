@@ -35,7 +35,7 @@ class FicheAffectationController extends Controller
             Toastr()->success("Enregistrement effectuer Enregistré");
             return redirect()->back();
         } catch (\Exception $e) {
-            Toastr()->error($e->getMessage());
+            Toastr()->error("Erreur durant la sauvegarde :  ".$e->getMessage(),"Echec");
             return redirect()->back();
         }
     }
@@ -59,19 +59,24 @@ class FicheAffectationController extends Controller
     {
         try {
             FicheAffectation::Destroy($id);
-            Toastr()->success("Enregistrement effectuer Enregistré");
-            return redirect()->back();
+            Toastr()->success("Suppression Terminé","Terminé");
+            return redirect()->route("affectation.index");
         } catch (\Exception $e) {
-            Toastr()->error($e->getMessage());
+            Toastr()->error("Vous devez supprimer toutes les affectations liée a cette fiche avant de pouvoir l'effacer","Echec");
             return redirect()->back();
         }
+
     }
 
     public function update($id, Request $request)
     {
-        $fiche = FicheAffectation::findOrFail($id);
-        $fiche = $fiche->update($request->all());
-        Toastr()->success("Enregistrement effectuer Enregistré");
+        try{
+            $fiche = FicheAffectation::findOrFail($id);
+            $fiche = $fiche->update($request->all());
+            Toastr()->success("Enregistrement effectuer Enregistré");
+        }catch (\Exception $exception){
+            Toastr()->error("Erreur durant la sauvegarde : ".$exception->getMessage(),"Echec");
+        }
         return redirect()->back();
     }
 
