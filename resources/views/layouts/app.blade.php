@@ -207,35 +207,44 @@
                     <li><a href="{{ route('dossiers.list', 'traiter') }}"><i class="fa fa-circle-o"></i>traiter</a></li>
                 </ul>
                 </li>
-                <li>
-                    <a href="{{ route('dossier.group') }}">
-                        <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-gears"></i>
+                        <span>{{ __("Configuration")}}</span>
                     </a>
-                </li>
-                <li>
-                    <a href="{{ route('district.index') }}">
-                        <i class="fa fa-address-card"></i> <span>Districts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('region.index') }}">
-                        <i class="fa fa-address-card"></i> <span>Regions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('structure.index') }}">
-                        <i class="fa fa-address-card"></i> <span>Structures</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('groupe.index') }}">
-                        <i class="fa fa-address-card"></i> <span>Groupes</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('categorie.index') }}">
-                        <i class="fa fa-address-card"></i> <span>Categories</span>
-                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('groupe.index') }}">
+                                <i class="fa fa-users"></i> <span>Groupes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('region.index') }}">
+                                <i class="fa fa-globe"></i> <span>Regions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('categorie.index') }}">
+                                <i class="fa fa-bookmark"></i> <span>Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('district.index') }}">
+                                <i class="fa fa-building"></i> <span>Districts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('structure.index') }}">
+                                <i class="fa fa-building"></i> <span>Structures</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dossier.group') }}">
+                                <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
                 <li>
                 <a href="{{ route('admin.home')}}">
