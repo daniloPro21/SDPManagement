@@ -25,12 +25,12 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nom">Nom</label>
+                                <label for="nom">Nom du Groupe</label>
                                 <input type="text" name="nom" required class="form-control"  id="nom" >
                             </div>
                         </div>
 
-                        <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+                        <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
                     </div>
                     <div class="box-footer">
 
@@ -47,7 +47,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nom</th>
+                            <th>Nom du groupe</th>
                             <th>Action</th>
                         </tr>
                         </thead>

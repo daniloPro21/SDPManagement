@@ -35,7 +35,7 @@
                   <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici">{{ $poste->description }}</textarea>
                 </div>
               </div>
-              <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+              <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
         </div>
         <div class="box-footer">
 

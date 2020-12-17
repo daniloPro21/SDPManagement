@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title')
+   Personnels
+@endsection
 
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
@@ -71,7 +74,7 @@
                         <input type="date" name="date_naissance" required class="form-control"  id="date_naissance">
                     </div>
                 </div>
-              <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+              <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
         </div>
         <div class="box-footer">
 

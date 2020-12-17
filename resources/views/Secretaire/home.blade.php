@@ -119,9 +119,9 @@
                   <tr>
                     <th>SDP</th>
                     <th>DRH</th>
-                    <th>Proprietaire</th>
-                    <th>Date entre</th>
-                    <th>Date Sortie</th>
+                    <th>Propriétaire</th>
+                    <th>Date entrée</th>
+                    <th>Date sortie</th>
                     <th>Actions</th>
 
 
@@ -216,8 +216,11 @@
                                 <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
                               </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">Date D'entrée</label>
-                              <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
+                                <label for="sexe">Sexe</label>
+                                <select class="form-control" name="sexe">
+                                    <option value="Masculin">Masculin</option>
+                                    <option value="Feminin">Féminin</option>
+                                </select>
                             </div>
                           </div>
                           <div class="form-row">
@@ -231,11 +234,8 @@
                                   </select>
                               </div>
                               <div class="form-group col-md-6">
-                                  <label for="sexe">Sexe</label>
-                                  <select class="form-control" name="sexe">
-                                      <option value="Masculin">Masculin</option>
-                                      <option value="Feminin">Feminin</option>
-                                  </select>
+                                  <label for="inputPassword4">Date d'entrée</label>
+                                  <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
                               </div>
                           </div>
                         <div class="form-row">

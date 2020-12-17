@@ -27,7 +27,7 @@
                   <label for="nom">Nom</label>
                   <input type="text" name="nom" required class="form-control"  id="nom">
                 </div>
-              <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+              <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
         </div>
 </div>
       </div>

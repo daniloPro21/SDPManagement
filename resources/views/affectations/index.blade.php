@@ -12,7 +12,7 @@ Affectation
         <div class="container">
             <div class="row">
                 <div class="col-sm-offset-10 col-sm-2">
-                    <a href="#" data-toggle="modal" data-target="#affectationModal" class="d-flex btn btn-primary btn-sm mb-1">Nouvel Ordre d'affetation</a>
+                    <a href="#" data-toggle="modal" data-target="#affectationModal" class="d-flex btn btn-primary btn-sm mb-1">Nouvel Ordre d'Affectation</a>
                 </div>
             </div>
         @forelse($affectations as $affectation)
@@ -48,7 +48,7 @@ Affectation
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nouvel Ordre D'affectation</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nouvel Ordre d'Affectation</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -59,8 +59,8 @@ Affectation
                     <input type="hidden" name="etat" value="ouvert">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="decision">Numero de Decision</label>
-                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="Numero de Decision"></div>
+                                <label for="decision">Numéro de Décision</label>
+                                <input type="text" name="numero_decision" id="numero_decision" class="form-control" autocomplete="false" placeholder="Numéro de Décision"></div>
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
                                 <input type="date" name="date" class="form-control" style="padding: 0 !important; padding-left: 4% !important;" id="date"  autocomplete="false" required>
@@ -83,7 +83,7 @@ Affectation
                         </div>
                     </div>
                         <div class="form-row">
-                        <div class="form-group col-md-12" style="font-size: 12px !important;">
+                        <div class="form-group col-md-12">
                             <label for="decision">Article 1<sup>er</sup></label>
                             <textarea name="decision" id="decision"  rows="6" class="form-control textareaFeat"></textarea>
                         </div>

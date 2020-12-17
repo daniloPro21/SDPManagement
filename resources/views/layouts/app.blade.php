@@ -175,14 +175,14 @@
                 <li class="treeview">
                 <a href="#">
                     <i class="fa fa-gears"></i>
-                    <span>{{ __("Configuration")}}</span>
+                    <span>{{ __("Configurations")}}</span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
                     <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
                 <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
-                    <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnel</a></li>
-                    <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Poste</a></li>
+                    <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnels</a></li>
+                    <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Postes</a></li>
                 </ul>
                 </li>
 
@@ -199,18 +199,18 @@
                 <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i>
-                    <span>Dossier</span>
+                    <span>Dossiers</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('dossiers.list', 'coter') }}"><i class="fa fa-circle-o"></i> Coter</a></li>
-                    <li><a href="{{ route('dossiers.list', 'non-coter') }}"><i class="fa fa-circle-o"></i> Non Coter</a></li>
-                    <li><a href="{{ route('dossiers.list', 'traiter') }}"><i class="fa fa-circle-o"></i>traiter</a></li>
+                    <li><a href="{{ route('dossiers.list', 'coter') }}"><i class="fa fa-circle-o"></i> Dossiers Cotés</a></li>
+                    <li><a href="{{ route('dossiers.list', 'non-coter') }}"><i class="fa fa-circle-o"></i> Dossiers Non Cotés</a></li>
+                    <li><a href="{{ route('dossiers.list', 'traiter') }}"><i class="fa fa-circle-o"></i> Dossiers Traités</a></li>
                 </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-gears"></i>
-                        <span>{{ __("Configuration")}}</span>
+                        <span>{{ __("Configurations")}}</span>
                     </a>
                     <ul class="treeview-menu">
                         <li>
@@ -220,12 +220,12 @@
                         </li>
                         <li>
                             <a href="{{ route('region.index') }}">
-                                <i class="fa fa-globe"></i> <span>Regions</span>
+                                <i class="fa fa-globe"></i> <span>Régions</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('categorie.index') }}">
-                                <i class="fa fa-bookmark"></i> <span>Categories</span>
+                                <i class="fa fa-bookmark"></i> <span>Catégories</span>
                             </a>
                         </li>
                         <li>

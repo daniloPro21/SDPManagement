@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section("title")
+    Données Statistiques
+@endsection
 
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">

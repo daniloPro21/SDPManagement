@@ -15,7 +15,7 @@
                     <!-- title row -->
                     <div class="row">
                         <div class="col-xs-12">
-                            <a onclick="return confirm('voulez vous vraiment effectuer cette action')" href="{{ route("ficheaffectation.delete",$fiche->id) }}" class="btn btn-danger pull-right">Supprimer</a>
+                            <a onclick="return confirm('voulez vous vraiment effectuer cette action ?')" href="{{ route("ficheaffectation.delete",$fiche->id) }}" class="btn btn-danger pull-right">Supprimer</a>
                             <h2 class="page-header">
                                 <i class="fa fa-edit"></i> {{ $fiche->type }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}
                             </h2>
@@ -63,7 +63,7 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
-                    <h2 align="center">Liste du personnel concerné</h2>
+                    <h2 align="center" class="text-uppercase">Liste du personnel concerné</h2>
                     <!-- Table row -->
                     <div class="row">
                         <div class="col-xs-12 table-responsive">
@@ -71,10 +71,10 @@
                                 <thead>
                                 <tr>
                                     <th>N°</th>
-                                    <th>Nom et Prenom</th>
+                                    <th>Nom et Prénom</th>
                                     <th>Poste</th>
                                     <th>Structure</th>
-                                    <th>Region</th>
+                                    <th>Région</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -86,7 +86,7 @@
                                         <td>{{ $affectation->poste->nom }}</td>
                                         <td>{{ $affectation->structure->nom }}</td>
                                         <td>{{ $affectation->structure->district->region->nom }}</td>
-                                        <td><a href="{{route('affectation.delete',$affectation->id)}}" onclick="return confirm('Voulez vous vraiment éffectuer cette action?')" class="btn btn-sm btn-danger">Supprimer</a></td>
+                                        <td><a href="{{route('affectation.delete',$affectation->id)}}" onclick="return confirm('Voulez vous vraiment éffectuer cette action ?')" class="btn btn-sm btn-danger">Supprimer</a></td>
                                     </tr>
                                 @endforeach
 
@@ -104,14 +104,14 @@
                                 <button type="button" class="btn btn-primary pull-right mr-3"
                                         style="margin-right: 3% !important;" data-toggle="modal"
                                         data-target="#affectationModal"><i class="fa fa-plus-circle"></i> Nouvelle
-                                    affectation
+                                    Affectation
                                 </button>
-                                <a href="{{ route("affectation.lock",$fiche->id) }}" onclick="return confirm('Voulez vous réelement cloturé ce dossier?');" class="btn btn-warning pull-right mr-3"
+                                <a href="{{ route("affectation.lock",$fiche->id) }}" onclick="return confirm('Souhaitez-vous vraiment cloturer ce dossier ?');" class="btn btn-warning pull-right mr-3"
                                    style="margin-right: 3% !important;"
-                                ><i class="fa fa-lock"></i> Clotûrer la liste
+                                ><i class="fa fa-lock"></i> Clôturer la liste
                                 </a>
                                 @else
-                                <a href="{{ route("affectation.unlock",$fiche->id) }}" onclick="return confirm('Voulez vous réelement Ré-ouvrir ce dossier?');" class="btn btn-primary pull-right mr-3"
+                                <a href="{{ route("affectation.unlock",$fiche->id) }}" onclick="return confirm('Souhaitez-vous vraiment Ré-ouvrir ce dossier ?');" class="btn btn-primary pull-right mr-3"
                                    style="margin-right: 3% !important;"
                                 ><i class="fa fa-unlock"></i>  Ré-ouvrir le dossier
                                 </a>
@@ -127,7 +127,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nouvel Affectation</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nouvelle Affectation</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -159,13 +159,13 @@
                                     <td id="zone_contact"></td>
                                 </tr>
                                 <tr>
-                                    <td>Derniere affectation</td>
+                                    <td>Dernière affectation</td>
                                     <td id="zone_affectation"></td>
                                 </tr>
                                 <tr>
                                     <td>Note</td>
                                     <td><span style="border-radius:  0px !important;" class="badge bg-red"
-                                              id="zone_note">En Attente de verification</span></td>
+                                              id="zone_note">En Attente de vérification</span></td>
                                 </tr>
                             </table>
                         </div>
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" onclick="verifier()" class="btn btn-outline-primary">Verifier</button>
+                            <button type="button" onclick="verifier()" class="btn btn-outline-primary">Vérifier</button>
                             <button type="submit" disabled onautocomplete="false" readonly="true" id="submit"
                                     class="btn btn-primary">Enregistrer
                             </button>
@@ -230,7 +230,7 @@
                                 $("#zone_note").text("Vérification éffectuer, cliquez sur enregistré").removeClass("bg-red").addClass("bg-green");
                                 $("#submit").removeAttr("disabled").removeClass("btn-primary").addClass("btn-success");
                             } else {
-                                $("#zone_note").html("<b>Impossible de traité cette requète.</b><br>le concerné fais déja partie de la liste actuel d'affectation");
+                                $("#zone_note").html("<b>Impossible de traiter cette requête.</b><br>le concerné fait déja partie de la liste actuel d'affectation");
                             }
                             console.log(data);
                         } else {

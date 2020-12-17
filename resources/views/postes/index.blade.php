@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title')
+    Postes
+@endsection
 
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
@@ -25,7 +28,7 @@
               @csrf
               <div class="form-row">
                 <div class="form-group">
-                  <label for="nom">Nom</label>
+                  <label for="nom">Dénomination du poste</label>
                   <input type="text" name="nom" required class="form-control"  id="name">
                 </div>
               </div>
@@ -35,7 +38,7 @@
                   <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici"></textarea>
                 </div>
               </div>
-              <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+              <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
         </div>
         <div class="box-footer">
 
@@ -44,7 +47,7 @@
       </form>
       <div class="box">
             <div class="box-header">
-              <h3 class="text-center text-uppercase">Nos Postes</h3>
+              <h3 class="text-center text-uppercase">Liste des postes</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -52,7 +55,7 @@
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nom</th>
+                  <th>Dénomination du poste</th>
                   <th>Description</th>
                   <th>Action</th>
                 </tr>

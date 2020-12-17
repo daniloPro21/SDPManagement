@@ -37,7 +37,7 @@
                         </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Selectionnez le groupe</label>
+                                    <label>sélectionnez le groupe</label>
                                     <select name="groupe_id" class="form-control" required>
                                         @foreach($groupes as $groupe)
                                             <option value="{{$groupe->id}}">{{$groupe->nom}}</option>
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
 
-                        <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+                        <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
                     </div>
 
                     <div class="box-footer">

@@ -21,27 +21,27 @@
                 <div class="col-sm-12">
                     <table class="table table-responsive table-striped text-capitalize">
                     <tr>
-                        <td>Numero DRA </td><td><b>{{ $dossier->num_dra }}</b></td>
+                        <td>Numéro DRA </td><td><b>{{ $dossier->num_dra }}</b></td>
                     </tr>
                     <tr>
-                        <td>Numero SDP </td><td><b>{{ $dossier->num_sdp }}</b></td>
+                        <td>Numéro SDP </td><td><b>{{ $dossier->num_sdp }}</b></td>
                     </tr>
                     @if ($dossier->num_service != null)
                     <tr>
-                        <td>Numero Service </td><td><b>{{ $dossier->num_service }}</b></td>
+                        <td>Numéro Service </td><td><b>{{ $dossier->num_service }}</b></td>
                     </tr>
                     @endif
                     <tr>
                         <td>Nom </td><td><b>{{ $dossier->nom }}</b></td>
                     </tr>
                     <tr>
-                        <td>Prenom</td><td><b>{{ $dossier->prenom }}</b></td>
+                        <td>Prénom</td><td><b>{{ $dossier->prenom }}</b></td>
                     </tr>
                     <tr>
                         <td>Objet</td><td><b>{{ $dossier->type->name }}</b></td>
                     </tr>
                         <tr>
-                        <td>Date D'Entrée</td><td><b>{{ $dossier->date_entre }}</b></td>
+                        <td>Date d'Entrée</td><td><b>{{ $dossier->date_entre }}</b></td>
                         </tr>
                         <tr>
                         <td>Note</td><td><b>{{ $dossier->note }}</b></td>
@@ -247,22 +247,22 @@
                                 @method('patch')
                                 <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="numero">Numero DSP</label>
+                                    <label for="numero">Numéro DSP</label>
                                     <input type="text" name="num_sdp" class="form-control" id="numero" value="{{ $dossier->num_sdp }}" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="DHR">Numero DRH</label>
+                                    <label for="DHR">Numéro DRH</label>
                                     <input type="text" name="num_dra" value="{{ $dossier->num_dra }}" class="form-control" id="DHR" required>
                                 </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Nom du Proprietaier</label>
+                                    <label for="inputEmail4">Nom du Propriétaire</label>
                                     <input type="text" name="nom" id="" value="{{ $dossier->nom }}" class="form-control" placeholder="entre le nom du proprietaire" required>
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Prenom</label>
+                                        <label for="inputEmail4">Prénom du Propriétaire</label>
                                         <input type="text" name="prenom" id="" value="{{ $dossier->prenom }}" class="form-control" placeholder="entre le prenom du proprietaire" required>
                                     </div>
 
@@ -272,16 +272,16 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">grade</label>
+                                        <label for="inputEmail4">Grade</label>
                                         <input type="text" name="grade" id="" value="{{ $dossier->grade }}" class="form-control" placeholder="entre le grade du proprietaire" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                    <label for="inputPassword4">date Entre</label>
+                                    <label for="inputPassword4">Date Entrée</label>
                                     <input type="date" name="date_entre" value="{{ $dossier->date_entre }}" class="form-control" id="inputPassword4" required>
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="inputPassword4">date de sortie</label>
+                                        <label for="inputPassword4">Date de sortie</label>
                                         <input type="date" name="date_sortie" class="form-control" value="{{ $dossier->date_sortie }}" id="inputPassword4" required>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputPassword4">note</label>
+                                    <label for="inputPassword4">Note</label>
                                     <textarea name="note" id="" cols="30" placeholder="{{ $dossier->note }}"  rows="10"></textarea>
                                 </div>
                             </div>

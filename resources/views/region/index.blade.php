@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+                        <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
                     </div>
                     <div class="box-footer">
 
@@ -39,7 +39,7 @@
             </form>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="text-center text-uppercase">Liste Des Rsegion</h3>
+                    <h3 class="text-center text-uppercase">Liste Des Regions</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -47,7 +47,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nom</th>
+                            <th>Nom de la region</th>
                             <th>Action</th>
                         </tr>
                         </thead>

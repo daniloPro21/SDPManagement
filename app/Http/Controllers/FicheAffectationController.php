@@ -62,7 +62,7 @@ class FicheAffectationController extends Controller
             Toastr()->success("Suppression Terminé","Terminé");
             return redirect()->route("affectation.index");
         } catch (\Exception $e) {
-            Toastr()->error("Vous devez supprimer toutes les affectations liée a cette fiche avant de pouvoir l'effacer","Echec");
+            Toastr()->error("Vous devez au préalable supprimer toutes les affectations liées à cette fiche avant de la supprimer","Echec");
             return redirect()->back();
         }
 
@@ -100,8 +100,27 @@ class FicheAffectationController extends Controller
         //dd($donnees);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView("affectations.pdf",compact("fiche","donnees"));
-        //return $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        //
+        $pdf->setPaper('A4', 'portrait');
+        //$pdf->render();
+
         return $pdf->stream();
+            //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+
+    }
+
+    public  function  printAnnexe($id){
+        $fiche = FicheAffectation::findOrFail($id);
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView("affectations.annexe",compact('fiche'));
+        //
+        $pdf->setPaper('A4', 'portrait');
+        //$pdf->render();
+
+        return $pdf->stream();
+        //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+
     }
 
     public function  lock($id){

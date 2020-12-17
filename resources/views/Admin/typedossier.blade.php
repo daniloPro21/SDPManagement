@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section("title")
+    TYPES DE DOCUMENTS
+@endsection
 
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
@@ -35,7 +38,7 @@
                   <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici"></textarea>
                 </div>
               </div>
-              <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+              <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
         </div>
         <div class="box-footer">
 

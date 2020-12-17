@@ -369,18 +369,18 @@
 
     <p style="text-align: center"><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif;
 color:black'>   DECISION N°</span><span lang=FR style='font-family:"Tahoma",sans-serif;
-color:black'><u>{{ $fiche->numero_decision }}</u> /</span><span lang=FR style='font-size:11.0pt;
+color:black'><u>@isset($fiche->numero_decision){{ $fiche->numero_decision }}@else _______________ @endisset</u> /</span><span lang=FR style='font-size:11.0pt;
 font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
                                                            style='font-family:"Tahoma",sans-serif;color:black'>/</span><span
             lang=FR
             style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span
             lang=FR
-            style='font-family:"Tahoma",sans-serif;color:black'><u> {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}</u></span>
+            style='font-family:"Tahoma",sans-serif;color:black'><u>@isset($fiche->date) {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }} @else _______________ @endisset</u></span>
     </p>
     <p class=MsoNormal style='text-align: center;'><b><span lang=FR
                                                             style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
             {{ $fiche->titre }}
-        </b></p>
+        </b></p><br>
     <p class=MsoFooter align=center style='text-align:center'><b><span lang=FR
                                                                        style='font-family:"Tahoma",sans-serif'>LE MINISTRE DE LA SANTE PUBLIQUE</span></b><span
             lang=FR style='font-size:14.0pt;font-family:"Tahoma",sans-serif'>,</span></p>
@@ -616,7 +616,6 @@ Décision sera enregistrée, publiée puis communiquée partout où besoin sera.
 
 </span><span lang=FR style='font-family:"Tahoma",sans-serif'><b>&nbsp;</b></span></p>
 
-<br clear=ALL>
 
 <p class=MsoListParagraphCxSpMiddle align=center style='margin-left:2.95in;
 text-align:center'><b><span lang=FR style='font-family:"Tahoma",sans-serif'>LE

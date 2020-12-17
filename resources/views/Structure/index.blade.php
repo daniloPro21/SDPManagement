@@ -25,13 +25,13 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nom">Nom</label>
+                                <label for="nom">Nom de la structure</label>
                                 <input type="text" name="nom" required class="form-control" id="nom">
                             </div>
                         </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Selectionner la categorie</label>
+                                    <label>Sélectionnez la catégorie</label>
                                     <select name="categorie_id" class="form-control" required>
                                         @foreach($categories as $categorie)
                                             <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Selectionner le district</label>
+                                    <label>Sélectionnez le district</label>
                                     <select name="district_id" class="form-control" required>
                                         @foreach($districts as $district)
                                             <option value="{{$district->id}}">{{$district->nom}}</option>
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
 
-                        <button class="btn btn-warning btn-block" type="submit">Enregistré</button>
+                        <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
                     </div>
                     <div class="box-footer">
 
@@ -59,7 +59,7 @@
             </form>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="text-center text-uppercase">Liste Du Personnel</h3>
+                    <h3 class="text-center text-uppercase">Liste Des Structures</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -67,9 +67,9 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nom</th>
+                            <th>Nom de la structure</th>
                             <th>Catégorie</th>
-                            <th>Region</th>
+                            <th>Disctrict</th>
                             <th>Action</th>
                         </tr>
                         </thead>
