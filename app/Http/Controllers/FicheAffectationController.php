@@ -51,7 +51,7 @@ class FicheAffectationController extends Controller
         $fiche = FicheAffectation::FindOrFail($id);
         $districts = District::all();
         $postes = Poste::all();
-        return view("affectations.manage", compact("fiche", "personnels", "districts", "postes"));
+        return view("affectations.manage", compact("fiche", "districts", "postes"));
     }
 
 
