@@ -156,3 +156,9 @@ Route::get("/affectation/pdf",function(){
     dd($fiche->affectations->first()->poste);
     return view("affectations.pdf",compact('fiche'));
 })->name("affect.pdf");
+
+
+/**
+ * Nomination Route
+ */
+Route::get('nomination', 'NominationController@index')->name('nomination.index');
