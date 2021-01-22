@@ -1,4 +1,4 @@
-@extends('layouts.app')
+la@extends('layouts.app')
 
 @section('title')
 Affectation
