@@ -16,7 +16,6 @@
     <div class="row  mt-3">
         <div class="col-sm " style="line-height: 1;">
             <h6 class="font-weight-bold d-flex justify-content-center">REPUBLIQUE DU CAMEROUN<br></h6>
-
            <span class="d-flex justify-content-center"> Paix-Travail-Patrie</span> <br>
             <span class="d-flex justify-content-center">--------------</span> <br>
            <span class="d-flex justify-content-center font-weight-bold"> MINISTERE DE LA SANTE PUBLIQUE</span> <br>

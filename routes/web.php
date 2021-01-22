@@ -181,3 +181,5 @@ Route::get("/nominations/pdf",function(){
  * Nomination Route
  */
 Route::get('nomination', 'NominationController@index')->name('nomination.index');
+Route::get('cds', 'NominationController@cds')->name('nomination.cds');
+Route::get('eco', 'NominationController@eco')->name('nomination.eco');
