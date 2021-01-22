@@ -120,8 +120,7 @@ Route::patch('/region/{id}', 'RegionController@update')->name('region.update');
 Route::delete('/region/{id}', 'RegionController@destroy')->name('region.delete');
 
 /**
- * Route Structure
- */
+ * Route Structure */
 Route::get('/structure', 'StructureController@index')->name('structure.index');
 Route::post('/structure', 'StructureController@store')->name('structure.store');
 Route::patch('/structure/{id}', 'StructureController@update')->name('structure.update');
@@ -155,4 +154,27 @@ Route::get("/affectation/pdf",function(){
     $fiche = \App\Models\FicheAffectation::findOrFail(1);
     dd($fiche->affectations->first()->poste);
     return view("affectations.pdf",compact('fiche'));
+})->name("affect.pdf");
+
+
+/*
+ * Route Pour les nominations
+ */
+Route::get("/nominations","FicheNominationController@index")->name("nomination.index");
+Route::get("/nominations/lock/{id}","FicheNominationController@lock")->name("nomination.lock");
+Route::get("/nominations/unlock/{id}","FicheNominationController@unlock")->name("nomination.unlock");
+Route::post("/nominations","FicheNominationController@store")->name("nomination.store");
+Route::get("/nominations/{id}","FicheNominationController@edit")->name("nomination.edit");
+
+Route::get("/fichenominations/delete/{id}","FicheAffectationController@delete")->name("fichenominations.delete");
+
+Route::post("/nominations/{id}","FicheNominationController@update")->name("nomination.update");
+Route::get("/nominations/{id}/print","FicheNominationController@print")->name("nomination.print");
+Route::get("/nominations/{id}/manage","FicheNominationController@manage")->name("nomination.manage");
+Route::post("/nominations/{id}/manage/add","AffectationController@new")->name("nomination.new");
+Route::get("/nominations/{id}/delete","FicheNominationController@delete")->name("nomination.delete");
+Route::get("/nominations/pdf",function(){
+    $fiche = \App\Models\FicheAffectation::findOrFail(1);
+    dd($fiche->affectations->first()->poste);
+    return view("nominations.pdf",compact('fiche'));
 })->name("affect.pdf");

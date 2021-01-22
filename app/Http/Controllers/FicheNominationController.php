@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 use PhpOffice\PhpWord\Exception\Exception;
 use Yoeunes\Toastr\Toastr;
 
-class FicheAffectationController extends Controller
+class FicheNominationController extends Controller
 {
     public function __construct()
     {
@@ -24,7 +24,7 @@ class FicheAffectationController extends Controller
 
     public function index()
     {
-        $affectations = FicheAffectation::where("intituler","affectation")->orderByDesc("id")->paginate(21);
+        $affectations = FicheAffectation::where("intituler","nomination")->orderByDesc("id")->paginate(21);
         return view("nominations.index", compact('affectations'));
     }
 
@@ -32,7 +32,7 @@ class FicheAffectationController extends Controller
     {
         try {
             $fiche = FicheAffectation::create($request->all());
-            $fiche->intituler = "affectation";
+            $fiche->intituler = "nomination";
             $fiche->update();
             Toastr()->success("Enregistrement effectuer Enregistré");
             return redirect()->back();
@@ -62,7 +62,7 @@ class FicheAffectationController extends Controller
         try {
             FicheAffectation::Destroy($id);
             Toastr()->success("Suppression Terminé","Terminé");
-            return redirect()->route("nominations.index");
+            return redirect()->route("affectation.index");
         } catch (\Exception $e) {
             Toastr()->error("Vous devez au préalable supprimer toutes les affectations liées à cette fiche avant de la supprimer","Echec");
             return redirect()->back();
@@ -130,7 +130,7 @@ class FicheAffectationController extends Controller
         $fiche->etat = "cloturer";
         $fiche->update();
         Toastr()->success("Fiche D'affectation Cloturé");
-        return redirect()->route("affectation.index");
+        return redirect()->route("nomination.index");
     }
 
     public function  unlock($id){

@@ -17,6 +17,7 @@ class CreateAffectationsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('poste_id');
             $table->unsignedBigInteger('personnel_id');
+            $table->string("raison")->nullable();
             $table->unsignedBigInteger('structure_id');
             $table->unsignedBigInteger('fiche_affectation_id');
             $table->string('motif')->nullable();

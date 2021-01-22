@@ -172,6 +172,13 @@
                         <span>{{ __("Affectations")}}</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('nomination.index')}}">
+                        <i class="fa fa-pagelines"></i>
+                        <span>{{ __("Nominations")}}</span>
+                    </a>
+                </li>
                 <li class="treeview">
                 <a href="#">
                     <i class="fa fa-gears"></i>

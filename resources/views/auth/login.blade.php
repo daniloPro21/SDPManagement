@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="login-box">
-    <center><img src="{{ asset('dist/img/logo.png') }}" width="100px" height="100px" alt=""></center>
+    <center><img src="{{ asset('dist/img/armoirie.png') }}" width="100px" height="100px" alt=""></center>
     <div class="login-logo">
       <a href="../../index2.html"><b>SDP&nbsp;</b>Management</a>
     </div>
