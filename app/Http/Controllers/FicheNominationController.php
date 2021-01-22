@@ -87,6 +87,7 @@ class FicheNominationController extends Controller
         //dd($data);
         $groupes = Groupe::all();
         $donnees = array();
+        /*
        // dd($fiche->affectations->first()->structure->categorie->groupe->id);
        foreach ($groupes as $groupe){
            $concerner = collect();
@@ -99,9 +100,10 @@ class FicheNominationController extends Controller
                $donnees[$groupe->nom] = $concerner;
            }
        }
+       */
         //dd($donnees);
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("nominations.pdf",compact("fiche","donnees"));
+        $pdf->loadView("nominations.pdfetcvi",compact("fiche","donnees"));
         //
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();

@@ -193,6 +193,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group px-2">
+                                <label for="motif">Motif</label>
+                                <textarea id="motif" name="motif" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" onclick="verifier()" class="btn btn-outline-primary">Vérifier</button>
                             <button type="submit" disabled onautocomplete="false" readonly="true" id="submit"
