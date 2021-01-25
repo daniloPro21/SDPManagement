@@ -31,7 +31,9 @@ class FicheAffectationController extends Controller
     public function store(Request $request)
     {
         try {
-            $fiche = FicheAffectation::create($request->all());
+            $data = $request->all();
+            $data["decrets"] = $request->decrets;
+            $fiche = FicheAffectation::create($data);
             $fiche->intituler = "affectation";
             $fiche->update();
             Toastr()->success("Enregistrement effectuer Enregistré");
@@ -84,29 +86,30 @@ class FicheAffectationController extends Controller
 
     public  function  print($id){
         $fiche = FicheAffectation::findOrFail($id);
-        //dd($data);
+
         $groupes = Groupe::all();
         $donnees = array();
-       // dd($fiche->affectations->first()->structure->categorie->groupe->id);
-       foreach ($groupes as $groupe){
-           $concerner = collect();
-           foreach ($fiche->affectations as $affectation){
-               if ($affectation->structure->categorie->groupe->id == $groupe->id){
-                   $concerner->add($affectation);
-               }
-           }
-           if ($concerner->count()>0){
-               $donnees[$groupe->nom] = $concerner;
-           }
-       }
+
+        foreach ($groupes as $groupe){
+            $districts = array();
+            foreach ($fiche->affectations as $affectation){
+                if ($affectation->structure->categorie->groupe->id == $groupe->id){
+                    $districts[$affectation->structure->district->nom][] = $affectation;
+                }
+            }
+            if (count($districts)>0){
+                $donnees[$groupe->nom] = $districts;
+            }
+        }
         //dd($donnees);
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("affectations.pdf",compact("fiche","donnees"));
+        $pdf->loadView("affectations.exports.template",compact("fiche","donnees"));
         //
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
 
-        return $pdf->stream();
+        return //View("affectations.exports.template",compact("fiche","donnees"));
+                $pdf->stream();
             //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
 
     }

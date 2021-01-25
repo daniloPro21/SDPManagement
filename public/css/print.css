@@ -1,0 +1,74 @@
+*{
+    font-family: Tahoma, serif;
+}
+.sceau {
+    display: inline-block;
+}
+table tr{
+    padding: 0 !important;
+    height: content-box !important;
+    line-height: 1.25 !important;
+}
+.table {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.table th,
+.table td {
+    padding: 0.10rem;
+    vertical-align: top;
+    border-top: 1px solid #222;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #222;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #222;
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.1rem;
+}
+
+.table-bordered {
+    border: 1px solid #222;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #222;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+    border: 0;
+}
+
+#listeP {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#listeP {
+    padding: 0 !important;
+}
+
+#listeP .firsthead {
+    background-color: rgb(148, 138, 84) !important;
+}
+
+#listeP .secondhead {
+    background-color: rgb(196, 188, 150) !important;
+}

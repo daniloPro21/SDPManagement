@@ -2,10 +2,9 @@
 
 <head>
     <!-- CSRF Token -->
-    <meta name="media">
     <style type="text/css">
         *{
-            font-family: Tahoma, monospace;
+            font-family: Tahoma, serif;
         }
         .sceau {
             display: inline-block;
@@ -15,8 +14,71 @@
             height: content-box !important;
             line-height: 1.25 !important;
         }
+        .table {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.10rem;
+            vertical-align: top;
+            border-top: 1px solid #222;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #222;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #222;
+        }
+
+        .table-sm th,
+        .table-sm td {
+            padding: 0.1rem;
+        }
+
+        .table-bordered {
+            border: 1px solid #222;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #222;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+        .table-borderless th,
+        .table-borderless td,
+        .table-borderless thead th,
+        .table-borderless tbody + tbody {
+            border: 0;
+        }
+
+        #listeP {
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        #listeP {
+            padding: 0 !important;
+        }
+
+        #listeP .firsthead {
+            background-color: rgb(148, 138, 84) !important;
+        }
+
+        #listeP .secondhead {
+            background-color: rgb(196, 188, 150) !important;
+        }
     </style>
-    <title>Nominations</title>
+    <title>{{ "Affectations_".substr($fiche->titre,0,20)."_".$fiche->date }}</title>
 
 
 </head>
@@ -69,7 +131,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm">
-                {!! $fiche->decrets !!}
+                {!! str_replace("</p>","</span>",str_replace("<p>","<span>",$fiche->decrets)) !!}
         </div>
     </div>
     <div class="row mt-5">
@@ -90,36 +152,41 @@
     <br>
     <div id="nominations">
         <div class="all">
-            @foreach($donnees as $key => $districts)
-                <h4 align="center">
-                    <u>
-                        {{ $key }}
-                    </u>
-                </h4>
                 <div class="nominations">
-                    @foreach($districts as  $key => $district)
-                        <h4 align="center">
-                            <u>
-                                {{ $key }}
-                            </u>
-                        </h4>
-                        @foreach($district as  $key => $structure)
-                            <h5 align="left">
-                                <u>
+                    @foreach($donnees as $key => $donnee)
+                        <table style='font-size: 12px;font-family:"Tahoma",sans-serif;width: 100%;border: 1px solid #222;' id="listeP"
+                               class="table table-bordered">
+                            <thead>
+                            <tr class="firsthead">
+                                <td colspan="3" style="font-weight: bold;">
                                     {{ $key }}
-                                </u>
-                            </h5>
-                            @foreach($structure as $affectation)
-                                <p style="text-align: justify">
-                                    <strong>{{ $affectation->poste->nom  }}</strong>: &nbsp; @if($affectation->personnel->sexe == "Feminin")
-                                        Madame @else Monsieur @endif <b>{{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b>
-                                    , matricule <b>{{ $affectation->personnel->matricule }}</b>,{{ $affectation->personnel->grade }}, {{ $affectation->motif }}</h5>
-                                </p>
+                                </td>
+                            </tr>
+                            <tr class="secondhead" style="text-transform: uppercase">
+                                <th>N°</th>
+                                <th>Nom et Prenom</th>
+                                <th>Structure d'Affectation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($donnee as $key => $affectations)
+                                <tr><th colspan="4" class="secondhead">{{ $key }}</th></tr>
+                               @foreach($affectations as $affectation)
+                                   <tr>
+                                       <td>{{ $loop->index+1 }}</td>
+                                       <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin")
+                                               Madame @else Monsieur @endif <b
+                                               style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b>
+                                       </td>
+                                       <td style="text-align: left !important; padding-left: 2%">{{ $affectation->structure->nom }}</td>
+                                   </tr>
+                                   @endforeach
                             @endforeach
-                        @endforeach
-                        @endforeach
+                            </tbody>
+                        </table>
+                    @endforeach
                 </div>
-            @endforeach
+                    <!--edit ici -->
         </div>
     </div>
     <p><strong>Article 2</strong><strong>:</strong> Les int&eacute;ress&eacute;s auront droit aux avantages de toute nature pr&eacute;vus par la r&eacute;glementation en vigueur.</p>
@@ -156,13 +223,22 @@
 
 </div>
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jQuery.print.min.js') }}"></script>
 <script type="text/javascript">
-    var facture=$('#container').html();
-    $('body').html(facture);
-    window.print();
-    //window.history.back();
+  /* $("html").print({
+       globalStyles: true,
+       mediaPrint: true,
+       stylesheet: "{{ asset('css/print.css') }}",
+       noPrintSelector: ".no-print",
+       doctype: '<!doctype html>'
+    });*/
+  window.print();
 
+  setInterval(function () {
+       window.history.back();
+   },5000)
 </script>
+
 
 </body>
 

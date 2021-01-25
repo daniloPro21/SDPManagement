@@ -99,7 +99,7 @@ class FicheNominationController extends Controller
                    $districts[$affectation->structure->district->nom] = $structures;
                }
            }
-           if (count($structures)>0){
+           if (count($districts)>0){
                $donnees[$groupe->nom] = $districts;
            }
        }
@@ -108,8 +108,10 @@ class FicheNominationController extends Controller
         $pdf->loadView("nominations.exports.template",compact("fiche","donnees"));
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
-        $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
-        return View("nominations.exports.template",compact("fiche","donnees"));
+        //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        //View("nominations.exports.template",compact("fiche","donnees"))
+        return //View("nominations.exports.template",compact("fiche","donnees"));
+                $pdf->stream();
             //
 
     }

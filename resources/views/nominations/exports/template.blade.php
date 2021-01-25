@@ -2,10 +2,15 @@
 
 <head>
     <!-- CSRF Token -->
-    <meta name="media">
     <style type="text/css">
+        @font-face {
+            font-family: "Tahoma";
+            src: {{ asset('css/tahoma.ttf') }} format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
         *{
-            font-family: Tahoma, monospace;
+            font-family: Tahoma, serif;
         }
         .sceau {
             display: inline-block;
@@ -16,7 +21,7 @@
             line-height: 1.25 !important;
         }
     </style>
-    <title>Nominations</title>
+    <title>{{ "Nominations_".substr($fiche->titre,0,20)."_".$fiche->date }}</title>
 
 
 </head>
@@ -69,7 +74,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm">
-                {!! $fiche->decrets !!}
+                {!! str_replace("</p>","</span>",str_replace("<p>","<span>",$fiche->decrets)) !!}
         </div>
     </div>
     <div class="row mt-5">
@@ -91,14 +96,14 @@
     <div id="nominations">
         <div class="all">
             @foreach($donnees as $key => $districts)
-                <h4 align="center">
+                <h4 align="center" style="margin-bottom: 0 !important;">
                     <u>
                         {{ $key }}
                     </u>
                 </h4>
                 <div class="nominations">
                     @foreach($districts as  $key => $district)
-                        <h4 align="center">
+                        <h4 align="center" style="margin-bottom: 0 !important;">
                             <u>
                                 {{ $key }}
                             </u>
@@ -156,12 +161,12 @@
 
 </div>
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jQuery.print.min.js') }}"></script>
 <script type="text/javascript">
-    var facture=$('#container').html();
-    $('body').html(facture);
-    window.print();
-    //window.history.back();
-
+   window.print();
+   setInterval(function () {
+       window.history.back();
+   },5000)
 </script>
 
 </body>

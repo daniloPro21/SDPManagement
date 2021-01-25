@@ -45,7 +45,7 @@ Affectation
     </div>
 
     <div class="modal fade" id="affectationModal" tabindex="-1" aria-labelledby="AffectationModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Nouvel Ordre d'Affectation</h5>
@@ -80,6 +80,13 @@ Affectation
                                 <option value="AFFECTATION MOTIFS DIVERS">AFFECTATION MOTIFS DIVERS</option>
                                 <option value="AFFECTATION DE PERSONNELS DE RETOUR DE STAGE">AFFECTATION DE PERSONNELS DE RETOUR DE STAGE</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="decrets">Décréts</label>
+                            <textarea name="decrets" id="decrets" rows="6"
+                                      class="form-control textareaFeat"></textarea>
                         </div>
                     </div>
                         <div class="form-row">
