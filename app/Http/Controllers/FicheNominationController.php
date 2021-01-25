@@ -125,8 +125,8 @@ class FicheNominationController extends Controller
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
 
-        return $pdf->stream();
-        //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        return //$pdf->stream();
+            $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
 
     }
 
