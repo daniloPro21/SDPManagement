@@ -31,7 +31,9 @@ class FicheNominationController extends Controller
     public function store(Request $request)
     {
         try {
-            $fiche = FicheAffectation::create($request->all());
+            $data = $request->all();
+            $data["decrets"] = $request->decrets;
+            $fiche = FicheAffectation::create($data);
             $fiche->intituler = "nomination";
             $fiche->update();
             Toastr()->success("Enregistrement effectuer Enregistré");
@@ -62,10 +64,10 @@ class FicheNominationController extends Controller
         try {
             FicheAffectation::Destroy($id);
             Toastr()->success("Suppression Terminé","Terminé");
-            return redirect()->route("affectation.index");
+            return redirect()->route("nomination.index");
         } catch (\Exception $e) {
-            Toastr()->error("Vous devez au préalable supprimer toutes les affectations liées à cette fiche avant de la supprimer","Echec");
-            return redirect()->back();
+            Toastr()->error("Vous devez au préalable supprimer toutes les nominations liées à cette fiche avant de la supprimer","Echec");
+            return redirect()->route("nomination.index");
         }
 
     }
@@ -84,32 +86,31 @@ class FicheNominationController extends Controller
 
     public  function  print($id){
         $fiche = FicheAffectation::findOrFail($id);
-        //dd($data);
+
         $groupes = Groupe::all();
         $donnees = array();
-        /*
-       // dd($fiche->affectations->first()->structure->categorie->groupe->id);
+
        foreach ($groupes as $groupe){
-           $concerner = collect();
+           $structures = array();
+           $districts = array();
            foreach ($fiche->affectations as $affectation){
                if ($affectation->structure->categorie->groupe->id == $groupe->id){
-                   $concerner->add($affectation);
+                   $structures[$affectation->structure->nom][] = $affectation;
+                   $districts[$affectation->structure->district->nom] = $structures;
                }
            }
-           if ($concerner->count()>0){
-               $donnees[$groupe->nom] = $concerner;
+           if (count($structures)>0){
+               $donnees[$groupe->nom] = $districts;
            }
        }
-       */
-        //dd($donnees);
+
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("nominations.pdfetcvi",compact("fiche","donnees"));
-        //
+        $pdf->loadView("nominations.exports.template",compact("fiche","donnees"));
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
-
-        return $pdf->stream();
-            //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        return View("nominations.exports.template",compact("fiche","donnees"));
+            //
 
     }
 
@@ -131,7 +132,7 @@ class FicheNominationController extends Controller
         $fiche = FicheAffectation::findOrFail($id);
         $fiche->etat = "cloturer";
         $fiche->update();
-        Toastr()->success("Fiche D'affectation Cloturé");
+        Toastr()->success("Fiche de nominations Cloturé");
         return redirect()->route("nomination.index");
     }
 

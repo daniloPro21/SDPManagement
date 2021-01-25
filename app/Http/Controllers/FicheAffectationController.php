@@ -25,7 +25,7 @@ class FicheAffectationController extends Controller
     public function index()
     {
         $affectations = FicheAffectation::where("intituler","affectation")->orderByDesc("id")->paginate(21);
-        return view("nominations.index", compact('affectations'));
+        return view("affectations.index", compact('affectations'));
     }
 
     public function store(Request $request)
@@ -53,7 +53,7 @@ class FicheAffectationController extends Controller
         $fiche = FicheAffectation::FindOrFail($id);
         $districts = District::all();
         $postes = Poste::all();
-        return view("nominations.manage", compact("fiche", "districts", "postes"));
+        return view("affectations.manage", compact("fiche", "districts", "postes"));
     }
 
 
@@ -65,7 +65,7 @@ class FicheAffectationController extends Controller
             return redirect()->route("nominations.index");
         } catch (\Exception $e) {
             Toastr()->error("Vous devez au préalable supprimer toutes les affectations liées à cette fiche avant de la supprimer","Echec");
-            return redirect()->back();
+            return redirect()->route("nominations.index");
         }
 
     }
@@ -101,7 +101,7 @@ class FicheAffectationController extends Controller
        }
         //dd($donnees);
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("nominations.pdf",compact("fiche","donnees"));
+        $pdf->loadView("affectations.pdf",compact("fiche","donnees"));
         //
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();

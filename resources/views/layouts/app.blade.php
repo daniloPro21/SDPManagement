@@ -322,14 +322,13 @@
     </div>
     <!-- ./wrapper -->
     @yield('javascript')
-    @jquery
-    @toastr_js
-    @toastr_render
     <!-- jQuery 3 -->
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    @toastr_js
+    @toastr_render
     <script>
         $.widget.bridge('uibutton', $.ui.button);
     </script>
@@ -415,7 +414,7 @@
        /* $('.textareaFeat').wysihtml5({
             "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
         }); */
-       // CKEDITOR.replace('decision')
+       CKEDITOR.replace('decrets')
     </script>
     @yield('extra-js')
 </body>

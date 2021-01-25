@@ -86,7 +86,7 @@
                                         <td>{{ $affectation->poste->nom }}</td>
                                         <td>{{ $affectation->structure->nom }}</td>
                                         <td>{{ $affectation->structure->district->region->nom }}</td>
-                                        <td><a href="{{route('nomination.delete',$affectation->id)}}" onclick="return confirm('Voulez vous vraiment éffectuer cette action ?')" class="btn btn-sm btn-danger">Supprimer</a></td>
+                                        <td><a href="{{route('affectation.delete',$affectation->id)}}" onclick="return confirm('Voulez vous vraiment éffectuer cette action ?')" class="btn btn-sm btn-danger">Supprimer</a></td>
                                     </tr>
                                 @endforeach
 
@@ -104,7 +104,7 @@
                                 <button type="button" class="btn btn-primary pull-right mr-3"
                                         style="margin-right: 3% !important;" data-toggle="modal"
                                         data-target="#affectationModal"><i class="fa fa-plus-circle"></i> Nouvelle
-                                    Affectation
+                                    Nomination
                                 </button>
                                 <a href="{{ route("nomination.lock",$fiche->id) }}" onclick="return confirm('Souhaitez-vous vraiment cloturer ce dossier ?');" class="btn btn-warning pull-right mr-3"
                                    style="margin-right: 3% !important;"
@@ -127,7 +127,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nouvelle Affectation</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nouvelle Nomination</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

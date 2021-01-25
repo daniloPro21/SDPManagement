@@ -165,7 +165,7 @@ Route::get("/nominations/unlock/{id}","FicheNominationController@unlock")->name(
 Route::post("/nominations","FicheNominationController@store")->name("nomination.store");
 Route::get("/nominations/{id}","FicheNominationController@edit")->name("nomination.edit");
 
-Route::get("/fichenominations/delete/{id}","FicheAffectationController@delete")->name("fichenominations.delete");
+Route::get("/fichenominations/delete/{id}","FicheNominationController@delete")->name("fichenominations.delete");
 
 Route::post("/nominations/{id}","FicheNominationController@update")->name("nomination.update");
 Route::get("/nominations/{id}/print","FicheNominationController@print")->name("nomination.print");
@@ -180,6 +180,6 @@ Route::get("/nominations/pdf",function(){
 /**
  * Nomination Route
  */
-Route::get('nomination', 'NominationController@index')->name('nomination.index');
+//Route::get('nomination', 'NominationController@index')->name('nomination.index');
 Route::get('cds', 'NominationController@cds')->name('nomination.cds');
 Route::get('eco', 'NominationController@eco')->name('nomination.eco');

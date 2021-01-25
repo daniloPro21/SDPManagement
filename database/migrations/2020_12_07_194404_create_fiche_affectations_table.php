@@ -21,6 +21,7 @@ class CreateFicheAffectationsTable extends Migration
             $table->string("numero_decision")->nullable();
             $table->enum("intituler",["affectation","nomination"])->default("affectation"); //affectation , nomination
             $table->text("titre")->nullable();
+            $table->text("decrets")->nullable();
             $table->text("decision")->nullable();
             $table->enum("etat",["ouvert","cloturer"])->default("ouvert");
             $table->timestamps();
