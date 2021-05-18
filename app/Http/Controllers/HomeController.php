@@ -7,11 +7,14 @@ use App\Repositories\DossierRepository;
 use App\Repositories\PersonneRepository;
 use App\TypeDossier;
 use App\Charts\DossierChart;
+use App\Cotation;
 use App\Service;
+use App\ServiceGeneral;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -46,13 +49,35 @@ class HomeController extends Controller
 
         ];
 
+        $d1 = DB::table('dossiers')
+        ->join('cotations', 'cotations.id_dossier', '!=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('dossiers.service_id', '=', auth()->user()->service_id)
+        ->where('dossiers.traiter', '=', false)
+        ->where('dossiers.is_delete', '=', false)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->get();
+       // dd($d1);
+        $d2 = DB::table('dossiers')
+        ->join('cotations', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('dossiers.service_id', '=', auth()->user()->service_id)
+        ->where('dossiers.traiter', '=', false)
+        ->where('dossiers.is_delete', '=', false)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->get();
+        $d3 = Dossier::all()->where('traiter', true)->where('service_id', auth()->user()->service_id);
+
+
       $dossierChart = new DossierChart;
         $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
         //$dossierChart->minimalist(true);
-        $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->count(), Dossier::where('service_id','!=',null)->where('traiter',false)->count(), Dossier::where('traiter',true)->count()])->color($borderColors)->backgroundcolor($fillColors);
+        $dossierChart->dataset('Statistiques', 'doughnut', [$d1->count(), $d2->count(),$d3->count()])->color($borderColors)->backgroundcolor($fillColors);
+
+
 
         $dossier2Chart = new DossierChart;
-        $dossiers=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
+        $dossiers=Dossier::where('is_delete', false)->where('service_id', '=',auth()->user()->service_id)->get()->groupBy(function($d) {
           return Carbon::parse($d->date_entre)->format('m');
           });
           for ($i=1; $i<=12 ; $i++) {
@@ -62,11 +87,13 @@ class HomeController extends Controller
         $dossier2Chart->labels(['Jan', 'Fev', 'Mar','Avr','Mai','Juin','Juillet','Août','Sept','Oct','Nov','Dec']);
         $dossier2Chart->dataset('Dossiers Reçus', 'line', $dossier2Data)->color("rgb(0,122,94)");
 
+
+
         $yearChart = new DossierChart;
-        $yearsData=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
+        $yearsData=Dossier::where('is_delete', false)->where('service_id','=', auth()->user()->service_id)->get()->groupBy(function($d) {
           return Carbon::parse($d->date_entre)->format('Y');
           });
-        for ($i=(int) date("Y")-10; $i<=date("Y") ; $i++) {
+        for ($i=(int) date("Y")-5; $i<=date("Y") ; $i++) {
           $years[0][]=$i;
           $years[1][]=$yearsData->get($i,collect([]))->count();
         }
@@ -74,7 +101,7 @@ class HomeController extends Controller
         array_reverse($years[0]);
         $yearChart->labels($years[0]);
         $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
-        return view('Admin.home',compact("dossierChart","dossier2Chart","yearChart") );
+        return view('Admin.home',compact("dossierChart","dossier2Chart","yearChart","d1","d2","d3") );
     }
 
     public function secretaire()
@@ -87,14 +114,21 @@ class HomeController extends Controller
 
     public function service()
     {
-        $dossiers = Dossier::all()
+        /*$dossiers = Dossier::all()
         ->where('service_id', '=', auth()->user()->service_id)
-        ->where('is_delete' ,'=', false);
+        ->where('is_delete' ,'=', false);*/
 
-        $coter = $this->dossierRepository->getAssignDossiers()->count();
+      //  $coter = $this->dossierRepository->getAssignDossiers()->count();
         // dd($coter);
-
-        return view('Services.home', compact('dossiers', 'coter'));
+        $cotation_Serice = Cotation::all();
+        $cotation_service = DB::table('cotations')
+        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->get();
+        $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
+        return view('Services.home', compact('cotation_Serice','service_name','cotation_service'));
     }
 
     public function index()
@@ -112,7 +146,8 @@ class HomeController extends Controller
             'email' => 'required',
             'password' => 'required',
             'role' => 'required',
-            'service_id' => 'required'
+            'service_id' => 'required',
+            'sous_service_id' => 'required'
         ]);
 
         $user = new User();
@@ -121,6 +156,7 @@ class HomeController extends Controller
         $user->password = bcrypt($data['password']);
         $user->role = $data['role'];
         $user->service_id  = $data['service_id'];
+        $user->sous_service_id  = $data['sous_service_id'];
 
         $user->save();
 
@@ -136,7 +172,8 @@ class HomeController extends Controller
             'email' => 'required',
             'password' => 'required',
             'role' => 'required',
-            'service_id' => 'required'
+            'service_id' => 'required',
+            'sous_service_id' => 'required'
         ]);
 
         $data['password'] = bcrypt($request->input('password'));

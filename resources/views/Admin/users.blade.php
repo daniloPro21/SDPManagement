@@ -15,8 +15,8 @@
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header bg-aqua-active">
                     <h3 class="widget-user-username">{{ $item->name }}</h3>
-                      @if($item->service != null)
-                    <h5 class="widget-user-desc">{{ $item->service->name }}</h5>
+                      @if($item->general != null)
+                    <h5 class="widget-user-desc">{{ $item->general->name }}</h5>
                       @endif
                   </div>
                   <div class="widget-user-image">
@@ -96,20 +96,30 @@
                     <div class="form-group col-md-6">
                         <label for="role" >choisir le role:</label>
                             <select name="role" id="role" class="form-control">
+                            <option value="superadmin">Super Administrateur</option>
                             <option value="admin">Administrateur</option>
                             <option value="secretaire">Secretaire</option>
                             <option value="service">Service</option>
                             </select>
                       </div>
+                      <div class="form-group col-md-6">
+                        <label for="service">Choisir le service General:</label>
+                            <select name="service_id" id="service" class="form-control">
+                                @foreach ($servicesgenerals as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                      </div>
 
                       <div class="form-group col-md-6">
-                        <label for="service">Choisir le service:</label>
-                            <select name="service_id" id="service" class="form-control">
+                        <label for="sous_service">Choisir le service:</label>
+                            <select name="sous_service_id" id="sous_service" class="form-control">
                                 @foreach ($services as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                       </div>
+
 
 
             </div>

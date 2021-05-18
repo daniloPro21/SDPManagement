@@ -117,7 +117,6 @@
                 <table id="example" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>SDP</th>
                     <th>DRH</th>
                     <th>Propriétaire</th>
                     <th>Date entrée</th>
@@ -130,8 +129,7 @@
                   <tbody>
                       @foreach ($dossierssecre as $dossier)
                       <tr>
-                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
-                          <td>{{ $dossier->num_dra }} </td>
+                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_drh }}</a></td>
                             <td>
                               <div><b>- Nom</b> : {{ $dossier->nom }}</div>
                               <div><b>- Matricule</b> : {{ $dossier->matricule }} </div>
@@ -181,13 +179,10 @@
                     <form method="POST" action="{{ route('dossier.store') }}">
                         @csrf
                         <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="numero">Numéro SDP</label>
-                            <input type="text" name="num_sdp" class="form-control" id="numero" autocomplete="false" required>
-                          </div>
+
                           <div class="form-group col-md-6">
                             <label for="DHR">Numéro DRH</label>
-                            <input type="text" name="num_dra" class="form-control" id="DHR"  autocomplete="false" required>
+                            <input type="text" name="num_drh" class="form-control" id="DHR"  autocomplete="false" required>
                           </div>
                         </div>
                         <div class="form-row">
@@ -234,7 +229,7 @@
                                   </select>
                               </div>
                               <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Date d'entrée</label>
+                                  <label for="inputPassword4">Date d entrée</label>
                                   <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
                               </div>
                           </div>

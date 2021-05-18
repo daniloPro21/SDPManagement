@@ -14,6 +14,6 @@ class ServiceRepository
 
     public function getServiceById($idservice)
     {
-        return Services::where('id', $idpersonne)->get();
+        return Service::where('id', $idpersonne)->get();
     }
 }

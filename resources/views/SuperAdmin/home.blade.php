@@ -25,7 +25,7 @@
                   <!-- /.col -->
                 <div class="col-sm-12">
                     <div class="description-block">
-                      <h5 class="description-header">{{ $d1->count() }}</h5>
+                      <h5 class="description-header">{{ $dossiers->where('service_id',null)->count() }}</h5>
                       <span class="description-text">Dossier(s)</span>
                     </div>
                     <!-- /.description-block -->
@@ -54,7 +54,7 @@
                                 <!-- /.col -->
                               <div class="col-sm-12">
                                   <div class="description-block">
-                                    <h5 class="description-header">{{ $d2->count() }}</h5>
+                                    <h5 class="description-header">{{ $dossiers->where('service_id','!=',null)->where('traiter',false)->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
                                   </div>
                                   <!-- /.description-block -->
@@ -83,7 +83,7 @@
                                   <!-- /.col -->
                                 <div class="col-sm-12">
                                     <div class="description-block">
-                                      <h5 class="description-header">{{ $d3->count() }}</h5>
+                                      <h5 class="description-header">{{ $dossiers->where('traiter',true)->count() }}</h5>
                                       <span class="description-text">Dossier(s)</span>
                                     </div>
                                     <!-- /.description-block -->

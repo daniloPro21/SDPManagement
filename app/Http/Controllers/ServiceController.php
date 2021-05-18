@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cotation;
 use App\Dossier;
 use App\Service;
+use App\ServiceGeneral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -13,10 +16,12 @@ class ServiceController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function  index(){
-        $services=Service::all();
-        return view("Admin.service",compact('services'));
+        $services=Service::with("servicegenerals")->get();
+        $genral_service=ServiceGeneral::all();
+        //dd($services);
+        return view("Admin.service",compact('services', 'genral_service'));
     }
 
     public function  store(Request $request){
@@ -26,16 +31,31 @@ class ServiceController extends Controller
     }
      public function listcoter()
     {
-        $newDossiers = Dossier::where('service_id', auth()->user()->service_id)->where("traiter",false)->paginate(21);
+        $newDossiers = DB::table('cotations')
+        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->paginate(10);
+
+       // $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
+
 
         return view('Services.dossiercoter', compact('newDossiers') );
     }
 
     public function listTraiter()
     {
-        $dossiersTraiters = Dossier::where('service_id', auth()->user()->service_id)->where("traiter",true)->get();
+        $dossiersTraiters = DB::table('cotations')
+        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->paginate(10);
+        $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
 
-        return view('Services.dossiertraiter', compact('dossiersTraiters') );
+
+        return view('Services.dossiertraiter', compact('dossiersTraiters','service_name') );
     }
 
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Cotation;
 use App\Dossier;
 use App\Models\Personnel;
 use App\TypeDossier;
 use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\DossierRepository;
+use App\Service;
+use Illuminate\Support\Facades\DB;
 
 class DossierController extends Controller
 {
@@ -23,6 +26,9 @@ class DossierController extends Controller
         //$dossiersTrie;
         switch ($type) {
             case 'non-coter':
+                $dossiersTrie= $this->dossierRepository->getNonCoterDossiers();
+                break;
+            case 'non-genral-service':
                 $dossiersTrie= $this->dossierRepository->getNewDossiers();
                 break;
             case 'coter':
@@ -36,20 +42,37 @@ class DossierController extends Controller
                 $dossiersTrie=$this->dossierRepository->getDossiers();
                 break;
         }
-
+       // dd($dossiersTrie);
         return view("Admin.listedossier", compact('dossiersTrie'));
     }
 
     public function dossiers()
     {
-        return view('Admin.dossiers');
+        $d2 = DB::table('dossiers')
+        ->join('cotations', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('dossiers.service_id', '=', auth()->user()->service_id)
+        ->where('dossiers.traiter', '=', false)
+        ->where('dossiers.is_delete', '=', false)
+        ->select('dossiers.*', 'services.*', 'cotations.*')
+        ->get();
+        return view('Admin.dossiers',compact('d2'));
     }
 
     public function detail($id)
     {
         $dossier=Dossier::findOrFail($id);
         $types = TypeDossier::all();
-        return view('Admin.details', compact('dossier','types'));
+        $serviceslier = Service::all()->where('servicegeneral_id', auth()->user()->service_id);
+        $cotationDossier =  DB::table('cotations')
+        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
+        ->join('services', 'services.id', '=', 'cotations.id_service')
+        ->where('cotations.id_dossier', '=', $id)
+        ->select('services.name', 'cotations.num_dossier','cotations.id_service')
+        ->get();
+       //  dd($cotationDossier);
+        //die();
+        return view('Admin.details', compact('dossier','types','serviceslier','cotationDossier'));
     }
 
     public function find()
@@ -61,8 +84,7 @@ class DossierController extends Controller
     {
         //dd($request->all());
         $data = $request->validate(array(
-            'num_sdp' => 'required',
-            'num_dra' => 'required',
+            'num_drh' => 'required',
             'type_id' => 'required',
             'note' => 'required',
             'date_entre' => 'required',
@@ -77,8 +99,7 @@ class DossierController extends Controller
 
        try{
            $dossier = new Dossier();
-           $dossier->num_sdp = $data['num_sdp'];
-           $dossier->num_dra = $data['num_dra'];
+           $dossier->num_drh = $data['num_drh'];
            $dossier->date_entre = $data['date_entre'];
            $dossier->nom = $data['nom'];
            $dossier->prenom = $data['prenom'];
@@ -118,7 +139,6 @@ class DossierController extends Controller
     {
 
         $data = $request->validate(array(
-            'num_sdp' => 'required',
             'num_dra' => 'required',
             'type_id' => 'required',
             'note' => 'required',
@@ -161,6 +181,26 @@ class DossierController extends Controller
         return redirect()->back();
 
     }
+    public function servicequotation(Request $request){
+       // dd($request->all());
+        //die();
+        $data = $request->validate(array(
+            'num_dossier' => 'required',
+            'id_dossier' => 'required',
+            'id_service' => 'required',
+        ));
+
+        $cotation = new Cotation();
+        $cotation->num_dossier = $data["num_dossier"];
+        $cotation->id_service = $data["id_service"];
+        $cotation->id_dossier = $data["id_dossier"];
+        $cotation->save();
+
+        Toastr()->success("Affectation Enregistré");
+
+        return redirect()->back();
+
+    }
 
     public function traiter($id){
         $dossier = Dossier::findOrFail($id);
@@ -175,7 +215,7 @@ class DossierController extends Controller
 
     public function findresult(Request $request){
         $data="%".$request->recherche."%";
-        $dossiersTrie= Dossier::where('num_dra',$request->recherche)->orWhere('nom',"LIKE",$data)->orWhere('matricule',"LIKE",$data)->paginate(21);
+        $dossiersTrie= Dossier::where('num_drh',$request->recherche)->orWhere('nom',"LIKE",$data)->orWhere('matricule',"LIKE",$data)->paginate(21);
         return view("Admin.listedossier", compact('dossiersTrie'));
     }
 

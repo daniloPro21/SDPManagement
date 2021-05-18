@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role','service_id','is_delete'
+        'name', 'email', 'password','role','service_id','is_delete','sous_service_id'
     ];
 
     /**
@@ -39,6 +39,10 @@ class User extends Authenticatable
 
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class, "sous_service_id");
+    }
+    public function general()
+    {
+        return $this->belongsTo(ServiceGeneral::class, "service_id");
     }
 }

@@ -26,6 +26,7 @@
                 <div class="form-group col-md-6">
                     <label for="role" >choisir le role:</label>
                         <select name="role" id="role" class="form-control">
+                        <option value="superadmin">Super Administrateur</option>
                         <option value="admin">Administrateur</option>
                         <option value="secretaire">Secretaire</option>
                         <option value="service">Service</option>
@@ -34,8 +35,16 @@
 
                   <div class="form-group col-md-6">
                     <label for="service">Choisir le service:</label>
-                        <select name="service_id" id="service" class="form-control">
+                        <select name="sous_service_id" id="service" class="form-control">
                             @foreach ($services as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="service">Choisir le service General:</label>
+                        <select name="service_id" id="service" class="form-control">
+                            @foreach ($servicesgenerals as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>

@@ -20,8 +20,9 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'service_id' => 1,
-        'role' => 'secretaire',
+        'service_id' => 3,
+        'sous_service_id' => 6,
+        'role' => 'service',
         'is_delete' => false,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

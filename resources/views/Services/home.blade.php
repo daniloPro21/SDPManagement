@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-
-
-
 @section('content')
 <div class="row justify-content-center d-flex align-items-center">
     @if ($errors->any())
@@ -32,7 +29,7 @@
                         <!-- /.col -->
                       <div class="col-sm-12">
                           <div class="description-block">
-                            <h5 class="description-header">{{ $dossiers->where('traiter',false)->where("service_id",auth()->user()->service_id)->count() }}</h5>
+                            <h5 class="description-header">{{ $cotation_service->where("traiter", '=',  false)->count() }}</h5>
                             <span class="description-text">Dossier(s)</span>
                           </div>
                           <!-- /.description-block -->
@@ -60,7 +57,7 @@
                              <!-- /.col -->
                              <div class="col-sm-12">
                                  <div class="description-block">
-                                     <h5 class="description-header">{{ $dossiers->where('traiter',true)->where("service_id",auth()->user()->service_id)->count() }}</h5>
+                                     <h5 class="description-header">{{ $cotation_service->where("traiter", '=',  true)->count() }}</h5>
                                      <span class="description-text">Dossier(s)</span>
                                  </div>
                                  <!-- /.description-block -->
@@ -92,7 +89,7 @@
                 <table id="example" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>SDP</th>
+                    <th>{{ $service_name->name }}</th>
                     <th>DRH</th>
                     <th>Appartien A</th>
                     <th>Date entre</th>
@@ -102,20 +99,20 @@
                   </tr>
                   </thead>
                   <tbody>
-                      @foreach ($dossiers as $dossier)
+                      @foreach ($cotation_service->where('traiter', false) as $cotation)
                       <tr>
-                          <td><a href="{{ route("dossier.detail", ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
-                          <td>{{ $dossier->num_dra }} </td>
+                          <td><a href="{{ route("dossier.detail", ['id' => $cotation->id_dossier]) }}">{{ $cotation->num_dossier }}</a></td>
+                          <td>{{ $cotation->num_drh }} </td>
                             <td>
-                                - <b>Nom</b> : {{ $dossier->nom }} &nbsp;&nbsp;<br>
-                                - <b>Matricule</b> : {{ $dossier->matricule }} &nbsp;&nbsp;<br>
-                                - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
+                                - <b>Nom</b> : {{ $cotation->nom }} &nbsp;&nbsp;<br>
+                                - <b>Matricule</b> : {{ $cotation->matricule }} &nbsp;&nbsp;<br>
+                                - <b>Grade: &nbsp;</b> {{ $cotation->grade }} <br>
 
                             </td>
-                            <td> {{ $dossier->date_entre }}</td>
-                            <td>{{ $dossier->date_sortie }}</td>
+                            <td> {{ $cotation->date_entre }}</td>
+                            <td>{{ $cotation->date_sortie }}</td>
                           <td>
-                          @if($dossier->traiter)
+                          @if($cotation->traiter)
                               <span class="badge bg-green-active"> Traité</span>
                               @else
                                   <span class="badge  bg-yellow-active">En Attente</span>

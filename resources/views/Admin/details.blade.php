@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
 
+@endsection
 @section('content')
   <div class="row justify-content-center d-flex align-items-center">
       <div class="container">
@@ -21,11 +23,19 @@
                 <div class="col-sm-12">
                     <table class="table table-responsive table-striped text-capitalize">
                     <tr>
-                        <td>Numéro DRA </td><td><b>{{ $dossier->num_dra }}</b></td>
+                        <td>Numéro DRH </td><td><b>{{ $dossier->num_drh }}</b></td>
                     </tr>
+                    @if($cotationDossier)
+                    @foreach ($cotationDossier as $concerne )
                     <tr>
-                        <td>Numéro SDP </td><td><b>{{ $dossier->num_sdp }}</b></td>
+                        <td>Cotéé à </td><td><b> {{ $concerne->name }} </b></td>
                     </tr>
+
+                    <tr>
+                        <td>Numero du Service</td><td><b>{{ $concerne->num_dossier }}</b></td>
+                    </tr>
+                    @endforeach
+                    @endif
                     @if ($dossier->num_service != null)
                     <tr>
                         <td>Numéro Service </td><td><b>{{ $dossier->num_service }}</b></td>
@@ -37,31 +47,47 @@
                     <tr>
                         <td>Prénom</td><td><b>{{ $dossier->prenom }}</b></td>
                     </tr>
+
                     <tr>
                         <td>Objet</td><td><b>{{ $dossier->type->name }}</b></td>
                     </tr>
                         <tr>
-                        <td>Date d'Entrée</td><td><b>{{ $dossier->date_entre }}</b></td>
+                        <td>Date d Entrée</td><td><b>{{ $dossier->date_entre }}</b></td>
                         </tr>
                         <tr>
                         <td>Note</td><td><b>{{ $dossier->note }}</b></td>
                         </tr>
                         @if ($dossier->service_id != null)
                         <tr>
-                            <td>Service</td><td><b>{{ $dossier->service->name }}</b></td>
+                            <td>Service_Principale</td><td><b>{{ $dossier->service->name }}</b></td>
                         </tr>
+
                             @if (!$dossier->traiter)
                                 <tr>
                                     <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}" onclick="return confirm('Le dossier sera considéré comme traité')"  class="btn btn-success btn-block">Marquer comme Traité</a> </td>
                                 </tr>
                                 @endif
-                        @else
+                        {{--  @else  --}}
                         @admin
+                        @if($cotationDossier)
+                         @foreach ($cotationDossier as $concerne )
+                                @if (is_null($concerne->id_service))
                         <tr>
-                            <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success text-white  btn-block">Quoter à un service</button> </td>
+                            <td colspan="2"><button data-toggle="modal" data-target="#quotationModal" class="btn btn-success text-white  btn-block">Quoter à un sous service</button> </td>
                         </tr>
+                        @endif
+
+                        @endforeach
+                        @endif
                         @endadmin
                         @endif
+                        @superadmin
+                            @if(is_null($dossier->service_id))
+                        <tr>
+                            <td colspan="2"><button data-toggle="modal" data-target="#qutationgeneral" class="btn btn-success text-white  btn-block">Quoter à un service</button> </td>
+                        </tr>
+                        @endif
+                        @endsuperadmin
                         <tr>
                         <td colspan="2"><button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block">Nouvelle étiquette</button> </td>
                         </tr>
@@ -124,6 +150,7 @@
 
                         @endforeach
 
+
                         <!-- END timeline item -->
 
                         <!-- timeline item -->  <li>
@@ -183,10 +210,10 @@
                     </div>
                     </div>
 
-
+                    {{--  //Coter a un sous service  --}}
                     <div class="modal fade" id="quotationModal" tabindex="-2" aria-labelledby="quotationModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                        <div class="modal-content">
+                          <div class="modal-content">
                             <div class="modal-header">
                             <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -194,44 +221,91 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                            <div class="col-sm-12">
-                            @foreach ($services as $service)
-                                <a onclick="return confirm('Transferé le dossier a ce service ?');" href="{{ route('dossier.quotation',[$service->id,$dossier->id])}}" class="col-sm-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header bg-green-active">
-                                        </div>
-                                        <div class="widget-user-image">
-                                        <img class="img-circle" src="{{ asset('dist/img/2.png') }}" width="50px" height="30px" alt="Service">
-                                        </div>
-                                        <div class="box-footer">
-                                        <div class="row">
-                                            <!-- /.col -->
-                                        <div class="col-sm-12">
-                                            <div class="description-block">
-                                                <h5 class="description-header">{{ $service->name }}</h5>
+                                 <div class="col-sm-12">
+                                        <form method="POST" action="{{ route('dossier.quotation-service') }}">
+                                            @csrf
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Attribuer un Numero au Dossier</label>
+                                                <input type="text" name="num_dossier" id="" class="form-control" placeholder="example SDP-34632" required>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="service">Service à transmettre</label>
+                                                    <select class="custom-select form-control" name="id_service">
+                                                        {{-- <option selected>Choisir le type</option> --}}
+                                                        @foreach ($serviceslier as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                     <input type="hidden" name="id_dossier" value="{{ $dossier->id }}" class="form-control" placeholder="example SDP-34632" required>
+                                                </div>
                                             </div>
-                                            <!-- /.description-block -->
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- /.row -->
-                                        </div>
+
                                     </div>
-                                    <!-- /.widget-user -->
-                                </a>
-                            @endforeach
                             </div>
-                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                                     <button type="submit"  class="btn btn-primary">Enregistrer</button>
                                 </div>
-                                </div>
-                        </div>
-                        </div>
+                            </form>
+                            </div>
+                     </div>
+                 </div>
 
+{{--
+                 Admin cotation  --}}
+                 <div class="modal fade" id="qutationgeneral" tabindex="-2" aria-labelledby="quotationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                             <div class="col-sm-12">
+                               @foreach ($servicesgenerals as $item )
+                               <a onclick="return confirm('Transferé le dossier a ce service ?');" href="{{ route('dossier.quotation',[$item->id,$dossier->id])}}" class="col-sm-4">
+                                <!-- Widget: user widget style 1 -->
+                                <div class="box box-widget widget-user">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header bg-green-active">
+                                    </div>
+                                    <div class="widget-user-image">
+                                    <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}" width="50px" height="30px" alt="Service">
+                                    </div>
+                                    <div class="box-footer">
+                                    <div class="row">
+                                        <!-- /.col -->
+                                    <div class="col-sm-12">
+                                        <div class="description-block">
+                                            <h5 class="description-header">{{ $item->name }}</h5>
+                                        </div>
+                                        <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+                                    </div>
+                                </div>
+                                <!-- /.widget-user -->
+                                 </a>
+                               @endforeach
+                            </div>
+                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                <button type="submit"  class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </div>
+                 </div>
+             </div>
+
+
+
+                {{--  //Modifier User  --}}
                 <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
@@ -246,13 +320,10 @@
                                 @csrf
                                 @method('patch')
                                 <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="numero">Numéro DSP</label>
-                                    <input type="text" name="num_sdp" class="form-control" id="numero" value="{{ $dossier->num_sdp }}" required>
-                                </div>
+
                                 <div class="form-group col-md-6">
                                     <label for="DHR">Numéro DRH</label>
-                                    <input type="text" name="num_dra" value="{{ $dossier->num_dra }}" class="form-control" id="DHR" required>
+                                    <input type="text" name="num_drh" value="{{ $dossier->num_drh }}" class="form-control" id="DHR" required>
                                 </div>
                                 </div>
                                 <div class="form-row">
@@ -307,8 +378,11 @@
                             </form>
                             </div>
                     </div>
+
                     </div>
                 </div>
+
+
       </div>
 
 @endsection

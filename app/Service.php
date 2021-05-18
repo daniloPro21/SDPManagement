@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use ServiceSeeder;
 
 class Service extends Model
 {
   protected $fillable = [
-      'name', 'description',
+      'name', 'description','servicegeneral_id'
   ];
 
 
@@ -18,4 +19,20 @@ class Service extends Model
   public function users(){
     return $this->hasMany(User::class, "service_id");
   }
+
+  public function servicegenerals()
+  {
+      return $this->belongsTo(ServiceGeneral::class, 'servicegeneral_id', 'id');
+  }
+
+  public function cotation()
+  {
+      return $this->belongsTo(Cotation::class, "id_service");
+  }
+
+  public function user()
+  {
+      return $this->belongsToMany(User::class, "service_id");
+  }
+
 }

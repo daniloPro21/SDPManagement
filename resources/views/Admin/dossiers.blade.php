@@ -27,7 +27,7 @@
                             <!-- /.col -->
                             <div class="col-sm-12">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('service_id','!=',null)->where('traiter',false)->count() }}</h5>
+                                    <h5 class="description-header">{{ $dossiers->where('service_id','!=',null)->where('service_id',auth()->user()->service_id)->where('traiter',false)->count() }}</h5>
                                     <span class="description-text">Requete(s)</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-sm-12 border-right">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('traiter',true)->count() }}</h5>
+                                    <h5 class="description-header">{{ $dossiers->where('service_id',auth()->user()->service_id)->where('traiter',true)->count() }}</h5>
                                     <span class="description-text">Requete(s)</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -69,15 +69,15 @@
                 <!-- /.widget-user -->
             </div>
 
-        </a> 
-        <br><br> 
+        </a>
+        <br><br>
     <section>
-        
+
         <table id="example" class="table table-bordered table-hover">
             <thead>
             <tr>
-              <th>SDP</th>
-              <th>DRH</th>
+              <th>{{ auth()->user()->general->name }}</th>
+              <th>Coter au </th>
               <th>Appartien A</th>
               <th>Date entre</th>
               <th>Date Sortie</th>
@@ -87,10 +87,11 @@
             </tr>
             </thead>
             <tbody>
-                @foreach ($dossiers as $dossier)
+                @foreach ($d2 as $dossier)
                 <tr>
-                    <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
-                    <td>{{ $dossier->num_dra }} </td>
+                    <td><a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}">{{ $dossier->num_drh }}</a></td>
+                    <td>{{ $dossier->name }}</td>
+
                       <td><b>- Nom</b> : {{ $dossier->nom }} <br>
                           - <b>Matricule</b> : {{ $dossier->matricule }} <br>
                           - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
@@ -100,11 +101,11 @@
                       <td>{{ $dossier->date_sortie }} &nbsp;
 
                       </td>
-                      <form action="{{ route('dossier.delete', ['id' => $dossier->id]) }}" method="post">
-                      <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
+                      <form action="{{ route('dossier.delete', ['id' => $dossier->id_dossier]) }}" method="post">
+                      <td><a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
                           <i class="fa fa-edit"></i>
                           </a>
-                          <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
+                          <a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}"  class="btn btn-info btn-sm mb-3">
                               <i class="fa fa-eye"></i>
                           </a>
                               @csrf

@@ -9,27 +9,32 @@ class Dossier extends Model
 {
     use Notifiable;
 
-    
+
     protected $fillable = [
-      'date_entre', 'telephone', 'date_sortie','note','num_dra','num_sdp','traiter','type_id','nom','prenom','matricule','grade'
+      'date_entre', 'telephone', 'date_sortie','note','num_drh','traiter','type_id','nom','prenom','matricule','grade'
   ];
 
 
-  public function type(){
-    return $this->belongsTo(TypeDossier::class,"type_id");
+  public function Type(){
+    return $this->belongsTo(TypeDossier::class,"type_id", "id");
   }
 
   public function service(){
-    return $this->belongsTo(Service::class,"service_id");
+    return $this->belongsTo(ServiceGeneral::class,"service_id", 'id');
   }
 
     public function steps()
     {
-        return $this->hasMany(Step::class, "dossier_id");
+        return $this->hasMany(Step::class, "dossier_id", 'id');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function cotation()
+    {
+        return $this->belongsTo(Cotation::class, 'id_dossier');
     }
 }

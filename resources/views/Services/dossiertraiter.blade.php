@@ -24,7 +24,7 @@
                             <!-- /.col -->
                             <div class="col-sm-12">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('traiter',true)->where("service_id",auth()->user()->service_id)->count() }}</h5>
+                                    <h5 class="description-header">{{ $dossiers->where('traiter',true)->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -51,7 +51,7 @@
                             <table id="example" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>SDP</th>
+                                    <th>{{ $service_name->name }}</th>
                                     <th>DRH</th>
                                     <th>Proprietaire</th>
                                     <th>Date entre</th>
@@ -64,8 +64,8 @@
                                 <tbody>
                                 @foreach ($dossiersTraiters as $dossier)
                                     <tr>
-                                        <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
-                                        <td>{{ $dossier->num_dra }} </td>
+                                        <td><a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}">{{ $dossier->num_dossier }}</a></td>
+                                        <td>{{ $dossier->num_drh }} </td>
                                         <td>
                                             <div><b>- Nom</b> : {{ $dossier->nom }}</div>
                                             <div><b>- Matricule</b> : {{ $dossier->matricule }} </div>
@@ -76,7 +76,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
+                                            <a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}"  class="btn btn-info btn-sm mb-3">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>

@@ -28,11 +28,21 @@
                 <label for="name">Nom</label>
                 <input type="text" name="name" required class="form-control"  id="name">
               </div>
+              <div class="form-group">
+                <label for="pet-select">Choisi le service Superieur</label>
+                <select name="servicegeneral_id" id="pet-select" class="form-control">
+                    <option value="">--Choissisez le service superieur--</option>
+                    @foreach ($genral_service as $general )
+                    <option value="{{ $general->id }}">{{ $general->name }}</option>
+                    @endforeach
+                </select>
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="description">Description</label>
                 <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici"></textarea>
+
               </div>
             </div>
             <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
@@ -54,6 +64,7 @@
               <th>ID</th>
               <th>Nom</th>
               <th>Description</th>
+              <th>Service Superieur</th>
             </tr>
             </thead>
             <tbody>
@@ -62,6 +73,7 @@
                 <td>{{$service->id}}</td>
                 <td>{{ $service->name }}</td>
                 <td>{{ $service->description }}</td>
+                <td>{{ $service->servicegenerals->name }}</td>
               </tr>
             @endforeach
             </tbody>

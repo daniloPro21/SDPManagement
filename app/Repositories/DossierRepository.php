@@ -9,22 +9,32 @@ class DossierRepository
 {
     public function getDossiers()
     {
-        return Dossier::where('is_delete', false)->orderByDesc('id')->paginate(21);
+        return Dossier::with('type','service')->where('is_delete', false)->orderByDesc('id')->paginate(21);
+    }
+
+    public function getNonCoterDossiers()
+    {
+        return Dossier::with('type','service')->where('service_id', null)->where('is_delete', false)->orderByDesc('id')->paginate(21);
     }
 
     public function getNewDossiers()
     {
-        return Dossier::where('service_id', null)->where('is_delete', false)->orderByDesc('id')->paginate(21);
+        return Dossier::with('type','service')->where('service_id', auth()->user()->service_id)->where('is_delete', false)->orderByDesc('id')->paginate(21);
     }
 
     public function getAssignDossiers()
     {
-        return Dossier::where('service_id', '!=', null)->where('is_delete', false)->orderByDesc('id')->where('traiter', false)->paginate(21);
+        return Dossier::with('type')
+            ->where('service_id', '!=', null)
+            ->where('is_delete', false)
+            ->orderByDesc('id')
+            ->where('traiter', false)
+            ->get();
     }
 
     public function getDossiersTraiter()
     {
-        return Dossier::where('traiter', true)->where('is_delete', false)->orderByDesc('id')->paginate(21);
+        return Dossier::with('type')->where('traiter', true)->where('service_id', auth()->user()->service_id)->where('is_delete', false)->orderByDesc('id')->paginate(21);
     }
 
 

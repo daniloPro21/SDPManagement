@@ -8,6 +8,9 @@
 
         @toastr_css
     <!-- CSRF Token -->
+
+        @yield("css")
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('css')
     <script src="{{ asset('dist/js/chart.min.js') }}" charset="utf-8"></script>
@@ -85,15 +88,17 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('dist/img/armoirie.png') }}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{ auth()->user()->name }}</span>
+                        <span class="hidden-xs">{{ auth()->user()->name }}(@foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $service)
+                            {{ $service->name }}
+                        @endforeach)</span>
                         </a>
                         <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="color: #222  !important">
-                            <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle" alt="User Image">
+                            <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle" alt="User Im age">
 
                             <p style="color: #222  !important">
-                            {{ auth()->user()->name}} - {{ auth()->user()->role}}
+                            {{ auth()->user()->name}}
                             <small>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->created_at)->diffForHumans() }}</small>
                             </p>
                         </li>
@@ -128,7 +133,7 @@
                 </div>
                 <div class="pull-left info">
                     @auth
-                <p>{{ auth()->user()->name }}</p>
+                <p>{{ auth()->user()->name }}({{ auth()->user()->role }})</p>
                     @endauth
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
@@ -194,6 +199,54 @@
                 </li>
 
                 @endadmin
+
+                @superadmin
+                <li class="text-white">
+                <a href="{{ route('admin.home')}}">
+                    <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de contrôle")}}</span>
+                </a>
+                </li>
+                <li>
+                <a href="{{ route('dossiers.all')}}">
+                <i class="fa fa-book"></i>
+                <span>{{ __("Dossiers")}}</span>
+                </a>
+            </li>
+
+            <li>
+            <a href="{{ route('dossiers.find')}}">
+                <i class="fa fa-search"></i>
+                <span>{{ __("Recherche")}}</span>
+            </a>
+            </li>
+                <li>
+                    <a href="{{ route('affectation.index')}}">
+                        <i class="fa fa-vcard-o"></i>
+                        <span>{{ __("Affectations")}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('nomination.index')}}">
+                        <i class="fa fa-pagelines"></i>
+                        <span>{{ __("Nominations")}}</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>{{ __("Configurations")}}</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
+                    <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
+                <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+                    <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnels</a></li>
+                    <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Postes</a></li>
+                </ul>
+                </li>
+
+                @endsuperadmin
 
             @secretaire
                 <li>

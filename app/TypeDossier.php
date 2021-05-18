@@ -11,6 +11,6 @@ class TypeDossier extends Model
   ];
 
   public function dossiers(){
-    return $this->hasMany(Dossier::class,"type_id");
+    return $this->hasMany(Dossier::class);
   }
 }

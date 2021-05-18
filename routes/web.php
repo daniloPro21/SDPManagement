@@ -32,6 +32,7 @@ Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store')
 Route::get('/Dossier/group', 'DossierController@group')->name('dossier.group');
 Route::get('/Dossier/group/{id}', 'DossierController@showGroup')->name('dossier.group.show');
 Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
+Route::post('/dossier/service-quotation', 'DossierController@servicequotation')->name('dossier.quotation-service');
 Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
 Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
@@ -183,3 +184,9 @@ Route::get("/nominations/pdf",function(){
 //Route::get('nomination', 'NominationController@index')->name('nomination.index');
 Route::get('cds', 'NominationController@cds')->name('nomination.cds');
 Route::get('eco', 'NominationController@eco')->name('nomination.eco');
+
+/**
+ * Route Supper admin
+ */
+
+Route::get('superadmin/home', 'SuperAdminController@index')->name('super.home');
