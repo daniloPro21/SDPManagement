@@ -21,6 +21,6 @@ class Role
             return $next($request);
         }
 
-        return redirect()->route('admin.home');
+        return redirect()->route('error');
     }
 }

@@ -6,6 +6,7 @@ use App\Cotation;
 use App\Dossier;
 use App\Service;
 use App\ServiceGeneral;
+use App\Trace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,12 +32,11 @@ class ServiceController extends Controller
     }
      public function listcoter()
     {
-        $newDossiers = DB::table('cotations')
-        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
-        ->join('services', 'services.id', '=', 'cotations.id_service')
-        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
-        ->select('dossiers.*', 'services.*', 'cotations.*')
-        ->paginate(10);
+       $newDossiers = Dossier::with('type','track','services')
+            ->where('sous_service_id', '=', auth()->user()->sous_service_id)
+            ->where('statut', '=', 'encour')
+            ->where('is_delete', false)
+            ->orderByDesc('id')->paginate(21);
 
        // $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
 
@@ -46,12 +46,12 @@ class ServiceController extends Controller
 
     public function listTraiter()
     {
-        $dossiersTraiters = DB::table('cotations')
-        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
-        ->join('services', 'services.id', '=', 'cotations.id_service')
-        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
-        ->select('dossiers.*', 'services.*', 'cotations.*')
-        ->paginate(10);
+        $dossiersTraiters = Dossier::with('type','service','services', 'track')
+            ->where('sous_service_id', '=', auth()->user()->sous_service_id)
+            ->where('statut', '=', 'traiter')
+            ->where('is_delete', false)
+            ->orderByDesc('id')->paginate(21);
+
         $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
 
 

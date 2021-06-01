@@ -14,9 +14,11 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-          $table->enum('role',['admin','secretaire','service'])->nullable();
+          $table->enum('role',['superadmin','admin','secretaire','service','cardre'])->nullable();
           $table->unsignedBigInteger('service_id')->nullable();
-          $table->foreign('service_id')->references('id')->on('services');
+          $table->unsignedBigInteger('sous_service_id')->nullable();
+          $table->foreign('service_id')->references('id')->on('service_generals');
+          $table->foreign('sous_service_id')->references('id')->on('services');
         });
     }
 

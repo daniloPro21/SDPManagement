@@ -7,6 +7,8 @@ use App\Charts\DossierChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class SuperAdminController extends Controller
 {
@@ -30,11 +32,10 @@ class SuperAdminController extends Controller
         "rgba(22,160,133, 0.6)"
 
     ];
-
   $dossierChart = new DossierChart;
     $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
     //$dossierChart->minimalist(true);
-    $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->count(), Dossier::where('service_id','!=',null)->where('traiter',false)->count(), Dossier::where('traiter',true)->count()])->color($borderColors)->backgroundcolor($fillColors);
+    $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->where('statut', null)->count(), Dossier::where('service_id','!=',null)->where('statut',null)->count(), Dossier::where('statut','traiter')->count()])->color($borderColors)->backgroundcolor($fillColors);
 
     $dossier2Chart = new DossierChart;
     $dossiers=Dossier::where('is_delete', false)->get()->groupBy(function($d) {
@@ -59,7 +60,22 @@ class SuperAdminController extends Controller
     array_reverse($years[0]);
     $yearChart->labels($years[0]);
     $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
-    return view('SuperAdmin.home',compact("dossierChart","dossier2Chart","yearChart") );
+
+       $dossier4Chart = new DossierChart;
+       $DossierService = DB::table('dossiers')
+           ->join('service_generals','dossiers.service_id', '=', 'service_generals.id')
+           ->select('dossiers.service_id','service_generals.name', DB::raw('count(*) as total'))
+           ->groupBy('dossiers.service_id')
+           ->get();
+      // dd($DossierService);
+       for ($i=1; $i<=12 ; $i++) {
+           $key="0".$i;
+           $dossier4Data[] = ($i>=10) ? $DossierService->get($i,collect([]))->count() : $DossierService->get($key,collect([]))->count() ;
+       }
+       $dossier4Chart->labels(['Jan', 'Fev', 'Mar','Avr','Mai','Juin','Juillet','Août','Sept','Oct','Nov','Dec']);
+       $dossier4Chart->dataset('Quoté Par Service', 'bar', $dossier4Data)->color("rgb(0,122,94)");
+
+    return view('SuperAdmin.home',compact("dossierChart","dossier2Chart","yearChart","dossier4Chart","DossierService") );
 
    }
 }

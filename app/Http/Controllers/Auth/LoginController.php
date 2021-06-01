@@ -39,10 +39,14 @@ class LoginController extends Controller
             return route('admin.home');
         } elseif ($user->role == "superadmin") {
             return route('super.home');
-        } elseif ($user->role == "secretaire") {
-            return route('secretaire.home');
+        }elseif ($user->role == "secdrh"){
+            return route('super.home');
         }
-         elseif ($user->role == "service") {
+        elseif ($user->role == "secretaire") {
+            return route('secretaire.home');
+        } elseif ($user->role == "service") {
+            return route('service.home');
+        }elseif ($user->role == "cardre"){
             return route('service.home');
         } else {
             return route('register');

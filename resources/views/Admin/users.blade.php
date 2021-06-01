@@ -8,7 +8,8 @@
         <hr>
         <div class="row">
             <!-- /.col -->
-            @foreach ($users as $item)
+            @admin
+            @foreach ($users->where('service_id', auth()->user()->service_id) as $item)
             <div class="col-md-4">
                 <!-- Widget: user widget style 1 -->
                 <div class="box box-widget widget-user">
@@ -17,6 +18,9 @@
                     <h3 class="widget-user-username">{{ $item->name }}</h3>
                       @if($item->general != null)
                     <h5 class="widget-user-desc">{{ $item->general->name }}</h5>
+                      @endif
+                      @if($item->service != null)
+                          <h5 class="widget-user-desc">{{ $item->service->name }}</h5>
                       @endif
                   </div>
                   <div class="widget-user-image">
@@ -58,9 +62,117 @@
                 <!-- /.widget-user -->
               </div>
             @endforeach
+            @endadmin
+            @superadmin
+            @foreach ($users as $item)
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                  <div class="widget-user-header bg-aqua-active">
+                    <h3 class="widget-user-username">{{ $item->name }}</h3>
+                      @if($item->general != null)
+                    <h5 class="widget-user-desc">{{ $item->general->name }}</h5>
+                      @endif
+                      @if($item->service != null)
+                          <h5 class="widget-user-desc">{{ $item->service->name }}</h5>
+                      @endif
+                  </div>
+                  <div class="widget-user-image">
+                    <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}" alt="User Avatar">
+                  </div>
+                  <div class="box-footer">
+                    <div class="row">
+                      <div class="col-sm-4 border-right">
+                        <div class="description-block">
 
-            <!-- /.col -->
-            <!-- /.col -->
+                        <a href="{{ route('user.edit', ['user' => $item]) }}" type="submit" class="btn btnn-info">Modifier</a>
+
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                          <h5 class="description-header" style="text-transform: capitalize;">{{ $item->role }}</h5>
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-sm-4">
+                        <div class="description-block">
+                            <form action="{{ route('user.delete', ['id' => $item->id]) }}" method="post">
+                                @csrf
+                                @method('patch')
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                </div>
+                <!-- /.widget-user -->
+              </div>
+            @endforeach
+            @endsuperadmin
+            @service
+            @foreach ($users->where('sous_service_id', auth()->user()->sous_service_id) as $item)
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                  <div class="widget-user-header bg-aqua-active">
+                    <h3 class="widget-user-username">{{ $item->name }}</h3>
+                      @if($item->general != null)
+                    <h5 class="widget-user-desc">{{ $item->general->name }}</h5>
+                      @endif
+                      @if($item->service != null)
+                          <h5 class="widget-user-desc">{{ $item->service->name }}</h5>
+                      @endif
+                  </div>
+                  <div class="widget-user-image">
+                    <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}" alt="User Avatar">
+                  </div>
+                  <div class="box-footer">
+                    <div class="row">
+                      <div class="col-sm-4 border-right">
+                        <div class="description-block">
+
+                        <a href="{{ route('user.edit', ['user' => $item]) }}" type="submit" class="btn btnn-info">Modifier</a>
+
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                          <h5 class="description-header" style="text-transform: capitalize;">{{ $item->role }}</h5>
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-sm-4">
+                        <div class="description-block">
+                            <form action="{{ route('user.delete', ['id' => $item->id]) }}" method="post">
+                                @csrf
+                                @method('patch')
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                        </div>
+                        <!-- /.description-block -->
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                </div>
+                <!-- /.widget-user -->
+              </div>
+            @endforeach
+            @endservice
           </div>
     </div>
 </div>
@@ -92,34 +204,99 @@
                       <label for="inputEmail4">Mot de passe</label>
                       <input type="password" name="password" id="" class="form-control" placeholder="entre le mot de passe" required>
                     </div>
-
+                    @superadmin
                     <div class="form-group col-md-6">
                         <label for="role" >choisir le role:</label>
                             <select name="role" id="role" class="form-control">
                             <option value="superadmin">Super Administrateur</option>
                             <option value="admin">Administrateur</option>
                             <option value="secretaire">Secretaire</option>
+                            <option value="secdrh">Secretaire DRH</option>
                             <option value="service">Service</option>
+                            <option value="cardre">cardre</option>
                             </select>
                       </div>
+                    @endsuperadmin
+
+                    @admin
+                    <div class="form-group col-md-6">
+                        <label for="role" >choisir le role:</label>
+                            <select name="role" id="role" class="form-control">
+                            <option value="admin">Administrateur</option>
+                            <option value="secretaire">Secretaire</option>
+                            <option value="service">Service</option>
+                            <option value="cardre">cardre</option>
+                            </select>
+                      </div>
+                    @endadmin
+                    @service
+                    <div class="form-group col-md-6">
+                        <label for="role" >choisir le role:</label>
+                        <select name="role" id="role" class="form-control">
+                            <option value="cardre">cardre</option>
+                        </select>
+                    </div>
+                    @endservice
+                    @admin
                       <div class="form-group col-md-6">
                         <label for="service">Choisir le service General:</label>
                             <select name="service_id" id="service" class="form-control">
-                                @foreach ($servicesgenerals as $item)
+                                @foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                       </div>
-
+                    @endadmin
+                    @superadmin
+                    <div class="form-group col-md-6">
+                        <label for="service">Choisir le service General:</label>
+                        <select name="service_id" id="service" class="form-control">
+                            @foreach ($servicesgenerals as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endsuperadmin
+                    @service
+                    <div class="form-group col-md-6">
+                        <label for="service">Choisir le service General:</label>
+                        <select name="service_id" id="service" class="form-control">
+                            @foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endservice
+                    @admin
                       <div class="form-group col-md-6">
                         <label for="sous_service">Choisir le service:</label>
                             <select name="sous_service_id" id="sous_service" class="form-control">
-                                @foreach ($services as $item)
+                                @foreach ($services->where('servicegeneral_id', auth()->user()->service_id) as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                       </div>
-
+                    @endadmin
+                    @superadmin
+                    <div class="form-group col-md-6">
+                        <label for="sous_service">Choisir le service:</label>
+                        <select name="sous_service_id" id="sous_service" class="form-control">
+                            @foreach ($services as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endsuperadmin
+                    @service
+                    <div class="form-group col-md-6">
+                        <label for="sous_service">Choisir le service:</label>
+                        <select name="sous_service_id" id="sous_service" class="form-control">
+                            @foreach ($services->where('id', auth()->user()->sous_service_id) as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endservice
 
 
             </div>

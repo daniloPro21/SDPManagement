@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dossier;
 use App\Repositories\DossierRepository;
 use App\Repositories\PersonneRepository;
+use App\Trace;
 use App\TypeDossier;
 use App\Charts\DossierChart;
 use App\Cotation;
@@ -14,6 +15,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -49,24 +51,22 @@ class HomeController extends Controller
 
         ];
 
-        $d1 = DB::table('dossiers')
-        ->join('cotations', 'cotations.id_dossier', '!=', 'dossiers.id')
-        ->join('services', 'services.id', '=', 'cotations.id_service')
-        ->where('dossiers.service_id', '=', auth()->user()->service_id)
-        ->where('dossiers.traiter', '=', false)
-        ->where('dossiers.is_delete', '=', false)
-        ->select('dossiers.*', 'services.*', 'cotations.*')
-        ->get();
-       // dd($d1);
-        $d2 = DB::table('dossiers')
-        ->join('cotations', 'cotations.id_dossier', '=', 'dossiers.id')
-        ->join('services', 'services.id', '=', 'cotations.id_service')
-        ->where('dossiers.service_id', '=', auth()->user()->service_id)
-        ->where('dossiers.traiter', '=', false)
-        ->where('dossiers.is_delete', '=', false)
-        ->select('dossiers.*', 'services.*', 'cotations.*')
-        ->get();
-        $d3 = Dossier::all()->where('traiter', true)->where('service_id', auth()->user()->service_id);
+        $d1 =  Dossier::with('type','service','services')
+            ->where('service_id', '=', auth()->user()->service_id)
+            ->whereNull("sous_service_id")
+            ->where('statut', '=', 'encour')
+            ->where('is_delete', false)
+            ->orderByDesc('id')->get();
+
+        $d2 =  Dossier::with('type','service','services')
+            ->where('service_id', '=', auth()->user()->service_id)
+            ->whereNotNull("sous_service_id")
+            ->where('statut', '=', 'encour')
+            ->where('is_delete', false)
+            ->orderByDesc('id')
+            ->get();
+        //dd($d2);
+        $d3 = Dossier::all()->where('statut', 'traiter')->where('service_id', auth()->user()->service_id);
 
 
       $dossierChart = new DossierChart;
@@ -90,45 +90,51 @@ class HomeController extends Controller
 
 
         $yearChart = new DossierChart;
-        $yearsData=Dossier::where('is_delete', false)->where('service_id','=', auth()->user()->service_id)->get()->groupBy(function($d) {
-          return Carbon::parse($d->date_entre)->format('Y');
-          });
-        for ($i=(int) date("Y")-5; $i<=date("Y") ; $i++) {
-          $years[0][]=$i;
-          $years[1][]=$yearsData->get($i,collect([]))->count();
+        $yearsData=Dossier::all()->where('is_delete', false)->where('service_id', '=', auth()->user()->service_id)->groupBy(function($d) {
+            return \Illuminate\Support\Carbon::parse($d->date_entre)->format('Y');
+        });
+        for ($i=(int) date("Y")-10; $i<=date("Y") ; $i++) {
+            $years[0][]=$i;
+            $years[1][]=$yearsData->get($i,collect([]))->count();
         }
         //dd($years);
         array_reverse($years[0]);
         $yearChart->labels($years[0]);
         $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
+
+
+      /*  $test = Cotation::where('service_generals_id', '=', auth()->user()->service_id)
+            ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
+            ->where('statut', '=', null)
+            ->get();
+        dd($test);*/
         return view('Admin.home',compact("dossierChart","dossier2Chart","yearChart","d1","d2","d3") );
     }
 
     public function secretaire()
     {
-        $dossierssecre = Dossier::all()->where('is_delete', false);
+        $dossierssecre = Trace::with('dossier')
+            ->where('nom_service', '=', auth()->user()->general->name)
+            ->get();
         //dd($dossierssecre);
+        $d2 =  Dossier::with('type','service','services')
+            ->where('service_id', '=', auth()->user()->service_id)
+            ->where('sous_service_id', '!=', null)
+            ->where('statut', '=', 'encour')
+            ->where('is_delete', false)
+            ->orderByDesc('id')->get();
         $types = TypeDossier::all();
-        return view('Secretaire.home', compact('types','dossierssecre'));
+        return view('Secretaire.home', compact('types','dossierssecre', 'd2'));
     }
 
     public function service()
     {
-        /*$dossiers = Dossier::all()
-        ->where('service_id', '=', auth()->user()->service_id)
-        ->where('is_delete' ,'=', false);*/
-
-      //  $coter = $this->dossierRepository->getAssignDossiers()->count();
-        // dd($coter);
-        $cotation_Serice = Cotation::all();
-        $cotation_service = DB::table('cotations')
-        ->join('dossiers', 'cotations.id_dossier', '=', 'dossiers.id')
-        ->join('services', 'services.id', '=', 'cotations.id_service')
-        ->where('cotations.id_service', '=', auth()->user()->sous_service_id)
-        ->select('dossiers.*', 'services.*', 'cotations.*')
-        ->get();
+        $cotation_service = Trace::with('dossier')
+            ->where('nom_service', '=', auth()->user()->service->name)
+            ->get();
+        //dd($cotation_service);
         $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
-        return view('Services.home', compact('cotation_Serice','service_name','cotation_service'));
+        return view('Services.home', compact('service_name','cotation_service'));
     }
 
     public function index()

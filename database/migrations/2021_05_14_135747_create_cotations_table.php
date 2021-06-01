@@ -15,7 +15,6 @@ class CreateCotationsTable extends Migration
     {
         Schema::create('cotations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("num_dossier");
             $table->unsignedBigInteger("id_service");
             $table->unsignedBigInteger("id_dossier");
             $table->boolean("is_delete")->nullable();

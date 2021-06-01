@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Cotation;
+use App\Trace;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
@@ -47,6 +48,12 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('superadmin', function () {
             return auth()->check() && auth()->user()->role === 'superadmin';
         });
+        Blade::if('cardre', function () {
+            return auth()->check() && auth()->user()->role === 'cardre';
+        });
+        Blade::if('secdrh', function () {
+            return auth()->check() && auth()->user()->role === 'secdrh';
+        });
         /*
         Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
             return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;
@@ -56,7 +63,8 @@ class AppServiceProvider extends ServiceProvider
         if(request()->server("SCRIPT_NAME") !== 'artisan') {
             view()->share('dossiers', Dossier::orderByDesc('id')->get());
             view()->share('services', Service::orderByDesc('id')->get());
-            view()->share('cotations', Cotation::orderByDesc('id')->get());
+            view()->share('traces', Trace::orderByDesc('id')->get());
+            view()->share('users', User::orderByDesc('id')->get());
             view()->share('servicesgenerals', ServiceGeneral::orderByDesc('id')->get());
         }
 

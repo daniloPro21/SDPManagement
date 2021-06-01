@@ -11,7 +11,7 @@ class Dossier extends Model
 
 
     protected $fillable = [
-      'date_entre', 'telephone', 'date_sortie','note','num_drh','traiter','type_id','nom','prenom','matricule','grade'
+      'date_entre', 'telephone', 'date_sortie','note','num_drh','statut','type_id','nom','prenom','matricule','grade','sous_service_id'
   ];
 
 
@@ -33,8 +33,23 @@ class Dossier extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function cotation()
+    public function services()
     {
-        return $this->belongsTo(Cotation::class, 'id_dossier');
+        return $this->belongsTo(Service::class, 'sous_service_id');
+    }
+
+    public function delegues()
+    {
+        return $this->belongsTo(Delegue::class,'id_dossier');
+    }
+
+    public function track()
+    {
+        return $this->belongsTo(Trace::class, 'id_dossier', 'id');
+    }
+
+    public function transmission()
+    {
+        return $this->belongsTo(transmission::class, 'id_dossier', 'id');
     }
 }

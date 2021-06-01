@@ -17,6 +17,7 @@ class CreateServiceGeneralsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->string('english');
             $table->boolean('is_delete');
             $table->timestamps();
         });

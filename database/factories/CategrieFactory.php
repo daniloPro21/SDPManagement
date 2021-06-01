@@ -20,7 +20,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Categorie::class, function (Faker $faker) {
     return [
-        'nom' => 'SCM',
-        'description' => $faker->sentence
+        'nom' => $faker->name,
+        'description' => $faker->sentence,
+        'groupe_id' => $faker->numberBetween(1, 9)
     ];
 });

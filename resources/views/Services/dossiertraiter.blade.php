@@ -24,7 +24,7 @@
                             <!-- /.col -->
                             <div class="col-sm-12">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('traiter',true)->count() }}</h5>
+                                    <h5 class="description-header">{{ $dossiersTraiters->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -64,7 +64,9 @@
                                 <tbody>
                                 @foreach ($dossiersTraiters as $dossier)
                                     <tr>
-                                        <td><a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}">{{ $dossier->num_dossier }}</a></td>
+                                        <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"></a>
+                                        {{ $dossier->track }}
+                                        </td>
                                         <td>{{ $dossier->num_drh }} </td>
                                         <td>
                                             <div><b>- Nom</b> : {{ $dossier->nom }}</div>
@@ -76,7 +78,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('dossier.detail', ['id' => $dossier->id_dossier]) }}"  class="btn btn-info btn-sm mb-3">
+                                            <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>

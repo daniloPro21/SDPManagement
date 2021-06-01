@@ -22,7 +22,6 @@
                 <table id="example" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>SDP</th>
                     <th>DRH</th>
                     <th>Propriétaire</th>
                     <th>Date entre</th>
@@ -33,21 +32,28 @@
                   <tbody>
                       @foreach ($dossiersFiltrer as $dossier)
                       <tr>
-                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_sdp }}</a></td>
-                          <td>{{ $dossier->num_dra }} </td>
+                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_drh }}</a></td>
                             <td><b>- Nom</b> : {{ $dossier->nom }} <br>
                                 - <b>Matricule</b> : {{ $dossier->matricule }} <br>
                                 - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
 
                             </td>
                             <td> {{ $dossier->date_entre }}</td>
-                            <td>{{ $dossier->date_sortie }} 
+                            <td>{{ $dossier->date_sortie }}
                             </td>
                             <td style="vertical-align: center">
-                            @if ($dossier->traiter)
-                                <b class="badge badge-primary bg-theme">Traité</b> 
+                            @if ($dossier->statut == "traiter")
+                                <b class="badge badge-primary bg-theme">{{ $dossier->statut }}</b>
+                            @elseif($dossier->statut == "encour")
+                                <b class="badge badge-secondary bg-success-darker">{{ $dossier->statut }}</b>
+                            @elseif($dossier->statut == "rejete")
+                                <b class="badge badge-warning bg-warning-darker">{{ $dossier->statut }}</b>
+                            @elseif($dossier->statut == "transmis")
+                                <b class="badge badge-blue bg-blue-active">{{ $dossier->statut }}</b>
+                            @elseif($dossier->statut == "signe")
+                               <b class="badge badge-cyan bg-yellow-active">{{ $dossier->statut }}</b>
                             @else
-                                <b class="badge badge-warning bg-warning">Non Traité</b> 
+                              <b class="badge badge-cyan bg-yellow-active">Aucun</b>
                             @endif
                             </td>
                         </tr>

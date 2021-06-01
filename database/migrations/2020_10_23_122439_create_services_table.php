@@ -17,6 +17,7 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->string("name");
             $table->string("description")->nullable();
+            $table->string("english")->nullable();
             $table->unsignedBigInteger('servicegeneral_id');
             $table->foreign("servicegeneral_id")->references("id")->on("service_generals");
             $table->timestamps();

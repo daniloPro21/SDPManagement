@@ -28,7 +28,7 @@
                 <h1 align="center" style="color:rgba(128, 128, 128, 0.781);font-size: 95px !important;position: absolute;top: 40%;left:35%;">Aucun Resultat !</h1>
               @endforelse
             </div>
-
+            {{ $dossiersTrie->links() }}
           </div>
 
 @endsection

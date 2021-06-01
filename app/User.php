@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(ServiceGeneral::class, "service_id");
     }
+
+    public function delegues()
+    {
+        return $this->belongsTo(Delegue::class, 'id_user');
+    }
 }

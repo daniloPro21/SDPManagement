@@ -8,7 +8,7 @@ use ServiceSeeder;
 class Service extends Model
 {
   protected $fillable = [
-      'name', 'description','servicegeneral_id'
+      'name', 'description','servicegeneral_id','english'
   ];
 
 
@@ -33,6 +33,11 @@ class Service extends Model
   public function user()
   {
       return $this->belongsToMany(User::class, "service_id");
+  }
+
+  public function traces()
+  {
+      return $this->belongsToMany(Traces::class, "service_id");
   }
 
 }

@@ -28,7 +28,7 @@ class CreateDossiersTable extends Migration
             $table->string('telephone');
             $table->string('num_drh')->nullable()->unique();
             $table->string('num_service')->nullable();
-            $table->boolean('traiter')->default(false);
+            $table->enum('statut',['traiter','signe','rejete','transmis'])->nullable();
             $table->boolean('is_delete')->default(false);
             $table->foreign('service_id')->references('id')->on('services');
            // $table->foreign('personne_id')->references('id')->on('personnes');

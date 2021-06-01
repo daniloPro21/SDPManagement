@@ -7,7 +7,45 @@
   <div class="row justify-content-center d-flex align-items-center">
 
     <div class="container">
-      <div class="box">
+        <form action="{{route('type.store')}}" method="POST">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="text-center text-uppercase">Veuillez remplir le formulaire</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body col-sm-offset-3 col-sm-6 ">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @csrf
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" name="name" required class="form-control"  id="name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" class="form-control" id="description" placeholder="Votre texte Ici"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning btn-block" type="submit">Enregistrer</button>
+                </div>
+                <div class="box-footer">
+
+                </div>
+            </div>
+        </form>
+
+        <div class="box">
             <div class="box-header">
               <h3 class="text-center text-uppercase">Types de documents</h3>
             </div>
@@ -19,7 +57,9 @@
                   <th>ID</th>
                   <th>Nom</th>
                   <th>Description</th>
+                    @superadmin
                   <th>Voir les dossiers</th>
+                    @endsuperadmin
                 </tr>
                 </thead>
                 <tbody>
@@ -28,7 +68,9 @@
                   <td>{{$type->id}}</td>
                   <td>{{ $type->name }}</td>
                   <td>{{ $type->description }}</td>
-                <td><a href="{{ route("dossier.group.show",$type->id)}}"><button class="btn btn-sm">Voir les dossiers</button></a></td>
+                    @superadmin
+                    <td><a href="{{ route("dossier.group.show",$type->id)}}"><button class="btn btn-sm">Voir les dossiers</button></a></td>
+                    @endsuperadmin
                 </tr>
                   @endforeach
                 </tbody>

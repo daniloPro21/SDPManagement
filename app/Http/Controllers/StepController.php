@@ -29,7 +29,7 @@ class StepController extends Controller
                 .\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y")."  \n \n";
 
             Nexmo::message()->send([
-                'to'   => '237673151975',
+                'to'   => '237693468041',
                 'from' => 'MINSANTE',
                 'text' => $msg
             ]);
