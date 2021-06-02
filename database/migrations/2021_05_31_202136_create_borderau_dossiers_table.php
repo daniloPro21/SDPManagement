@@ -17,7 +17,7 @@ class CreateBorderauDossiersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_dossier');
             $table->unsignedBigInteger('id_borderaux');
-            $table->foreign('id_borderaux')->references('id')->on('borderaux');
+            $table->foreign('id_borderaux')->references('id')->on('borderauxes');
             $table->foreign('id_dossier')->references('id')->on('dossiers');
             $table->timestamps();
         });

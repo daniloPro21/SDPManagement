@@ -13,13 +13,15 @@ class CreateBorderausTable extends Migration
      */
     public function up()
     {
-        Schema::create('borderaux', function (Blueprint $table) {
+        Schema::create('borderauxes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('titre');
             $table->string('numero');
             $table->string('destinataire');
             $table->string('observation');
             $table->date('date');
+            $table->enum('etat',['ouvert','ferme'])->nullable();
+            $table->string("entete");
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('service_generals');
             $table->timestamps();

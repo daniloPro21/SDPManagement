@@ -268,7 +268,7 @@
                 @endsuperadmin
                 @secdrh
                 <li class="text-white">
-                    <a href="{{ route('super.home')}}">
+                    <a href="{{ route('secdrh.home')}}">
                         <i class="fa fa-dashboard"></i> <span>{{ __("Panneau de contrôle")}}</span>
                     </a>
                 </li>
@@ -288,7 +288,7 @@
 
                 <li>
                     <a href="{{ route('bordreau.index')}}">
-                        <i class="fa fa-refresh-o"></i>
+                        <i class="fa fa-refresh"></i>
                         <span>{{ __("Bordereax")}}</span>
                     </a>
                 </li>

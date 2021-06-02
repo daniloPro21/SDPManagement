@@ -36,23 +36,25 @@ class TraceController extends Controller
      */
     public function store(Request $request)
     {
-     //   dd($request->all());
+     //  dd($request->all());
         $data = $request->validate(array(
             'num_dossier' => 'required',
             'nom_service' => 'required',
             'id_dossier' => 'required',
         ));
-
-        if(auth()->user()->role == 'secretaire'){
+        if(auth()->user()->role == 'secretaire') {
             $prefix =   auth()->user()->general->name;
-        }else {
+        }elseif(auth()->user()->role == 'service'){
+            $prefix = auth()->user()->service->name;
+        } else{
             $prefix = auth()->user()->service->name;
         }
         $trace = new Trace();
         $trace->nom_service = $data['nom_service'];
-        $trace->num_dossier = $data['num_dossier'];
+        $trace->num_dossier = $prefix.'-'.$data['num_dossier'];
         $trace->id_dossier = $data['id_dossier'];
         $trace->save();
+
         Toastr()->success("Affectation Enregistré");
 
         return redirect()->back();

@@ -112,7 +112,7 @@
                 <div class="box box-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-aqua-active">
-                        <h3 class="widget-user-username"><b>Dossiers en cours</b></h3>
+                        <h3 class="widget-user-username"><b>Dossiers Quotés</b></h3>
                         <h5 class="widget-user-desc">{{ Carbon\Carbon::now()}}</h5>
                     </div>
                     <div class="widget-user-image">
@@ -324,6 +324,13 @@
                         - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
 
                     </td>
+                    @if($dossier->statut == "traiter")
+                        <td class="badge bg-yellow-active"> {{ $dossier->statut }}</td>
+                    @elseif ($dossier->statut == "encour")
+                        <td class="badge bg-green-active"> {{ $dossier->statut }}</td>
+                    @else
+                        <td class="badge bg-aqua-active"> {{ $dossier->statut }}</td>
+                    @endif
                     <td> {{ $dossier->date_entre }}</td>
                     <td>{{ $dossier->date_sortie }} &nbsp;
 

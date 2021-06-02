@@ -76,8 +76,12 @@
                                                     btn-aqua
                                                     @endif">{{ $dossier->statut }}</b></td>
                                         </tr>
+                                    @else
+                                        <tr>
+                                            <td>Status</td>
+                                            <td><b>En Attente de Quotation </b></td>
+                                        </tr>
                                     @endif
-
                                     @superadmin
                                     @if($dossier->service_id == NULL)
                                         <tr>
@@ -154,8 +158,7 @@
                                         </td>
                                     </tr>
                                     @secretaire
-
-                                    @if($trace->isEmpty())
+                                    @if($trace2->isEmpty())
                                     <tr>
                                         <td colspan="2">
                                             <button data-toggle="modal" data-target="#givenumber"
@@ -167,6 +170,17 @@
                                     @endif
                                     @endsecretaire
 
+                                    @cardre
+                                    @if($trace3->isEmpty())
+                                        <tr>
+                                            <td colspan="2">
+                                                <button data-toggle="modal" data-target="#givenumber"
+                                                        class="btn btn-primary btn-block">Enregistré
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @endcardre
                                     @service
                                     @if($trace2->isEmpty())
                                         <tr>
@@ -276,84 +290,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-12">
-                <h2>Informations du dossier sur le service</h2>
-                @if($delegue)
-                    <h4>Dossier Delegue à <i class="btn btn-bitbucket">{{ $delegue->users->name}}</i></h4>
-                    <small>le {{ $delegue->created_at }}</small>
-                    @endif
-                <hr>
-                @admin
-                @foreach ($trace as $item)
-                    <div class="row">
-                       <div class="col-sm-12">
-                           <div class="card" style="width: 20rem;">
-                               <ul class="list-group list-group-flush">
-                                   <li class="list-group-item">Numero : {{ $item->num_dossier }} </li>
-                                   <li class="list-group-item">Date D'Entrée : {{ $item->created_at }}</li>
-                                   <li class="list-group-item">Date Sortie  : {{ $item->date_sortie }}</li>
-                                   <li class="list-group-item">
-                                       <button data-toggle="modal" data-target="#modifier_sortire"
-                                               class="btn btn-info btn-secondary">Modifier
-                                       </button>
-                                   </li>
-                               </ul>
-                           </div>
-                       </div>
-                    </div>
-                    @endforeach
-                @endadmin
-            </div>
-            <div class="col-md-12">
-                @secretaire
-                @foreach ($trace2 as $item)
-                    <div class="card" style="width: 20rem;">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Numero {{auth()->user()->general->name}} : {{ $item->num_dossier }} </li>
-                            <li class="list-group-item">Date D'Entrée : {{ $item->created_at }}</li>
-                            <li class="list-group-item">Date Sortie  : {{ $item->date_sortie }}</li>
-                            <li class="list-group-item">
-                                <button data-toggle="modal" data-target="#modifier_sortire"
-                                        class="btn btn-info btn-secondary">Modifier
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                @endforeach
-                @endsecretaire
-                @service
-                @foreach ($trace2 as $item)
-                    <div class="card" style="width: 20rem;">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Numero {{auth()->user()->service->name}} : {{ $item->num_dossier }} </li>
-                            <li class="list-group-item">Date D'Entrée : {{ $item->created_at }}</li>
-                            <li class="list-group-item">Date Sortie  : {{ $item->date_sortie }}</li>
-                            <li class="list-group-item">
-                                <button data-toggle="modal" data-target="#modifier_sortire"
-                                        class="btn btn-info btn-secondary">Modifier
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                @endforeach
-                @endservice
-                @cardre
-                @foreach ($trace2 as $item)
-                    <div class="card" style="width: 20rem;">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Numero {{auth()->user()->service->name}} : {{ $item->num_dossier }} </li>
-                            <li class="list-group-item">Date D'Entrée : {{ $item->created_at }}</li>
-                            <li class="list-group-item">Date Sortie  : {{ $item->date_sortie }}</li>
-                            <li class="list-group-item">
-                                <button data-toggle="modal" data-target="#modifier_sortire"
-                                        class="btn btn-info btn-secondary">Modifier
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                @endforeach
-                @endcardre
-            </div>
+
             <!-- /.col -->
         </div>
 
@@ -830,6 +767,139 @@
             </div>
         </div>
 
+
+    </div>
+
+    <div class="container">
+            <h2>Informations du dossier sur le service</h2>
+            @if($delegue)
+                <h4>Dossier Delegue à <i class="btn btn-bitbucket">{{ $delegue->users->name}}</i></h4>
+                <small>le {{ $delegue->created_at }}</small>
+            @endif
+            <hr>
+        <div class="col-md-12">
+            @secretaire
+            @foreach ($trace2 as $item)
+                <a href="#" class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-yellow-active">
+                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-sm-12">
+                                    <div class="description-block">
+                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
+                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                    <button data-toggle="modal" data-target="#modifier_sortire"
+                                            class="btn btn-info btn-secondary">Modifier
+                                    </button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </a>
+            @endforeach
+            @endsecretaire
+            @service
+            @foreach ($trace3 as $item)
+                <a href="#" class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-yellow-active">
+                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-sm-12">
+                                    <div class="description-block">
+                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
+                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                    <button data-toggle="modal" data-target="#modifier_sortire"
+                                            class="btn btn-info btn-secondary">Modifier
+                                    </button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </a>
+            @endforeach
+            @endservice
+            @cardre
+            @foreach ($trace3 as $item)
+                <a href="#" class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-yellow-active">
+                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-sm-12">
+                                    <div class="description-block">
+                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
+                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
+                                    </div>
+                                    <button data-toggle="modal" data-target="#modifier_sortire"
+                                            class="btn btn-info btn-secondary">Modifier
+                                    </button>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </a>
+            @endforeach
+            @endcardre
+        </div>
+        @admin
+        @foreach ($trace as $item)
+        <a href="#" class="col-md-4">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-yellow-active">
+                    <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <!-- /.col -->
+                        <div class="col-sm-12">
+                            <div class="description-block">
+                                <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
+                                <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </a>
+            @endforeach
+        @endadmin
 
     </div>
 

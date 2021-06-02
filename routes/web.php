@@ -80,7 +80,7 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  *Route de Services
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
-Route::get('/service', 'ServiceController@index')->name('service.index');
+Route::get('/service', 'ServiceController@index')->name('service.index')->middleware('role:service,cardre');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
 Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
 
@@ -180,7 +180,7 @@ Route::post("/nominations/{id}","FicheNominationController@update")->name("nomin
 Route::get("/nominations/{id}/print","FicheNominationController@print")->name("nomination.print")->middleware("role:admin,superadmin");;
 Route::get("/nominations/{id}/manage","FicheNominationController@manage")->name("nomination.manage")->middleware("role:admin,superadmin");;
 Route::post("/nominations/{id}/manage/add","AffectationController@new")->name("nomination.new")->middleware("role:admin,superadmin");;
-Route::get("/nominations/{id}/delete","FicheNominationController@delete")->name("nomination.delete")->middleware("role:admin,superadmin");;
+Route::get("/nominations/{id}/delete","FicheNominationController@delete")->name("nomination.delete")->middleware("role:admin,superadmin");
 Route::get("/nominations/pdf",function(){
     $fiche = \App\Models\FicheAffectation::findOrFail(1);
     dd($fiche->affectations->first()->poste);
@@ -197,7 +197,8 @@ Route::get('eco', 'NominationController@eco')->name('nomination.eco');
  * Route Supper admin
  */
 
-Route::get('superadmin/home', 'SuperAdminController@index')->name('super.home')->middleware("role:superadmin");;
+Route::get('superadmin/home', 'SuperAdminController@index')->name('super.home')->middleware("role:superadmin,secdrh");
+Route::get('secdrh/home', 'SuperAdminController@index')->name('secdrh.home')->middleware("role:secdrh");
 
 
 /**

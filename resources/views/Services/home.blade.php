@@ -138,7 +138,7 @@
                             <td> {{ $cotation->created_at }}</td>
                             <td>{{ $cotation->date_sortie }}</td>
                           <td>
-                          @if($cotation->traiter)
+                          @if($cotation->dossier->statut == 'traiter')
                               <span class="badge bg-green-active"> Traité</span>
                               @else
                                   <span class="badge  bg-yellow-active">En Attente</span>

@@ -140,10 +140,12 @@ class DossierController extends Controller
         $types = TypeDossier::all();
         $trace = Trace::where('id_dossier', $id)->get();
         $trace2 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->general->name)->get();
+        $trace3 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->service->name)->get();
+
        // dd($trace2);
         $serviceslier = Service::all()->where('servicegeneral_id', auth()->user()->service_id);
 
-        return view('Admin.details', compact('delegue', 'dossier', 'trace', 'trace2', 'types', 'serviceslier'));
+        return view('Admin.details', compact('delegue', 'dossier', 'trace', 'trace2', 'trace3','types', 'serviceslier'));
     }
 
     public function find()

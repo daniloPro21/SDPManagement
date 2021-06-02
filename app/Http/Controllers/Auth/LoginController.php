@@ -40,7 +40,7 @@ class LoginController extends Controller
         } elseif ($user->role == "superadmin") {
             return route('super.home');
         }elseif ($user->role == "secdrh"){
-            return route('super.home');
+            return route('secdrh.home');
         }
         elseif ($user->role == "secretaire") {
             return route('secretaire.home');
