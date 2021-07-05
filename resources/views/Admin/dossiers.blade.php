@@ -31,12 +31,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="DHR">Numero DRH</label>
-                                        <input type="text" name="num_dra" class="form-control"  autocomplete="false" id="DHR" required>
+                                        <input type="text" name="num_drh" class="form-control"  autocomplete="false" id="DHR" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Nom du Propriétaire</label>
+                                        <label for="inputEmail4">Nom du destinataire</label>
                                         <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
                                     </div>
 
@@ -51,17 +51,17 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Telephone</label>
+                                        <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
                                         <label for="inputEmail4">Grade</label>
                                         <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputPassword4">Date d entrée</label>
                                         <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
-                                    </div>
-
-                                    <div class="form-group col-md-6">
-                                        <label for="inputapssword4">date de sortie</label>
-                                        <input type="date" name="date_sortie" class="form-control" id="inputPassword4" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="inputPassword4">Note</label>
+                                        <label for="inputPassword4">Mension</label>
                                         <textarea name="note" id="" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@
 
             <thead>
             <tr>
-              <th>{{ auth()->user()->general->name }}</th>
+              <th>Numero DRH</th>
               <th>Coter au </th>
               <th>Appartien A</th>
               <th>Status</th>

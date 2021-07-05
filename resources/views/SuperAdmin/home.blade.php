@@ -199,7 +199,6 @@
                           {!! $yearChart->container() !!}
                       </div>
                  </div>
-    </div>
 @stop
 
 @section("javascript")
@@ -211,8 +210,5 @@
   @endisset
   @isset($yearChart)
     {!! $yearChart->script() !!}
-  @endisset
-  @isset($dossier4Chart)
-      {!! $dossier4Chart->script() !!}
   @endisset
 @stop

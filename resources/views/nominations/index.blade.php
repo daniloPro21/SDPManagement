@@ -84,6 +84,16 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
+                                <label for="titre">Format</label>
+                                <select name="pets" id="pet-select" class="custom-select">
+                                    <option value="decrets">Decrêt</option>
+                                    <option value="descision">Descision</option>
+                                    <option value="arreter">Arreter</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
                                 <label for="type">Type</label>
                                 <select name="type" class="form-control" id="type">
                                     <option value="Nomination Chef de Bureau PSF et CVI">Nomination Chef de Bureau PSF
@@ -93,13 +103,6 @@
                                     <option value="Projet Nomination CDS et Dir HD">Projet Nomination CDS et Dir HD
                                     </option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="decrets">Décréts</label>
-                                <textarea name="decrets" id="decrets" rows="6"
-                                          class="form-control textareaFeat"></textarea>
                             </div>
                         </div>
                         <div class="form-row">

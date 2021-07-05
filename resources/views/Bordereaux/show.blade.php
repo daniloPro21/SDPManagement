@@ -134,8 +134,8 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="matricule">Matricule</label>
-                                <input type="text" name="matricule" class="form-control" id="matricule"
+                                <label for="matricule">Numero dossier</label>
+                                <input type="text" name="num_drh" class="form-control" id="matricule"
                                        autocomplete="false" required>
                             </div>
 

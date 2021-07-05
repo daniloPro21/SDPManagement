@@ -6,8 +6,11 @@ use App\Cotation;
 use App\Delegue;
 use App\Dossier;
 use App\Models\Personnel;
+use App\Notifications\DelegueNorification;
+use App\Notifications\QuottationNorification;
 use App\Trace;
 use App\TypeDossier;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Mockery\Matcher\Type;
 use Yoeunes\Toastr\Toastr;
@@ -141,7 +144,6 @@ class DossierController extends Controller
         $trace = Trace::where('id_dossier', $id)->get();
         $trace2 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->general->name)->get();
         $trace3 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->service->name)->get();
-
        // dd($trace2);
         $serviceslier = Service::all()->where('servicegeneral_id', auth()->user()->service_id);
 
@@ -155,7 +157,7 @@ class DossierController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
+
         $data = $request->validate(array(
             'num_drh' => 'required',
             'type_id' => 'required',
@@ -247,9 +249,9 @@ class DossierController extends Controller
         $dossier->service_id = $id;
         $dossier->statut = 'encour';
         $dossier->update();
-
+        $user = User::all()->where('role', '=', 'admin')->where('service_id', '=', $id)->first();
+        $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
         Toastr()->success("Affectation Enregistré");
-
         return redirect()->back();
 
     }
@@ -266,17 +268,22 @@ class DossierController extends Controller
 
     }
 
+    public function markRead($id){
+        auth()->user()->unreadNotifications->first()->markAsRead();
+        return redirect()->route('dossier.detail', ['id' => $id]);
+    }
+
     public function servicequotation($id_service, $dossier_id)
     {
 
         $dossier = Dossier::findOrFail($dossier_id);
         $dossier->sous_service_id = $id_service;
         $dossier->update();
-
+        $user = User::all()->where('role', '=', 'service')->where('sous_service_id', '=', $id_service)->first();
+        $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
         Toastr()->success("Affectation Enregistré");
 
         return redirect()->back();
-
 
     }
 
@@ -310,8 +317,10 @@ class DossierController extends Controller
         $delegues = new Delegue();
         $delegues->id_user = $id_user;
         $delegues->id_dossier = $dossier_id;
+        $user = User::findOrfail($id_user);
+        $dossier = Dossier::findOrFail($dossier_id);
         $delegues->save();
-
+        $user->notify(new DelegueNorification($dossier->num_drh, $dossier->id));
         Toastr()->success("Dossier Délégue");
 
         return redirect()->back();

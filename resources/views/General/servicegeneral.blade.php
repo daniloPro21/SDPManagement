@@ -63,6 +63,7 @@
                             <th>Nom</th>
                             <th>Description</th>
                             <th>Description Englaise</th>
+                            <th>Dossier Quoter</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,6 +73,7 @@
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->description }}</td>
                                 <td>{{ $service->english }}</td>
+                                <td><a href="{{ route('servicegenraldossier.index', ['id' => $service->id]) }}" class="btn btn-aqua">Dossier Quotter</a></td>
                             </tr>
                         @endforeach
                         </tbody>

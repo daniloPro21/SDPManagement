@@ -59,4 +59,12 @@ class ServiceController extends Controller
     }
 
 
+    public function ShowGroup($id)
+    {
+        $dossiersFiltrer = Dossier::where('is_delete', false)->where('sous_service_id', $id)->get();
+        $typeDossier = Service::findOrFail($id);
+        return view("Admin.dossiersSousService", compact("dossiersFiltrer", "typeDossier"));
+    }
+
+
 }

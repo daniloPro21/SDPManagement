@@ -387,6 +387,13 @@
                                 </div>
                             </div>
                             @endservice
+                            @cardre
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                                </div>
+                            </div>
+                            @endcardre
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                                 <button type="submit" class="btn btn-primary">Enregistrer</button>

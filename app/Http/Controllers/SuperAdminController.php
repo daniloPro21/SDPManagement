@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Dossier;
 use App\Charts\DossierChart;
+use App\ServiceGeneral;
+use App\TypeDossier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
@@ -32,8 +34,9 @@ class SuperAdminController extends Controller
         "rgba(22,160,133, 0.6)"
 
     ];
-  $dossierChart = new DossierChart;
-    $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
+    $dossierChart = new DossierChart;
+
+       $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
     //$dossierChart->minimalist(true);
     $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->where('statut', null)->count(), Dossier::where('service_id','!=',null)->where('statut',null)->count(), Dossier::where('statut','traiter')->count()])->color($borderColors)->backgroundcolor($fillColors);
 
@@ -62,20 +65,15 @@ class SuperAdminController extends Controller
     $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
 
        $dossier4Chart = new DossierChart;
-       $DossierService = DB::table('dossiers')
-           ->join('service_generals','dossiers.service_id', '=', 'service_generals.id')
-           ->select('dossiers.service_id','service_generals.name', DB::raw('count(*) as total'))
-           ->groupBy('dossiers.service_id')
-           ->get();
-      // dd($DossierService);
-       for ($i=1; $i<=12 ; $i++) {
-           $key="0".$i;
-           $dossier4Data[] = ($i>=10) ? $DossierService->get($i,collect([]))->count() : $DossierService->get($key,collect([]))->count() ;
-       }
-       $dossier4Chart->labels(['Jan', 'Fev', 'Mar','Avr','Mai','Juin','Juillet','Août','Sept','Oct','Nov','Dec']);
-       $dossier4Chart->dataset('Quoté Par Service', 'bar', $dossier4Data)->color("rgb(0,122,94)");
 
-    return view('SuperAdmin.home',compact("dossierChart","dossier2Chart","yearChart","dossier4Chart","DossierService") );
+    return view('SuperAdmin.home',compact("dossierChart","dossier2Chart","yearChart","dossier4Chart") );
 
    }
+
+    public function ShowGroup($id)
+    {
+        $dossiersFiltrer = Dossier::where('is_delete', false)->where('service_id', $id)->get();
+        $typeDossier = ServiceGeneral::findOrFail($id);
+        return view("typedossiers.dossiers", compact("dossiersFiltrer", "typeDossier"));
+    }
 }

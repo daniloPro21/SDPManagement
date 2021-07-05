@@ -80,7 +80,8 @@ Route::get('/type', 'TypeDossierController@index')->name('type.index');
  *Route de Services
  */
 Route::post('/service/create', 'ServiceController@store')->name('service.store');
-Route::get('/service', 'ServiceController@index')->name('service.index')->middleware('role:service,cardre');
+Route::get('/service', 'ServiceController@index')->name('service.index');
+Route::get('/servicedosseir/{id}', 'ServiceController@ShowGroup')->name('service.showGroup');
 Route::get('/service/listdossier', 'ServiceController@listcoter')->name('service.coter');
 Route::get('/service/traite', 'ServiceController@listTraiter')->name('service.traiter');
 
@@ -247,3 +248,8 @@ Route::get('bordereau/deleted/{id}', 'BorderauController@delete')->name('bordrea
  */
 Route::post('/servicegeneral/create', 'ServiceGeneralController@store')->name('servicegeneral.store');
 Route::get('/servicegeneral', 'ServiceGeneralController@index')->name('servicegeneral.index');
+Route::get('/servicegenraldossier/{id}', 'SuperAdminController@ShowGroup')->name('servicegenraldossier.index');
+/*
+*Notification Route
+*/
+Route::get('/notification/{id}', 'DossierController@markRead')->name('asread');

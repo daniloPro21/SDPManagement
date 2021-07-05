@@ -72,9 +72,11 @@
               <th>Nom</th>
               <th>Description</th>
               <th>Service Superieur</th>
+              <th>Dossier Quotter</th>
             </tr>
             </thead>
             <tbody>
+            @superadmin
             @foreach($services as $service)
               <tr>
                 <td>{{$service->id}}</td>
@@ -83,6 +85,18 @@
                 <td>{{ $service->servicegenerals->name }}</td>
               </tr>
             @endforeach
+            @endsuperadmin
+            @admin
+            @foreach($services->where('servicegeneral_id', auth()->user()->service_id) as $service)
+                <tr>
+                    <td>{{$service->id}}</td>
+                    <td>{{ $service->name }}</td>
+                    <td>{{ $service->description }}</td>
+                    <td>{{ $service->servicegenerals->name }}</td>
+                    <td><a href="{{ route('service.showGroup', $service->id) }}" class="btn btn-bitbucket">Voir Dossiers</a></td>
+                </tr>
+            @endforeach
+            @endadmin
             </tbody>
           </table>
         </div>
