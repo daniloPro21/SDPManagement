@@ -11,17 +11,26 @@ class Dossier extends Model
 
 
     protected $fillable = [
-      'date_entre', 'telephone', 'date_sortie','note','num_drh','statut','type_id','nom','prenom','matricule','grade','sous_service_id'
-  ];
+        'service_id', 'num_courrier', 'date_entre', 'telephone', 'date_sortie', 'note', 'num_drh', 'statut',
+        'type_id', 'nom', 'prenom', 'matricule', 'grade', 'sous_service_id'];
 
+    public function Type()
+    {
+        return $this->belongsTo(TypeDossier::class, "type_id", "id");
+    }
 
-  public function Type(){
-    return $this->belongsTo(TypeDossier::class,"type_id", "id");
-  }
+    public function ServiceGeneral()
+    {
+        return $this->hasMany(ServiceGeneral::class);
+    }
 
-  public function service(){
-    return $this->belongsTo(ServiceGeneral::class,"service_id", 'id');
-  }
+    public function cotation()
+    {
+        return $this->hasMany(Cotation::class);
+    }
+    public function Tracage(){
+        return $this->hasMany(Tracage::class);
+    }
 
     public function steps()
     {
@@ -33,14 +42,14 @@ class Dossier extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function services()
+    public function service()
     {
-        return $this->belongsTo(Service::class, 'sous_service_id');
+        return $this->hasMany(Service::class);
     }
 
     public function delegues()
     {
-        return $this->belongsTo(Delegue::class,'id_dossier');
+        return $this->belongsTo(Delegue::class, 'id_dossier');
     }
 
     public function track()

@@ -6,19 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cotation extends Model
 {
-    protected $fillable = ["id_service","id_dossier","service_generals_id"];
+    protected $fillable = ["service_id","dossier_id","servicegeneral_id", "user_id"];
 
-    public function dossier()
+
+    public function dossiers()
     {
-        return $this->belongsTo(Dossier::class, "id_dossier");
+        return $this->belongsTo(Dossier::class, "dossier_id");
     }
 
-    public function service()
+    public function services()
     {
-        return $this->belongsTo(Service::class, "id_service");
+        return $this->belongsTo(Service::class, "service_id");
     }
     public function servicegeneral()
     {
-        return $this->belongsTo(ServiceGeneral::class, "service_generals_id");
+        return $this->belongsTo(ServiceGeneral::class, "servicegeneral_id");
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, "user_id");
     }
 }

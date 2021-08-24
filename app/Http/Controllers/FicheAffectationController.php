@@ -103,14 +103,14 @@ class FicheAffectationController extends Controller
         }
         //dd($donnees);
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("affectations.exports.template",compact("fiche","donnees"));
+        $pdf->loadView("affectations.pdf",compact("fiche","donnees"));
         //
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
 
         return //View("affectations.exports.template",compact("fiche","donnees"));
-                $pdf->stream();
-            //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+            $pdf->stream();
+        //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
 
     }
 
@@ -124,7 +124,7 @@ class FicheAffectationController extends Controller
         //$pdf->render();
 
         return //$pdf->stream();
-        $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+            $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
 
     }
 

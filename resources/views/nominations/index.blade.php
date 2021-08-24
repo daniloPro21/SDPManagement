@@ -85,10 +85,10 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="titre">Format</label>
-                                <select name="pets" id="pet-select" class="custom-select">
-                                    <option value="decrets">Decrêt</option>
-                                    <option value="descision">Descision</option>
-                                    <option value="arreter">Arreter</option>
+                                <select name="decrets" id="pet-select" class="custom-select">
+                                    <option value="DECRETE">Decrêt</option>
+                                    <option value="DECIDE">Descision</option>
+                                    <option value="ARRETE">Arreter</option>
                                 </select>
                             </div>
                         </div>
@@ -120,5 +120,5 @@
                 </form>
             </div>
         </div>
-
+    </div>
 @endsection

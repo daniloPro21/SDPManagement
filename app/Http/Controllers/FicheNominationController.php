@@ -31,8 +31,8 @@ class FicheNominationController extends Controller
     public function store(Request $request)
     {
         try {
+           // dd($request->all());
             $data = $request->all();
-            $data["decrets"] = $request->decrets;
             $fiche = FicheAffectation::create($data);
             $fiche->intituler = "nomination";
             $fiche->update();
@@ -88,6 +88,8 @@ class FicheNominationController extends Controller
         $fiche = FicheAffectation::findOrFail($id);
 
         $groupes = Groupe::all();
+        //dd($fiche);
+
         $donnees = array();
 
        foreach ($groupes as $groupe){
@@ -105,7 +107,7 @@ class FicheNominationController extends Controller
        }
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("nominations.exports.template",compact("fiche","donnees"));
+        $pdf->loadView("Nominations.pdf",compact("fiche","donnees"));
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
         //$pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
@@ -120,13 +122,13 @@ class FicheNominationController extends Controller
         $fiche = FicheAffectation::findOrFail($id);
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView("nominations.annexe",compact('fiche'));
+        $pdf->loadView("Nominations.pdf",compact('fiche'));
         //
         $pdf->setPaper('A4', 'portrait');
         //$pdf->render();
 
-        return //$pdf->stream();
-            $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
+        return $pdf->stream();
+           // $pdf->download("Affectation-".Str::slug(substr($fiche->titre,0,30))."-".$fiche->date.".pdf");
 
     }
 

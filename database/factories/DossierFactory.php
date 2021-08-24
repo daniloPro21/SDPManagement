@@ -12,6 +12,7 @@ $factory->define(Dossier::class, function (Faker $faker) {
         'date_sortie' => $faker->dateTime,
         'note' => $faker->sentence,
         'num_drh' => $faker->numberBetween(1000, 10000000),
+        'num_courrier' => $faker->numberBetween(1000, 10000000),
         'statut' => null,
         'type_id' => $faker->numberBetween(1,10),
         'nom' => $faker->name,

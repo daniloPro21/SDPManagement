@@ -5,6 +5,7 @@
 
     <div class="container">
         <a href="#" href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg mb-3">Ajouter un utilisateur</a>
+        <a href="{{ route('user.edit', ['user' => auth()->user()]) }}" class="btn btn-bitbucket btn-lg mb-3">Modifier Mes informations</a>
         <hr>
         <div class="row">
             <!-- /.col -->
@@ -247,6 +248,16 @@
                             </select>
                       </div>
                     @endadmin
+                    @secretaire
+                    <div class="form-group col-md-6">
+                        <label for="service">Choisir le service General:</label>
+                        <select name="service_id" id="service" class="form-control">
+                            @foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endsecretaire
                     @superadmin
                     <div class="form-group col-md-6">
                         <label for="service">Choisir le service General:</label>

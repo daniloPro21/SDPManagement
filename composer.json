@@ -17,6 +17,8 @@
         "laravel/tinker": "^1.0",
         "nexmo/laravel": "^2.3",
         "phpoffice/phpword": "^0.17.0",
+        "pusher/pusher-php-server": "^7.0",
+        "twilio/sdk": "^6.27",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {

@@ -39,11 +39,24 @@
             <div> SECRETARIAT GENERAL</div>
             <div>--------------</div>
             <div>DIRECTION DES RESSOURCES HUMAINES</div>
+            @admin
+            <div>{{auth()->user()->general->english}}</div>
+            @endadmin
+            @secretaire
+            <div>{{auth()->user()->general->english}}</div>
+            @endsecretaire
+            @service
+            <div>{{auth()->user()->general->english}}</div>
             <div>--------------</div>
-            <div>{{auth()->user()->general->description}}</div>
+            <div>{{auth()->user()->service->english}}</div>
             <div>--------------</div>
-            <div>{{auth()->user()->service->description}}</div>
+            @endservice
+            @cardre
+            <div>{{auth()->user()->general->english}}</div>
             <div>--------------</div>
+            <div>{{auth()->user()->service->english}}</div>
+            <div>--------------</div>
+            @endcardre
         </div>
         <div class="sceau" style="width: 49%;position: relative;text-align: center">
             <div style="font-weight: bold !important;">REPUBLIC OF CAMEROON</div>
@@ -54,11 +67,24 @@
             <div> SECRETARIAT GENERAL</div>
             <div>--------------</div>
             <div>DEPARTMENT OF HUMAN RESOURCES</div>
-            <div>--------------</div>
+            @admin
+            <div>{{auth()->user()->general->english}}</div>
+            @endadmin
+            @secretaire
+            <div>{{auth()->user()->general->english}}</div>
+            @endsecretaire
+            @service
             <div>{{auth()->user()->general->english}}</div>
             <div>--------------</div>
             <div>{{auth()->user()->service->english}}</div>
             <div>--------------</div>
+            @endservice
+            @cardre
+            <div>{{auth()->user()->general->english}}</div>
+            <div>--------------</div>
+            <div>{{auth()->user()->service->english}}</div>
+            <div>--------------</div>
+            @endcardre
         </div>
     </div>
     <div style="margin-bottom: 10px;">

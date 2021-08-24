@@ -10,6 +10,7 @@ $factory->define(ServiceGeneral::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence,
-        'is_delete' => null
+        'english' => $faker->sentence,
+        'is_delete' => false
     ];
 });

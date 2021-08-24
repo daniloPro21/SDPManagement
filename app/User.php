@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Delegue::class, 'id_user');
     }
+    public function cotation()
+    {
+        return $this->hasMany(Cotation::class);
+    }
 }

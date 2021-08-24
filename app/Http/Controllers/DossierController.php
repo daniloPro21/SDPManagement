@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use App\Cotation;
 use App\Delegue;
 use App\Dossier;
-use App\Models\Personnel;
 use App\Notifications\DelegueNorification;
 use App\Notifications\QuottationNorification;
 use App\Trace;
 use App\TypeDossier;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
-use Mockery\Matcher\Type;
-use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\DossierRepository;
 use App\Service;
@@ -83,12 +79,12 @@ class DossierController extends Controller
 
     public function shownoncoter()
     {
-        $dossiersTrie1 = Dossier::with('type', 'service', 'services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->where('sous_service_id', '=', null)
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->paginate(21);
+        $dossiersTrie1 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
         // dd($dossiersTrie1);
         return view('Admin.noncoter', compact('dossiersTrie1'));
     }
@@ -106,32 +102,34 @@ class DossierController extends Controller
 
     public function showcotedossier()
     {
-        $dossiersTrie3 = Dossier::with('type', 'service', 'services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->where('sous_service_id', '!=', null)
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->paginate(21);
+        $dossiersTrie3 = Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "!=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
         return view('Admin.admincoter', compact('dossiersTrie3'));
     }
 
 
     public function dossiers()
     {
-        $d2 = Dossier::with('type', 'service', 'services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->where('sous_service_id', '!=', null)
-            ->where('is_delete', false)
-            ->orderByDesc('id')->paginate(21);
-        $d3 = Dossier::with('type', 'service', 'services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->where('sous_service_id', '!=', null)
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->count();
+        $d2 = Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "!=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
+        $d3 = Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "!=", null)
+            ->where("dossiers.statut", "=", 'traiter')
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
         $types = TypeDossier::all();
         // dd($d3);
-        return view('Admin.dossiers', compact('d2','d3', 'types'));
+        return view('Admin.dossiers', compact('d2', 'd3', 'types'));
     }
 
     public function detail($id)
@@ -144,10 +142,18 @@ class DossierController extends Controller
         $trace = Trace::where('id_dossier', $id)->get();
         $trace2 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->general->name)->get();
         $trace3 = Trace::where('id_dossier', $id)->where('nom_service', auth()->user()->service->name)->get();
-       // dd($trace2);
+        // dd($trace2);
         $serviceslier = Service::all()->where('servicegeneral_id', auth()->user()->service_id);
+        $cotations = Cotation::with('dossiers', 'services', 'servicegeneral')->where("dossier_id", '=', $id)->get();
+        $cotations2 = DB::table('cotations')
+            ->join('dossiers', 'dossiers.id', '=' , 'cotations.dossier_id')
+            ->where('cotations.servicegeneral_id', '=', auth()->user()->service_id)
+            ->where('cotations.dossier_id', '=', $dossier->id)
+            ->select('cotations.*')
+            ->distinct()
+            ->first();
 
-        return view('Admin.details', compact('delegue', 'dossier', 'trace', 'trace2', 'trace3','types', 'serviceslier'));
+        return view('Admin.details', compact('delegue', 'dossier', 'cotations','cotations2','trace', 'trace2', 'trace3', 'types', 'serviceslier'));
     }
 
     public function find()
@@ -157,8 +163,9 @@ class DossierController extends Controller
 
     public function store(Request $request)
     {
-
+        //dd($request->input("matricule"));
         $data = $request->validate(array(
+            'num_courrier' => 'required',
             'num_drh' => 'required',
             'type_id' => 'required',
             'note' => 'required',
@@ -166,7 +173,7 @@ class DossierController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'grade' => 'required',
-            'matricule' => 'required',
+            'matricule' => 'nullable',
             'telephone' => 'required'
         ));
 
@@ -182,22 +189,6 @@ class DossierController extends Controller
             $dossier->matricule = $data['matricule'];
             $dossier->type_id = $data['type_id'];
             $dossier->note = $data['note'];
-
-
-            $verification = Personnel::where("matricule", $data['matricule'])->count();
-
-
-            if ($verification <= 0) {
-                $personnel = new Personnel();
-                $personnel->nom = $data['nom'];
-                $personnel->prenom = $data['prenom'];
-                $personnel->matricule = $data['matricule'];
-                $personnel->sexe = $request->sexe;
-                $personnel->grade = $data['grade'];
-                $personnel->telephone = $data['telephone'];
-                $personnel->save();
-            }
-
             $dossier->save();
             Toastr()->success("Enregistrement Effectué", "terminé");
         } catch (\Exception  $exception) {
@@ -243,14 +234,63 @@ class DossierController extends Controller
 
     }
 
-    public function quotation($id, $dossier_id)
+    public function servicequotation(Request $request, $dossier_id)
     {
+        $data = $request->validate(array(
+            'sous_service_id' => 'required',
+        ));
+        $cotation = Cotation::all()->where('dossier_id',$dossier_id)
+            ->where('servicegeneral_id', auth()->user()->service_id);
         $dossier = Dossier::findOrFail($dossier_id);
-        $dossier->service_id = $id;
-        $dossier->statut = 'encour';
-        $dossier->update();
-        $user = User::all()->where('role', '=', 'admin')->where('service_id', '=', $id)->first();
-        $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
+        $taille = count($data['sous_service_id']);
+        if($taille < 2){
+            foreach ($cotation as $c){
+                foreach ($data['sous_service_id'] as $service) {
+                    $c->update(['sous_service_id'=> $service]);
+                    $user = User::all()->where('role', '=', 'service')
+                        ->where('sous_service_id', '=', $service);
+                }
+                foreach ($user as $u){
+                    $u->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
+                }
+            }
+        }else{
+            foreach ($data['sous_service_id'] as $service) {
+                $cotation = new Cotation();
+                $cotation->servicegeneral_id = auth()->user()->service_id;
+                $cotation->dossier_id = $dossier->id;
+                $cotation->service_id = $service;
+                $cotation->save();
+                $user = User::all()->where('role', '=', 'service')
+                    ->where('sous_service_id', '=', $service);
+            }
+            foreach ($user as $u){
+                $u->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
+            }
+        }
+
+        Toastr()->success("Affectation Enregistré");
+
+        return redirect()->back();
+
+    }
+
+    public function quotation(Request $request, $dossier_id)
+    {
+        $data = $request->validate(array(
+            'servicegeneral_id' => 'required',
+        ));
+        $dossier = Dossier::findOrFail($dossier_id);
+        foreach ($data['servicegeneral_id'] as $general_id){
+            $cotation = new Cotation();
+            $cotation->servicegeneral_id = $general_id;
+            $cotation->id_dossier = $dossier->id;
+            $cotation->save();
+            $user = User::where('role', '=', 'admin')->where('service_id', '=', $general_id)->first();
+            $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
+            $dossier->statut = 'encour';
+            $dossier->update();
+        }
         Toastr()->success("Affectation Enregistré");
         return redirect()->back();
 
@@ -268,24 +308,12 @@ class DossierController extends Controller
 
     }
 
-    public function markRead($id){
+    public function markRead($id)
+    {
         auth()->user()->unreadNotifications->first()->markAsRead();
         return redirect()->route('dossier.detail', ['id' => $id]);
     }
 
-    public function servicequotation($id_service, $dossier_id)
-    {
-
-        $dossier = Dossier::findOrFail($dossier_id);
-        $dossier->sous_service_id = $id_service;
-        $dossier->update();
-        $user = User::all()->where('role', '=', 'service')->where('sous_service_id', '=', $id_service)->first();
-        $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
-        Toastr()->success("Affectation Enregistré");
-
-        return redirect()->back();
-
-    }
 
     public function traiter($id)
     {
@@ -381,5 +409,22 @@ class DossierController extends Controller
         $dossiersFiltrer = Dossier::where('is_delete', false)->where('type_id', $id)->get();
         $typeDossier = TypeDossier::findOrFail($id);
         return view("typedossiers.dossiers", compact("dossiersFiltrer", "typeDossier"));
+    }
+
+    public function destroyCotation($id){
+        $co =  Cotation::findOrFail($id);
+        $co->delete();
+        Toastr()->success("Suppression avec Success");
+        return redirect()->back();
+    }
+    public function updateacotation(Request $request, $id){
+        $data = $request->validate(array(
+            'user_id' => 'required',
+            'catation_id' => 'required'
+        ));
+            $cotation = Cotation::findOrFail($data['catation_id']);
+            $cotation->update(['user_id' => $data['user_id']]);
+        Toastr()->success("Affectation Enregistré");
+        return redirect()->back();
     }
 }

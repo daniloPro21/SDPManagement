@@ -51,19 +51,18 @@ class HomeController extends Controller
 
         ];
 
-        $d1 =  Dossier::with('type','service','services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->whereNull("sous_service_id")
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->get();
+        $d1 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
 
-        $d2 =  Dossier::with('type','service','services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->whereNotNull("sous_service_id")
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')
+        $d2 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "!=", null)
+            ->select('dossiers.*')
+            ->distinct()
             ->get();
         //dd($d2);
         $d3 = Dossier::all()->where('statut', 'traiter')->where('service_id', auth()->user()->service_id);

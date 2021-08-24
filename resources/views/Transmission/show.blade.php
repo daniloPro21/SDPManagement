@@ -13,7 +13,7 @@
                         <div class="col-xs-12">
                             <a onclick="return confirm('voulez vous vraiment effectuer cette action ?')" href="{{ route("transmission.delete",$transmissions->id) }}" class="btn btn-danger pull-right">Supprimer</a>
                             <h2 class="page-header">
-                                <i class="fa fa-edit"></i> {{ $transmissions->numero }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$transmissions->date)->format("d/m/Y") }}
+                                <a href="#" data-toggle="modal" data-target="#affectationModal1" class="fa fa-edit"></a> {{ $transmissions->numero }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$transmissions->date)->format("d/m/Y") }}
                             </h2>
                         </div>
                         <!-- /.col -->
@@ -134,8 +134,8 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="matricule">Matricule</label>
-                                <input type="text" name="matricule" class="form-control" id="matricule"
+                                <label for="matricule">Numéro de la DRH</label>
+                                <input type="text" name="num_drh" class="form-control" id="matricule"
                                        autocomplete="false" required>
                             </div>
 
@@ -150,5 +150,68 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="affectationModal1" tabindex="-1" aria-labelledby="AffectationModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier Transmission</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('transmission.store') }}">
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="etat" value="ouvert">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="decision">Numéro de Décision</label>
+                                <input type="text" readonly name="numero" value="{{ $transmissions->numero }}" id="numero" class="form-control"
+                                       autocomplete="false" placeholder="Numéro de Décision"></div>
+                            <div class="form-group col-md-6">
+                                <label for="date">Date</label>
+                                <input type="date" name="date" value="{{ $transmissions->date }}" class="form-control"
+                                       style="padding: 0 !important; padding-left: 4% !important;" id="date"
+                                       autocomplete="false" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="titre">Service à Transmettre</label>
+                                <textarea name="service"  class="form-control" rows="2" id="titre" autocomplete="false"
+                                          required>{{ $transmissions->service }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="entete">Entête</label>
+                                <input type="text" name="entete" value="{{ $transmissions->entete }}"  class="form-control" id="entete"
+                                       autocomplete="false" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="decrets">Analyse</label>
+                                <textarea name="analyse" id="numero" rows="6"
+                                          class="form-control textareaFeat">{{ $transmissions->analyse }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="decision">Observation</label>
+                                <textarea name="observation" id="observation" rows="4"
+                                          class="form-control textareaFeat">{{ $transmissions->observation }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection

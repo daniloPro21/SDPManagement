@@ -16,7 +16,7 @@ class CreateDossiersTable extends Migration
         Schema::create('dossiers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('service_id')->nullable();
-            //$table->unsignedBigInteger('personne_id');
+            $table->string('num_courrier')->nullable(false);
             $table->unsignedBigInteger('type_id');
             $table->date('date_entre');
             $table->date('date_sortie')->nullable();
@@ -30,8 +30,9 @@ class CreateDossiersTable extends Migration
             $table->string('num_service')->nullable();
             $table->enum('statut',['traiter','signe','rejete','transmis'])->nullable();
             $table->boolean('is_delete')->default(false);
-            $table->foreign('service_id')->references('id')->on('services');
-           // $table->foreign('personne_id')->references('id')->on('personnes');
+            $table->unsignedBigInteger('sous_service_id')->nullable();
+            $table->foreign('sous_service_id')->references('id')->on('services');
+            $table->foreign('service_id')->references('id')->on('service_generals');
             $table->foreign('type_id')->references('id')->on('type_dossiers');
             $table->timestamps();
         });

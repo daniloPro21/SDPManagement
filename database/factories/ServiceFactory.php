@@ -10,6 +10,6 @@ $factory->define(Service::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence,
-        'servicegeneral_id' => $faker->numberBetween(1, 20)
+        'servicegeneral_id' => $faker->numberBetween(1, 10)
     ];
 });

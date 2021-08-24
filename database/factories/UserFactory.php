@@ -22,7 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'service_id' => $faker->numberBetween(1, 10),
         'sous_service_id' => $faker->numberBetween(1,10),
-        'role' => $faker->randomElement(['secretaire','admin', 'superadmin', 'cardre']),
+        'role' => $faker->randomElement(['secretaire','admin', 'superadmin', 'cardre','chefB']),
         'is_delete' => false,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

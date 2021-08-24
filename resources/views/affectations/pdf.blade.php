@@ -369,13 +369,13 @@
 
     <p style="text-align: center"><span lang=FR style='font-size:11.0pt;font-family:"Tahoma",sans-serif;
 color:black'>   DECISION N°</span><span lang=FR style='font-family:"Tahoma",sans-serif;
-color:black'><u>@isset($fiche->numero_decision){{ $fiche->numero_decision }}@else _______________ @endisset</u> /</span><span lang=FR style='font-size:11.0pt;
+color:black'><u> _______________ </u> /</span><span lang=FR style='font-size:11.0pt;
 font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
                                                            style='font-family:"Tahoma",sans-serif;color:black'>/</span><span
             lang=FR
             style='font-size:11.0pt;font-family:"Tahoma",sans-serif;color:black'>MINSANTE/SG/DRH/SDP du</span><span
             lang=FR
-            style='font-family:"Tahoma",sans-serif;color:black'><u>@isset($fiche->date) {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }} @else _______________ @endisset</u></span>
+            style='font-family:"Tahoma",sans-serif;color:black'><u>_______________ </u></span>
     </p>
     <p class=MsoNormal style='text-align: center;'><b><span lang=FR
                                                             style='font-size:10.0pt;font-family:"Tahoma",sans-serif;color:black'></span>
@@ -384,133 +384,104 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
     <p class=MsoFooter align=center style='text-align:center'><b><span lang=FR
                                                                        style='font-family:"Tahoma",sans-serif'>LE MINISTRE DE LA SANTE PUBLIQUE</span></b><span
             lang=FR style='font-size:14.0pt;font-family:"Tahoma",sans-serif'>,</span></p>
-
-    <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
-           width=650 style='width:487.35pt;border-collapse:collapse;margin-left:4.8pt;
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
+               width=650 style='width:487.35pt;border-collapse:collapse;margin-left:4.8pt;
  margin-right:4.8pt'>
-        <tr style='height:10.35pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+            <tr style='height:10.35pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
   height:10.35pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
   height:10.35pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
   10.0pt;font-family:"Tahoma",sans-serif'>la Constitution&nbsp;;</span></p>
-            </td>
-        </tr>
-        <tr style='height:10.35pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+                </td>
+            </tr>
+            <tr style='height:10.35pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
   height:10.35pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
   height:10.35pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>Décret N°94/199 du  07 octobre 1994
-  portant Statut Général de la Fonction Publique de l’Etat modifié et complété
-  par le Décret N° 2000/287 du 12 octobre 2000&nbsp;; </span></p>
-            </td>
-        </tr>
-        <tr style='height:6.4pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+  10.0pt;font-family:"Tahoma",sans-serif'>Décret N°94/199 du  07 Octibre 1994 precisant les attributions Portant status General de
+                            la Fonction Publique de l'Etat modifié et completé le decret N°2000/287 du 12 Octobre 2000;
+                        ; </span></p>
+                </td>
+            </tr>
+            <tr style='height:6.4pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
   height:6.4pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
   height:6.4pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2001/145 du 03 juillet
-  2001 portant Statut Particulier des Fonctionnaires des Corps de la Santé
-  Publique&nbsp;; </span></p>
-            </td>
-        </tr>
-        <tr style='height:6.4pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
-  height:6.4pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
-  height:6.4pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2008/376 du 12 novembre
-  2008 portant organisation administrative de la République du Cameroun&nbsp;;</span></p>
-            </td>
-        </tr>
-        <tr style='height:10.35pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
-  height:10.35pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
-  height:10.35pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret  N° 2011/410 du 09 décembre
-  2011 portant formation du Gouvernement&nbsp;;</span></p>
-            </td>
-        </tr>
-        <tr style='height:12.05pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2012/079 du 09 mars 2012
-  portant régime de la déconcentration de la gestion des personnels de l’Etat
-  et de la Solde  </span></p>
-            </td>
-        </tr>
-        <tr style='height:12.05pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N°2013/093 du 03 avril 2013
-  portant organisation du Ministère de la Santé Publique&nbsp;;</span></p>
-            </td>
-        </tr>
-        <tr style='height:12.05pt'>
-            <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
-            </td>
-            <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
-  height:12.05pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>le Décret  N°2019/002 du  04 janvier
-  2019 portant réaménagement du Gouvernement&nbsp;;</span></p>
-            </td>
-        </tr>
-        <tr style='height:10.35pt'>
-            <td width=650 colspan=2 valign=top style='width:487.35pt;padding:0in 5.4pt 0in 5.4pt;
-  height:10.35pt'>
-                <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
-  10.0pt;font-family:"Tahoma",sans-serif'>Considérant les nécessités de
-  service,</span></p>
-            </td>
-        </tr>
-    </table>
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+      10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2018/376 du 12 Novembre 2008
+   portant Organisation administrative de la republique du Camerooun&nbsp; </span></p>
+                </td>
 
-    <p class=MsoNormal align=center style='text-align:center'><span lang=FR
-                                                                    style='font-size:5.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span>
-    </p>
+            </tr>
+            <tr style='height:6.4pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2011/408 du 09 Decembre 2011
+   portant Organisation du gouvernement, Modifié et completé par le decrét N°2018/190 du 02 Mars 2018; </span></p>
+                </td>
+            </tr>
+            <tr style='height:6.4pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2012/079 du 09 Mars 2012
+   portant regime de la decentration de la gestion des personnnels de l'etat et de la solde;</span></p>
+                </td>
+
+            </tr>
+            <tr style='height:6.4pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2013/093 du 03 Avril 2013
+   portant organisation du Ministere de la Santé Publique;</span></p>
+                </td>
+
+            </tr>
+            <tr style='height:6.4pt'>
+                <td width=33 valign=top style='width:24.75pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'>Vu</span></p>
+                </td>
+                <td width=617 valign=top style='width:462.6pt;padding:0in 5.4pt 0in 5.4pt;
+  height:6.4pt'>
+                    <p class=MsoNormal style='text-align:justify'><span lang=FR style='font-size:
+  10.0pt;font-family:"Tahoma",sans-serif'>le Décret N° 2019/002 du 04 Janvier 2019
+   portant reamenagement du Gouvernement;<br>Considerant les neccités de service, </span></p>
+                </td>
+
+            </tr>
+        </table>
+    <p class=MsoNormal align=center style='text-align:center'><span lang=FR style='font-size:5.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
 
     <p class=MsoFooter><b><span lang=FR style='font-size:1.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b></p>
-
-    <p class=MsoNormal align=center style='text-align:center'><b><u><span lang=FR
-                                                                          style='font-family:"Tahoma",sans-serif'>DECIDE</span></u></b><b><span
-                lang=FR
-                style='font-family:"Tahoma",sans-serif'> :</span></b></p>
-
-    <p class=MsoNormal align=center style='text-align:center'><b><span lang=FR
-                                                                       style='font-size:8.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b>
-    </p>
-
+    <p class=MsoNormal align=center style='text-align:center'><b><u><span lang=FR style='font-family:"Tahoma",sans-serif'>DECIDE</span>
+    </u></b><b><span lang=FR style='font-family:"Tahoma",sans-serif'> :</span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span lang=FR style='font-size:8.0pt;font-family:"Tahoma",sans-serif'>&nbsp;</span></b></p>
     <p class=MsoNormal style='margin-top:0in;margin-right:-.05pt;margin-bottom:
 0in;margin-left:70.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:
 -70.9pt'><b><span lang=FR style='font-size:10.0pt;font-family:"Tahoma",sans-serif'><u>Article
@@ -542,15 +513,18 @@ font-family:"Tahoma",sans-serif;color:black'>D</span><span lang=FR
             </tr>
             </thead>
             <tbody>
-            @foreach($donnee as $affectation)
-                <tr>
-                    <td>{{ $loop->index+1 }}</td>
-                    <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin")
-                            Madame @else Monsieur @endif <b
-                            style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b>
-                    </td>
-                    <td style="text-align: left !important; padding-left: 2%">{{ $affectation->structure->nom }}</td>
-                </tr>
+            @foreach($donnee as $key => $affectations)
+                <tr><th colspan="4" class="secondhead">{{ $key }}</th></tr>
+                @foreach($affectations as $affectation)
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td style="text-align: left !important; padding-left: 2%">@if($affectation->personnel->sexe == "Feminin")
+                                Madame @else Monsieur @endif <b
+                                style="text-transform: uppercase"> {{ $affectation->personnel->nom }} {{ $affectation->personnel->prenom }}</b>
+                        </td>
+                        <td style="text-align: left !important; padding-left: 2%">{{ $affectation->structure->nom }}</td>
+                    </tr>
+                @endforeach
             @endforeach
             </tbody>
         </table>

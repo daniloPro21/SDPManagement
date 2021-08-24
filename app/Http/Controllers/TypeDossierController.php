@@ -15,7 +15,7 @@ class TypeDossierController extends Controller
     
     public function  index(){
         $typedossiers=TypeDossier::where("is_delete",false)->get();
-        return view("Admin.typedossier",compact("typedossiers"));
+        return view("typedossiers.liste",compact("typedossiers"));
     }
 
     public function  store(Request $request){

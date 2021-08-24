@@ -20,7 +20,6 @@ class Role
         if (Auth::check() && $user->role == $role) {
             return $next($request);
         }
-
-        return redirect()->route('error');
+        return redirect()->refresh();
     }
 }

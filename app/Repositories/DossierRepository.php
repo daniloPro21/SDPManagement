@@ -16,7 +16,11 @@ class DossierRepository
 
     public function getNonCoterDossiers()
     {
-        return Dossier::with('type','service')->where('service_id', '=', NULL)->where('is_delete', false)->orderByDesc('id')->paginate(21);
+        return Dossier::join("cotations", 'cotations.dossier_id', '!=', 'dossiers.id')
+            ->where("dossiers.statut",null)
+            ->select('dossiers.*')
+            ->get();
+            //Dossier::where('service_id', '=', NULL)->where('is_delete', false)->orderByDesc('id')->paginate(21);
     }
 
     public function getAdminDossierSigne()
@@ -46,12 +50,11 @@ class DossierRepository
 
     public function getAssignDossiers()
     {
-        return Dossier::with('type')
-            ->where('service_id', '!=', null)
-            ->where('is_delete', false)
-            ->orderByDesc('id')
-            ->where('statut', '=', 'encour')
-            ->paginate(21);
+        return Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("dossiers.statut", "encour")
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
     }
     public function getAssignAdminDossiers()
     {

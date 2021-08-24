@@ -60,20 +60,25 @@ class TransmissionController extends Controller
             'observation' => 'required',
             'date' => 'required'
         ));
-        $transmission = new Transmission();
-        $transmission->service = $data['service'];
-        $transmission->analyse = $data['analyse'];
-        $transmission->numero = $data['numero'];
-        $transmission->entete = $data['entete'];
-        $transmission->service_id = auth()->user()->service_id;
-        $transmission->observation = $data['observation'];
-        $transmission->date = $data['date'];
-        $transmission->etat = 'ouvert';
-        $transmission->is_delete = false;
-        $transmission->save();
+        $transmission = Transmission::where("numero", $data["numero"])->first();
+        if($transmission){
+            Transmission::where("numero", $data["numero"])->update($data);
+            Toastr()->success("Mise a Effectué","Terminé");
+        }else{
+            $transmission = new Transmission();
+            $transmission->service = $data['service'];
+            $transmission->analyse = $data['analyse'];
+            $transmission->numero = $data['numero'];
+            $transmission->entete = $data['entete'];
+            $transmission->service_id = auth()->user()->service_id;
+            $transmission->observation = $data['observation'];
+            $transmission->date = $data['date'];
+            $transmission->etat = 'ouvert';
+            $transmission->is_delete = false;
+            $transmission->save();
 
-        Toastr()->success("Enregistrement Effectué","terminé");
-
+            Toastr()->success("Enregistrement Effectué","terminé");
+        }
         return redirect()->back();
     }
 
@@ -88,7 +93,7 @@ class TransmissionController extends Controller
         $transmissions = Transmission::findOrfail($id);
         $transmissionDossier = DossierTransmi::with('dossiers')
                                 ->where('transmission_id', $id)->get();
-        return view('transmission.show', compact('transmissions', 'transmissionDossier'));
+        return view('Transmission.show', compact('transmissions', 'transmissionDossier'));
     }
 
     /**
@@ -122,10 +127,10 @@ class TransmissionController extends Controller
     public function newossier(Request $request, $id)
     {
         $data = $request->validate(array(
-            'matricule' => 'required',
+            'num_drh' => 'required',
         ));
-        $matricule = $data['matricule'];
-        $dossier = Dossier::where('matricule', $matricule)->first();
+        $drh = $data['num_drh'];
+        $dossier = Dossier::where('num_drh', $drh)->first();
         if($dossier){
             $dossier->statut = 'transmis';
             $dossier->update();

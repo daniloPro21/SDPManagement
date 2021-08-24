@@ -16,6 +16,14 @@
                 </button>
             </div>
             @endsecdrh
+            @secretaire
+            <div class="row">
+                <button data-toggle="modal" data-target="#modifier"
+                        class="btn btn-bitbucket">Ajouté un dossier
+
+                </button>
+            </div>
+            @endsecretaire
             <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -30,7 +38,13 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="DHR">Numero DRH</label>
+                                        <label for="DHR">Numero Courier</label>
+                                        <input type="text" name="num_courrier" class="form-control"  autocomplete="false" id="DHR" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="DHR">Numero Service</label>
                                         <input type="text" name="num_drh" class="form-control"  autocomplete="false" id="DHR" required>
                                     </div>
                                 </div>
@@ -47,7 +61,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Matricule</label>
-                                        <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire" required>
+                                        <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire">
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -218,7 +232,6 @@
             <thead>
             <tr>
               <th>Numero DRH</th>
-              <th>Coter au </th>
               <th>Appartien A</th>
               <th>Status</th>
               <th>Date entre</th>
@@ -233,7 +246,6 @@
                 @foreach ($d2 as $dossier)
                 <tr>
                     <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_drh }}</a></td>
-                    <td>{{ $dossier->services->name }}</td>
 
                       <td><b>- Nom</b> : {{ $dossier->nom }} <br>
                           - <b>Matricule</b> : {{ $dossier->matricule }} <br>

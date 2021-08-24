@@ -84,15 +84,19 @@ Affectation
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="decrets">Décréts</label>
-                            <textarea name="decrets" id="decrets" rows="6"
-                                      class="form-control textareaFeat"></textarea>
+                            <label for="titre">Format</label>
+                            <select name="decrets" id="pet-select" class="custom-select">
+                                <option value="DECRETE">Decrêt</option>
+                                <option value="DECIDE">Descision</option>
+                                <option value="ARRETE">Arreter</option>
+                            </select>
                         </div>
                     </div>
                         <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="decision">Article 1<sup>er</sup></label>
-                            <textarea name="decision" id="decision"  rows="6" class="form-control textareaFeat"></textarea>
+                            <textarea name="decision" id="decision" rows="6" class="form-control textareaFeat">les personnels dont les noms suivent, sont à compter de la date de signature de la presente decision, affectés ainsi qu'il suit :
+                            </textarea>
                         </div>
                 </div>
                 <div class="modal-footer">

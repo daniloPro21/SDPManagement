@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', 'HomeController@admin')->name('admin.home')->middleware("role:admin");;
 Route::get('/secretaire', 'HomeController@secretaire')->name('secretaire.home');
 Route::get('/services', 'HomeController@service')->name('service.home');
+Route::get('/chefB', 'HomeController@service')->name('chefB.home');
 
 /**
  * Route Dossier
@@ -34,8 +35,8 @@ Route::get('/dossiers/find', 'DossierController@find')->name('dossiers.find');
 Route::post('/Dossier/create', 'DossierController@store')->name('dossier.store');
 Route::get('/Dossier/group', 'DossierController@group')->name('dossier.group');
 Route::get('/Dossier/group/{id}', 'DossierController@showGroup')->name('dossier.group.show');
-Route::get('/dossier/quotation/{id}/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
-Route::get('/dossier/send/{id_service}/{dossier_id}', 'DossierController@servicequotation')->name('dossier.quotation_service');
+Route::post('/dossier/quotation/{dossier_id}', 'DossierController@quotation')->name('dossier.quotation');
+Route::post('/dossier/send/{dossier_id}', 'DossierController@servicequotation')->name('dossier.quotation_service');
 Route::get('/dossier/traiter/{id}', 'DossierController@traiter')->name('dossier.traiter');
 Route::get('/dossier/getback/{id}', 'DossierController@getbackdossier')->name('dossier.getback');
 Route::get('/dossier/rejete/{id}', 'DossierController@rejete')->name('dossier.rejete');
@@ -45,6 +46,8 @@ Route::get('/dossier/signed/{id}', 'DossierController@signed')->name('dossier.si
 Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossier.result');
 Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
 Route::patch('/dossier/delete/{id}', 'DossierController@delete')->name('dossier.delete');
+Route::get('/cotation/delete/{id}', 'DossierController@destroyCotation')->name('dossier.delete.cotation');
+Route::post('/cotation/update', 'DossierController@updateacotation')->name('dossier.cotation.update');
 
 /**
  * Route Personnel
@@ -140,13 +143,13 @@ Route::delete('/structure/{id}', 'StructureController@destroy')->name('structure
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name("welcome");
 Auth::routes();
 
 /*
  * Route Pour les affectations
  */
-Route::get("/affectations","FicheAffectationController@index")->name("affectation.index")->middleware("role:admin,superadmin");
+Route::get("/affectations","FicheAffectationController@index")->name("affectation.index");
 Route::get("/affectations/lock/{id}","FicheAffectationController@lock")->name("affectation.lock")->middleware("role:admin,superadmin");
 Route::get("/affectations/unlock/{id}","FicheAffectationController@unlock")->name("affectation.unlock")->middleware("role:admin,superadmin");
 Route::post("/affectations","FicheAffectationController@store")->name("affectation.store")->middleware("role:admin,superadmin");
@@ -164,12 +167,12 @@ Route::get("/affectation/pdf",function(){
     $fiche = \App\Models\FicheAffectation::findOrFail(1);
     dd($fiche->affectations->first()->poste);
     return view("affectations.pdf",compact('fiche'));
-})->name("affect.pdf")->middleware("role:admin,superadmin");
+})->name("affect.pdf");
 
 /*
  * Route Pour les nominations
  */
-Route::get("/nominations","FicheNominationController@index")->name("nomination.index")->middleware("role:admin,superadmin");
+Route::get("/nominations","FicheNominationController@index")->name("nomination.index");
 Route::get("/nominations/lock/{id}","FicheNominationController@lock")->name("nomination.lock")->middleware("role:admin,superadmin");;
 Route::get("/nominations/unlock/{id}","FicheNominationController@unlock")->name("nomination.unlock")->middleware("role:admin,superadmin");
 Route::post("/nominations","FicheNominationController@store")->name("nomination.store")->middleware("role:admin,superadmin");
@@ -221,15 +224,6 @@ Route::get('transmission/delete/{id}', 'TransmissionController@removedossier')->
 Route::get('transmission/deleted/{id}', 'TransmissionController@delete')->name('transmission.delete');
 Route::get('transmission/print/{id}', 'TransmissionController@print')->name('transmission.print');
 
-
-/**
- * Non Authorize
- */
-Route::get('/non-authrize', function (Request $request) {
-    return view("error");
-})->name("error");
-
-
 /**
  * Route bordreau
  */
@@ -253,3 +247,8 @@ Route::get('/servicegenraldossier/{id}', 'SuperAdminController@ShowGroup')->name
 *Notification Route
 */
 Route::get('/notification/{id}', 'DossierController@markRead')->name('asread');
+/**
+ * Transmissoin route
+ */
+Route::post('/tracage/create', 'TracageController@sotre')->name('tracage.store');
+

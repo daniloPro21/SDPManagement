@@ -17,7 +17,7 @@
                         <div class="col-xs-12">
                             <a onclick="return confirm('voulez vous vraiment effectuer cette action ?')" href="{{ route("ficheaffectation.delete",$fiche->id) }}" class="btn btn-danger pull-right">Supprimer</a>
                             <h2 class="page-header">
-                                <i class="fa fa-edit"></i> {{ $fiche->type }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}
+                                <a href="#" data-toggle="modal" data-target="#affectationModal1" class="fa fa-edit"></a> {{ $fiche->type }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$fiche->date)->format("d/m/Y") }}
                             </h2>
                         </div>
                         <!-- /.col -->
@@ -204,8 +204,81 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="affectationModal1" tabindex="-1" aria-labelledby="AffectationModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier Ordre d'Affectation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('nomination.update', ["id" => $fiche->id]) }}">
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="etat" value="ouvert">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="decision">Numéro de Décision</label>
+                                <input type="text" value="{{ $fiche->numero_decision }}" name="numero_decision" id="numero_decision" class="form-control"
+                                       autocomplete="false" placeholder="Numéro de Décision"></div>
+                            <div class="form-group col-md-6">
+                                <label for="date">Date</label>
+                                <input type="date" name="date" class="form-control"
+                                       style="padding: 0 !important; padding-left: 4% !important;" id="date"
+                                       autocomplete="false" value="{{ $fiche->date }}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="titre">Titre</label>
+                                <textarea name="titre"  class="form-control" rows="2" id="titre" autocomplete="false"
+                                          required>{{ $fiche->titre }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="titre">Format</label>
+                                <select name="decrets" id="pet-select" class="custom-select">
+                                    <option value="DECRETE">Decrêt</option>
+                                    <option value="DECIDE">Descision</option>
+                                    <option value="ARRETE">Arreter</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="type">Type</label>
+                                <select name="type" class="form-control" id="type">
+                                    <option value="Nomination Chef de Bureau PSF et CVI">Nomination Chef de Bureau PSF
+                                        et CVI
+                                    </option>
+                                    <option value="Nomination  SG et ECO">Nomination SG et ECO</option>
+                                    <option value="Projet Nomination CDS et Dir HD">Projet Nomination CDS et Dir HD
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="decision">Article 1<sup>er</sup></label>
+                                <textarea name="decision" id="decision" rows="4" class="form-control textareaFeat">sont a compter de la date de signature de la presente decision affecté ainsi quil suit
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        @endsection
+
+@endsection
 
         @section("extra-js")
             <script>

@@ -13,13 +13,16 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('dist/js/chart.min.js') }}" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
     <link rel="stylesheet" href="{{ asset('dist/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/buttons.dataTables.min.css') }}">
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{ asset('bower_components/jvectormap/jquery-jvectormap.css') }}">
     <!-- Date Picker -->
     <link rel="stylesheet"
-        href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+          href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
@@ -42,7 +45,7 @@
     <link rel="stylesheet" href="{{ asset('bower_components/jvectormap/jquery-jvectormap.css') }}">
     <!-- Date Picker -->
     <link rel="stylesheet"
-        href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+          href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
     <!-- bootstrap wysihtml5 - text editor -->
@@ -80,48 +83,48 @@
                             <li class="header"></li>
                             @forelse (auth()->user()->unreadNotifications as $item)
                                 <li class="footer"><a href="{{ route('asread', ['id' => $item->data['id']]) }}">
-                                         {{ $item->data['message'] }}  : {{ $item->data['numero'] }}
-                            </a></li>
-                                @empty
+                                        {{ $item->data['message'] }} :{{ $item->data['numero'] }}
+                                    </a></li>
+                            @empty
                                 <li class="footer"><a href="#">
-                                    Aucune Notifications
-                            </a></li>
+                                        Aucune Notifications
+                                    </a></li>
                             @endforelse
                         </ul>
                     </li>
 
                 @auth
-                                        <!-- User Account: style can be found in dropdown.less -->
-                                            <li class="dropdown user user-menu">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <img src="{{ asset('dist/img/armoirie.png') }}" class="user-image" alt="User Image">
-                                                    <span class="hidden-xs">{{ auth()->user()->name }}(@foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $service)
-                                                            {{ $service->name }}
-                                                        @endforeach</span>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <!-- User image -->
-                                                    <li class="user-header" style="color: #222  !important">
-                                                        <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle"
-                                                             alt="User Im age">
+                    <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{ asset('dist/img/armoirie.png') }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ auth()->user()->name }}(@foreach ($servicesgenerals->where('id', auth()->user()->service_id) as $service)
+                                        {{ $service->name }}
+                                    @endforeach</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header" style="color: #222  !important">
+                                    <img src="{{ asset('dist/img/armoirie.png') }}" class="img-circle"
+                                         alt="User Im age">
 
-                                                        <p style="color: #222  !important">
-                                                            {{ auth()->user()->name }}
-                                                            <small>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->created_at)->diffForHumans() }}</small>
-                                                        </p>
-                                                    </li>
-                                                    <!-- Menu Footer-->
-                                                    <li class="user-footer">
-                                                        <div class="pull-right">
-                                                            <form action="{{ route('logout') }}" method="post">
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-default btn-flat">Sign out</button>
-                                                            </form>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <!-- Control Sidebar Toggle Button -->
+                                    <p style="color: #222  !important">
+                                        {{ auth()->user()->name }}
+                                        <small>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->created_at)->diffForHumans() }}</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-default btn-flat">Sign out</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
                     @endauth
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -141,7 +144,7 @@
                 </div>
                 <div class="pull-left info">
                     @auth
-                                            <p>{{ auth()->user()->name }}({{ auth()->user()->role }})</p>
+                        <p>{{ auth()->user()->name }}({{ auth()->user()->role }})</p>
                     @endauth
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
@@ -192,18 +195,18 @@
                     </a>
                 </li>
                 @if (auth()->user()->general->name == 'SDP')
-                <li>
-                    <a href="{{ route('nomination.index') }}">
-                        <i class="fa fa-pagelines"></i>
-                        <span>{{ __('Nominations') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('affectation.index') }}">
-                        <i class="fa fa-vcard-o"></i>
-                        <span>{{ __('Affectations') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('nomination.index') }}">
+                            <i class="fa fa-pagelines"></i>
+                            <span>{{ __('Nominations') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('affectation.index') }}">
+                            <i class="fa fa-vcard-o"></i>
+                            <span>{{ __('Affectations') }}</span>
+                        </a>
+                    </li>
                 @endif
                 <li class="treeview">
                     <a href="#">
@@ -211,13 +214,54 @@
                         <span>{{ __('Configurations') }}</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('type.index') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
-                        <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
-                        <li><a href="{{ route('servicegeneral.index') }}"><i class="fa fa-circle-o"></i> Services General</a></li>
-                        <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+                        <li><a href="{{ route('type.index') }}">
+                                <i class="fa fa-folder"></i> <span>Type Dossiers</span>
+                            </a></li>
+                        <li><a href="{{ route('service.index') }}">
+                                <i class="fa fa-envelope-open"></i> <span>Services</span>
+                        <li><a href="{{ route('servicegeneral.index') }}">
+                                <i class="fa fa-envelope"></i>
+                                <span>Sous-Directions</span>
+                            </a>
+                        </li>
+                        <li><a href="{{ route('user.index') }}">
+                                <i class="fa fa-user"></i>
+                                <span>Utilisateurs</span>
+                            </a>
+                        </li>
                         @if (auth()->user()->general->name == 'SDP')
-                        <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnels</a></li>
-                        <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Postes</a></li>
+                            <li><a href="{{ route('personnel.index') }}">
+                                    <i class="fa fa-users"></i> <span>Personnels</span>
+                                </a>
+                            </li>
+                            <li><a href="{{ route('poste.index') }}">
+                                    <i class="fa fa-usb"></i> <span>Postes</span>
+                                </a></li>
+                            <li>
+                                <a href="{{ route('groupe.index') }}">
+                                    <i class="fa fa-users"></i> <span>Groupes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('region.index') }}">
+                                    <i class="fa fa-globe"></i> <span>Régions</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('categorie.index') }}">
+                                    <i class="fa fa-bookmark"></i> <span>Catégories</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('district.index') }}">
+                                    <i class="fa fa-building"></i> <span>Districts</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('structure.index') }}">
+                                    <i class="fa fa-building"></i> <span>Structures</span>
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </li>
@@ -243,9 +287,21 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('nomination.index') }}">
+                        <i class="fa fa-pagelines"></i>
+                        <span>{{ __('Nominations') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('affectation.index') }}">
+                        <i class="fa fa-vcard-o"></i>
+                        <span>{{ __('Affectations') }}</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('transmission.index') }}">
                         <i class="fa fa-send-o"></i>
-                        <span>{{ __('Transmission') }}</span>
+                        <span>{{ __('Soit-Transmis') }}</span>
                     </a>
                 </li>
 
@@ -261,12 +317,53 @@
                         <span>{{ __('Configurations') }}</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('dossier.group') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
-                        <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a></li>
-                        <li><a href="{{ route('servicegeneral.index') }}"><i class="fa fa-circle-o"></i> Services General</a></li>
-                        <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
-                        <li><a href="{{ route('personnel.index') }}"><i class="fa fa-circle-o"></i> Personnels</a></li>
-                        <li><a href="{{ route('poste.index') }}"><i class="fa fa-circle-o"></i> Postes</a></li>
+                        <li><a href="{{ route('type.index') }}">
+                                <i class="fa fa-folder"></i> <span>Type Dossiers</span>
+                            </a></li>
+                        <li><a href="{{ route('servicegeneral.index') }}">
+                                <i class="fa fa-envelope"></i>
+                                <span>Sous-Directions</span>
+                            </a>
+                        </li>
+                        <li><a href="{{ route('service.index') }}">
+                                <i class="fa fa-envelope-open"></i> <span>Services</span>
+                        <li><a href="{{ route('user.index') }}">
+                                <i class="fa fa-user"></i>
+                                <span>Utilisateurs</span>
+                            </a>
+                        </li>
+                            <li><a href="{{ route('personnel.index') }}">
+                                    <i class="fa fa-users"></i> <span>Personnels</span>
+                                </a>
+                            </li>
+                            <li><a href="{{ route('poste.index') }}">
+                                    <i class="fa fa-usb"></i> <span>Postes</span>
+                                </a></li>
+                            <li>
+                                <a href="{{ route('groupe.index') }}">
+                                    <i class="fa fa-users"></i> <span>Groupes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('region.index') }}">
+                                    <i class="fa fa-globe"></i> <span>Régions</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('categorie.index') }}">
+                                    <i class="fa fa-bookmark"></i> <span>Catégories</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('district.index') }}">
+                                    <i class="fa fa-building"></i> <span>Districts</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('structure.index') }}">
+                                    <i class="fa fa-building"></i> <span>Structures</span>
+                                </a>
+                            </li>
                     </ul>
                 </li>
 
@@ -309,10 +406,12 @@
                         <span>{{ __('Configurations') }}</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('dossier.group') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a></li>
+                        <li><a href="{{ route('dossier.group') }}"><i class="fa fa-circle-o"></i> Type de Dossiers</a>
+                        </li>
                         <li><a href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a>
-                        <li><a href="{{ route('servicegeneral.index') }}"><i class="fa fa-circle-o"></i> Services General</a></li>
-                        <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+                        <li><a href="{{ route('servicegeneral.index') }}"><i class="fa fa-circle-o"></i> Services
+                                General</a></li>
+                        <li><a href="{{ route('user.edit', ['user'=> auth()->user()]) }}"><i class="fa fa-circle-o"></i> Modifier mes informations</a></li>
                     </ul>
                 </li>
 
@@ -388,6 +487,7 @@
                                 <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
                             </a>
                         </li>
+                        <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
 
                     </ul>
                 </li>
@@ -413,12 +513,12 @@
                     </a>
                 </li>
                 @if (auth()->user()->general->name == 'SDP')
-                <li>
-                    <a href="{{ route('affectation.index') }}">
-                        <i class="fa fa-vcard-o"></i>
-                        <span>{{ __('Affectations') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('affectation.index') }}">
+                            <i class="fa fa-vcard-o"></i>
+                            <span>{{ __('Affectations') }}</span>
+                        </a>
+                    </li>
                 @endif
                 <li>
                     <a href="{{ route('service.traiter') }}">
@@ -436,6 +536,7 @@
                             <a href="{{ route('dossier.group') }}">
                                 <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
                             </a>
+                        <li><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
                         </li>
 
                     </ul>
@@ -471,6 +572,7 @@
                                 <i class="fa fa-address-card"></i> <span>Types Dossiers</span>
                             </a>
                         </li>
+                        <li><a href="{{ route('user.edit', ['user' => auth()->user()]) }}"><i class="fa fa-circle-o"></i> Modifier mes informations</a></li>
 
                     </ul>
                 </li>
@@ -510,7 +612,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0
         </div>
-        <strong>Powered by <a href="https://dreamcashgroup.com" style="color: rgb(247, 0, 0);">Dreamcash </a>.</strong>
+        <strong>Powered by <a href="https://dreamcashgroup.com" style="color: rgb(247, 0, 0);">BUDECO </a>.</strong>
         All rights reserved.
     </footer>
 </div>
@@ -566,7 +668,7 @@
 <script src="{{ asset('dist/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script>
 <script>
-    $(function() {
+    $(function () {
         $('#example1').DataTable();
         $('#example2').DataTable({
             'paging': true,
@@ -577,7 +679,7 @@
             'autoWidth': false,
         })
     });
-    $(function() {
+    $(function () {
         $('#example3').DataTable();
         $('#example4').DataTable({
             'paging': true,
@@ -589,7 +691,7 @@
         })
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#example').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -605,12 +707,13 @@
         window.print();
         window.location.reload();
     }
+    $('select').selectpicker();
 
     // TODO : customize textarea editor
     /* $('.textareaFeat').wysihtml5({
          "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
      }); */
-    CKEDITOR.replace('decrets')
+    //CKEDITOR.replace('decrets')
 </script>
 @yield('extra-js')
 </body>

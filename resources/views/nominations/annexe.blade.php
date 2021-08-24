@@ -1,11 +1,11 @@
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=center
-        style='border-collapse:collapse;
+       style='border-collapse:collapse;
  margin-right:4.8pt'>
     <tr style="margin: 0 !important; padding:  0 !important;">
         <td valign=top style='width:3.0in;'>
             <p class=MsoNormal align=center style='margin-top:0in;margin-right:10.65pt;
   margin-bottom:0in;margin-left:17%;text-align:left'><b>
-                    <span lang=FR  style='font-size:8.0pt;line-height:115%;font-family:"Tahoma",sans-serif'>REPUBLIQUE DU CAMEROUN</span>
+                    <span lang=FR style='font-size:8.0pt;line-height:115%;font-family:"Tahoma",sans-serif'>REPUBLIQUE DU CAMEROUN</span>
                 </b></p>
             <p class=MsoNormal align=center style='margin-top:0in;margin-right:28.65pt;
   margin-bottom:0in;margin-left:0in;text-align:center'><span lang=FR
@@ -117,7 +117,8 @@
 9.0pt;line-height:115%;font-family:"Tahoma",sans-serif'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin-bottom:0in'><span lang=FR style='font-family:
-"Tahoma",sans-serif'>N° @isset($fiche->numero_decision){{ $fiche->numero_decision }} @else _______________ @endisset/NHA/MINSANTE/SG/DRH/SDP/SPMS/BAS.-</span></p>
+"Tahoma",sans-serif'>N° @isset($fiche->numero_decision){{ $fiche->numero_decision }} @else _______________ @endisset/NHA/MINSANTE/SG/DRH/SDP/SPMS/BAS.-</span>
+</p>
 
 
 <p class=MsoNormal><span lang=FR style='font-size:3.0pt;line-height:115%'>&nbsp;</span></p>

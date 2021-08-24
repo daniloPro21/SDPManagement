@@ -5,12 +5,13 @@
 @endsection
 @section('content')
     <div class="row justify-content-center d-flex align-items-center">
+
         <div class="container">
             <div class="col-sm-offset-1 col-md-5">
                 <!-- Widget: user widget style 1 -->
                 <div class="box box-widget widget-user">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header @if($dossier->status == 'traiter')  bg-green-active @else  bg-aqua-active @endif">
+                    <div
+                        class="widget-user-header @if($dossier->status == 'traiter')  bg-green-active @else  bg-aqua-active @endif">
                         <h3 class="widget-user-username text-capitalize">{{ $dossier->prenom }} {{ $dossier->nom }}</h3>
                         <h5 class="widget-user-desc"> @if($dossier->status =='traiter')  Dossier
                             Traité @else {{ $dossier->date_entre }} @endif</h5>
@@ -24,20 +25,13 @@
                             <div class="col-sm-12">
                                 <table class="table table-responsive table-striped text-capitalize">
                                     <tr>
+                                        <td>Numéro Courrier</td>
+                                        <td><b>{{ $dossier->num_courrier }}</b></td>
+                                    </tr>
+                                    <tr>
                                         <td>Numéro DRH</td>
                                         <td><b>{{ $dossier->num_drh }}</b></td>
                                     </tr>
-                                    @if($dossier->sous_service_id != null)
-                                            <tr>
-                                                <td>Cotéé à</td>
-                                                <td><b> {{ $dossier->services->name }} </b></td>
-                                            </tr>
-                                        @else
-                                                <tr>
-                                                    <td>Cotéé à</td>
-                                                    <td><b> Aucun </b></td>
-                                                </tr>
-                                    @endif
                                     @if ($dossier->num_service != null)
                                         <tr>
                                             <td>Numéro Service</td>
@@ -74,7 +68,7 @@
                                                     @elseif($dossier->statut == 'encour') btn-bitbucket
                                                     @else
                                                     btn-aqua
-                                                    @endif">{{ $dossier->statut }}</b></td>
+                                            @endif">{{ $dossier->statut }}</b></td>
                                         </tr>
                                     @else
                                         <tr>
@@ -82,8 +76,48 @@
                                             <td><b>En Attente de Quotation </b></td>
                                         </tr>
                                     @endif
-                                    @superadmin
-                                    @if($dossier->service_id == NULL)
+                                    @if ($cotations2 != null)
+
+                                        @if($dossier->statut == 'traiter')
+                                            <tr>
+                                                <td colspan="2"><a href="{{ route('dossier.signed',$dossier->id) }}"
+                                                                   onclick="return confirm('Le dossier sera considéré comme traité')"
+                                                                   class="btn btn-bitbucket btn-block">Marque comme
+                                                        signe</a></td>
+                                            </tr>
+                                        @elseif($dossier->statut == 'encour')
+                                            <tr>
+                                                <td colspan="2"><a href="{{ route('dossier.rejete',$dossier->id) }}"
+                                                                   onclick="return confirm('Le dossier sera considéré comme rejeté')"
+                                                                   class="btn btn-danger btn-block">Marquer comme
+                                                        rejeté</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}"
+                                                                   onclick="return confirm('Le d    ossier sera considéré comme traité')"
+                                                                   class="btn btn-success btn-block">Marquer comme
+                                                        traité</a></td>
+                                            </tr>
+                                        @endif
+                                        @if($dossier->statut == 'rejete')
+                                            <tr>
+                                                <td colspan="2"><a href="{{ route('dossier.getback',$dossier->id) }}"
+                                                                   onclick="return confirm('Le dossier sera remis encour de traitement')"
+                                                                   class="btn btn-bitbucket btn-block">Remettre dans le
+                                                        circuit</a></td>
+                                            </tr>
+
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <button data-toggle="modal" data-target="#quotationModal"
+                                                                class="btn btn-success text-white  btn-block">Modifier La cotation
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                        @endif
+
+                                    @else
+
                                         <tr>
                                             <td colspan="2">
                                                 <button data-toggle="modal" data-target="#qutationgeneral"
@@ -93,52 +127,10 @@
                                             </td>
                                         </tr>
                                     @endif
-                                    @endsuperadmin
 
 
-
-                                    @if ($dossier->service_id != null)
-                                        <tr>
-                                            <td>Service_Principale</td>
-                                            <td><b>{{ $dossier->service->name }}</b></td>
-                                        </tr>
-                                        @if($dossier->statut == 'traiter')
-                                            <tr>
-                                                <td colspan="2"><a href="{{ route('dossier.signed',$dossier->id) }}"
-                                                                   onclick="return confirm('Le dossier sera considéré comme traité')"
-                                                                   class="btn btn-bitbucket btn-block">Marque comme signe</a></td>
-                                            </tr>
-                                        @elseif($dossier->statut == 'encour')
-                                        <tr>
-                                            <td colspan="2"><a href="{{ route('dossier.rejete',$dossier->id) }}"
-                                                               onclick="return confirm('Le dossier sera considéré comme rejeté')"
-                                                               class="btn btn-danger btn-block">Marquer comme rejeté</a></td>
-                                        </tr>
-
-                                            <tr>
-                                                <td colspan="2"><a href="{{ route('dossier.traiter',$dossier->id) }}"
-                                                                   onclick="return confirm('Le d    ossier sera considéré comme traité')"
-                                                                   class="btn btn-success btn-block">Marquer comme traité</a></td>
-                                            </tr>
-
-                                        @endif
-                                        @if($dossier->statut == 'rejete')
-                                            <tr>
-                                                <td colspan="2"><a href="{{ route('dossier.getback',$dossier->id) }}"
-                                                                   onclick="return confirm('Le dossier sera remis encour de traitement')"
-                                                                   class="btn btn-bitbucket btn-block">Remettre dans le circuit</a></td>
-                                            </tr>
-                                                @endif
-
-                                        {{--  @else  --}}
-
-
-
-
-
-
-                                        @admin
-                                        @if($dossier->sous_service_id == null)
+                                    @admin
+                                    @if($cotations2->service_id == null)
                                         <tr>
                                             <td colspan="2">
                                                 <button data-toggle="modal" data-target="#quotationModal"
@@ -147,28 +139,55 @@
                                                 </button>
                                             </td>
                                         </tr>
-                                        @endif
-                                        @endadmin
+                                        <tr>
+                                            <td colspan="2">
+                                                <button data-toggle="modal" data-target="#quotationModal"
+                                                        class="btn btn-success text-white  btn-block">Transmission
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td colspan="2">
+                                                <button data-toggle="modal" data-target="#quotationModal"
+                                                        class="btn btn-success text-white  btn-block">Modifier La cotation
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @endif
-                                    <tr>
-                                        <td colspan="2">
-                                            <button data-toggle="modal" data-target="#exampleModal"
-                                                    class="btn btn-primary btn-block">Nouvelle étiquette
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    @secretaire
-                                    @if($trace2->isEmpty())
-                                    <tr>
-                                        <td colspan="2">
-                                            <button data-toggle="modal" data-target="#givenumber"
-                                                    class="btn btn-primary btn-block">Enregistré
+                                    @endadmin
 
+
+                                    @secretaire
+                                    <tr>
+                                        <td colspan="2">
+                                            <button data-toggle="modal" data-target="#modifier"
+                                                    class="btn btn-info btn-block">Modifier
                                             </button>
                                         </td>
                                     </tr>
+                                    @if($cotations == null)
+                                        <tr>
+                                            <td colspan="2">
+                                                <button data-toggle="modal" data-target="#quotationModal"
+                                                        class="btn btn-success text-white  btn-block">Quoter
+                                                    à un sous service
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @if($trace2->isEmpty())
+                                        <tr>
+                                            <td colspan="2">
+                                                <button data-toggle="modal" data-target="#givenumber"
+                                                        class="btn btn-primary btn-block">Enregistré
+
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @endif
                                     @endsecretaire
+
 
                                     @cardre
                                     @if($trace3->isEmpty())
@@ -181,6 +200,8 @@
                                         </tr>
                                     @endif
                                     @endcardre
+
+
                                     @service
                                     @if($trace2->isEmpty())
                                         <tr>
@@ -200,17 +221,11 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            @endif
+                                        @endif
                                     @endif
                                     @endservice
 
-    <!--                                    <tr>
-                                            <td colspan="2">
-                                                <button data-toggle="modal" data-target="#transition"
-                                                        class="btn btn-bitbucket btn-block">Transmettre
-                                                </button>
-                                            </td>
-                                        </tr>-->
+
                                     @secdrh
                                     <tr>
                                         <td colspan="2">
@@ -220,6 +235,22 @@
                                         </td>
                                     </tr>
                                     @endsecdrh
+
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <button data-toggle="modal" data-target="#exampleModal"
+                                                    class="btn btn-primary btn-block">Nouvelle étiquette
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button data-toggle="modal" data-target="#transmis"
+                                                    class="btn btn-primary btn-block">Nouvelle Transmission
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </table>
                                 <!-- /.description-block -->
                             </div>
@@ -228,16 +259,165 @@
                         <!-- /.row -->
                     </div>
                 </div>
-                <!-- /.widget-user -->
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
+                @superadmin
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                            <td>
+                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"
+                                   class="btn btn-info btn-sm mb-3">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"
+                                   class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endsuperadmin
+                @secdrh
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endsecdrh
+                @admin
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations->where("servicegeneral_id", auth()->user()->service_id) as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                            <td>
+                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <a href="{{ route('dossier.delete.cotation',['id' => $item->id ]) }}"
+                                   class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endadmin
+                @secretaire
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations->where("servicegeneral_id", auth()->user()->service_id) as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                            <td>
+                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <a href="{{ route('dossier.delete.cotation',['id' => $item->id ]) }}"
+                                   class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endsecretaire
                 <!-- The time line -->
                 <ul class="timeline">
                     <!-- timeline time label -->
                     <li class="time-label">
-                                <span class="bg-red">
-                                {{ Carbon\Carbon::createFromFormat("Y-m-d",$dossier->date_entre)->format("d/m/Y") }}
-                                </span>
+                    <span class="bg-red">
+                        {{ Carbon\Carbon::createFromFormat("Y-m-d",$dossier->date_entre)->format("d/m/Y") }}
+                    </span>
                     </li>
                     <!-- /.timeline-label -->
                     <!-- timeline item -->
@@ -257,9 +437,11 @@
 
 
                             <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y") }}</span>
+                        <span class="time"><i class="fa fa-clock-o"></i>
+                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $step->created_at)->format("d/m/Y") }}</span>
 
-                                <h3 class="timeline-header"><a href="#">{{ $step->user->name }}<small>{{ $step->user->service->name }}</small>
+                                <h3 class="timeline-header"><a
+                                        href="#">{{ $step->user->name }}<small>{{ $step->user->service->name }}</small>
                                     </a> à signaler</h3>
 
                                 <div class="timeline-body row">
@@ -267,11 +449,9 @@
                                         {!! $step->message !!}
                                     </div>
                                     <div class="col-sm-2">
-                                        <a title="Supprimer" data-toggle="tooltip"
-                                           href="{{ route('step.destroy',$step->id)}}"
+                                        <a title="Supprimer" data-toggle="tooltip" href="{{ route('step.destroy',$step->id)}}"
                                            onclick="return confirm('voulez vous vraiment effecué cet action?')"
-                                           class="btn pull-right btn-sm btn-danger"><span
-                                                class="fa fa-trash"></span></a>
+                                           class="btn pull-right btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                                         <div class="clearfix">
                                         </div>
                                     </div>
@@ -290,624 +470,618 @@
                     </li>
                 </ul>
             </div>
-
-            <!-- /.col -->
         </div>
+        <div class="container">
+            <h2>Informations du dossier sur le service</h2>
+            <hr>
+            <h3><u>Registre</u></h3>
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Date d'entre</th>
+                    <th>date sortir</th>
+                    <th>Modifier</th>
+                </tr>
+                </thead>
+                <tbody>
+                @admin
+                @foreach($trace as $item)
+                    <tr>
+                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                                    class="btn btn-info btn-secondary">Modifier
+                            </button></td>
+                    </tr>
+                @endforeach
+                @endadmin
+                @secretaire
+                @foreach($trace2 as $item)
+                    <tr>
+                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                                    class="btn btn-info btn-secondary">Modifier
+                            </button></td>
+                    </tr>
+                @endforeach
+                @endsecretaire
+                @service
+                @foreach($trace3 as $item)
+                    <tr>
+                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                                    class="btn btn-info btn-secondary">Modifier
+                            </button></td>
+                    </tr>
+                @endforeach
+                @endservice
+                @cardre
+                @foreach($trace3 as $item)
+                    <tr>
+                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                                    class="btn btn-info btn-secondary">Modifier
+                            </button></td>
+                    </tr>
+                @endforeach
+                @endcardre
+                </tbody>
+            </table>
+            <h2>Parcour</h2>
+            <hr>
+            <h3><u>Trace</u></h3>
+            <table id="example2" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Service A</th>
+                    <th>Service B</th>
+                    <th>Motif</th>
+                    <th>date</th>
+                    <th>Modifier</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($trace as $item)
+                    <tr>
+                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td>{{ $item->date_sortie }}</td>
+                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                                    class="btn btn-info btn-secondary">Modifier
+                            </button></td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Ajouter une
-                            étiquette</h3>
-                    </div>
-                    <div class="modal-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Ajouter une
+                        étiquette</h3>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('step.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="type">Type d étiquette</label>
+                                <select class="form-control" name="type">
+                                    <option value="info">Information</option>
+                                    <option value="warning">Problème</option>
+                                    <option value="move">Déplacement</option>
+                                    <option value="success">Succès</option>
+                                </select>
                             </div>
-                        @endif
-                        <form action="{{ route('step.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="type">Type d étiquette</label>
-                                    <select class="form-control" name="type">
-                                        <option value="info">Information</option>
-                                        <option value="warning">Problème</option>
-                                        <option value="move">Déplacement</option>
-                                        <option value="success">Succès</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="message">Message</label>
+                                <textarea required name="message" id="message" class="form-control"></textarea>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="message">Message</label>
-                                    <textarea required name="message" id="message" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        {{--give numbers--}}
-        <div class="modal fade" id="givenumber" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+    {{--give numbers--}}
+    <div class="modal fade" id="givenumber" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Enregistre Pour mon service</h3>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('trace.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id_dossier" value="{{$dossier->id}}">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="message">Numero</label>
+                                <input type="text" name="num_dossier"  id="message" class="form-control">
+                            </div>
+                        </div>
+                        @secretaire
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->general->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endsecretaire
+                        @service
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endservice
+                        @cardre
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endcardre
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>`
+
+    {{--Transmission Service--}}
+    <div class="modal fade" id="transmis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Effectuer une transmission</h3>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('trace.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
+                        @secretaire
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->general->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endsecretaire
+                        @service
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endservice
+                        @cardre
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endcardre
+                        @chefB
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endchefB
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="message">Motif</label>
+                                <select class="selectpicker" name="motif" multiple data-live-search="true">
+                                        <option value="en attente de completude">en attente de completude</option>
+                                        <option value="transmis pour visa">transmis pour visa</option>
+                                        <option value="transmis pour completude">transmis pour completude</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--give outside date--}}
+    <div class="modal fade" id="modifier_sortire" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title text-uppercase text-center" id="exampleModalLabel">Modifier Date de Sortie</h5>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('trace.update') }}" method="POST">
+                        @csrf
+                        @method('patch')
+                        <input type="hidden" name="id_dossier" value="{{$dossier->id}}">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="message">Date de sortie</label>
+                                <input type="date" name="date_sortie" id="message" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  //Coter a un sous service  --}}
+    <div class="modal fade" id="quotationModal" tabindex="-2" aria-labelledby="quotationModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route("dossier.quotation_service", ['id' => $dossier->id]) }}" method = "POST" >
+                    @csrf
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <select class="selectpicker" name="sous_service_id[]" multiple data-live-search="true">
+                                @foreach($services->where('servicegeneral_id', auth()->user()->service_id) as $item )
+                                    <option value="{{ $item->id }}">{{ $item->description }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- // Cote numero --}}
+    <div class="modal fade" id="attribureNumero" tabindex="-2" aria-labelledby="quotationModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <form method="POST" >
+                            @csrf
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Attribuer un Numero au Dossier</label>
+                                    <input type="text" name="num_dossier" id="" class="form-control"
+                                           placeholder="example SDP-34632" required>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Admin cotation  --}}
+    <div class="modal fade" id="qutationgeneral" tabindex="-2" aria-labelledby="quotationModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route("dossier.quotation", ['dossier_id' => $dossier->id]) }}" method = "POST" >
+                @csrf
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Enregistre Pour mon service</h3>
                     </div>
                     <div class="modal-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="{{ route('trace.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id_dossier" value="{{$dossier->id}}">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="message">Numero</label>
-                                    <input type="text" name="num_dossier"  id="message" class="form-control">
-                                </div>
-                            </div>
-                            @secretaire
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->general->name }}" class="form-control"></input>
-                                </div>
-                            </div>
-                            @endsecretaire
+                        <div class="col-sm-12">
+                            <select class="selectpicker" name="servicegeneral_id[]" multiple data-live-search="true">
+                                @foreach ($servicesgenerals as $item )
+                                    <option value="{{ $item->id }}">{{ $item->description }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- service delegue cardre  --}}
+    <div class="modal fade" id="giveto" tabindex="-2" aria-labelledby="quotationModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-@title" id="quotationModalLabel">Selectionnez un cardre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @if($cotations2 != null )
+                <form action="{{ route("dossier.cotation.update", ['id' => $cotations2->id]) }}" method = "POST" >
+                    @endif
+                    @csrf
+                    <div class="modal-body">
+                        <div class="col-sm-12">
                             @service
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            <div class="box box-widget widget-user">
+                                <div class="row">
+                                    <label> Choisir le cardre
+                                        <select class="selectpicker" name="user_id">
+                                            @foreach($users->where('sous_service_id', auth()->user()->sous_service_id)->where('role', 'cardre') as $item )
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
                                 </div>
                             </div>
                             @endservice
-                            @cardre
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <input type="hidden" name="nom_service" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            @admin
+                            <div class="box box-widget widget-user">
+                                <div class="row">
+                                    <label> Choisir le cardre
+                                        <select class="selectpicker" name="user_id">
+                                            @foreach($users->where('sous_service_id', auth()->user()->sous_service_id)->where('role', 'cardre') as $item )
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
                                 </div>
                             </div>
-                            @endcardre
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--give outside date--}}
-        <div class="modal fade" id="modifier_sortire" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h5 class="modal-title text-uppercase text-center" id="exampleModalLabel">Modifier Date de Sortie</h5>
-                    </div>
-                    <div class="modal-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="{{ route('trace.update') }}" method="POST">
-                            @csrf
-                            @method('patch')
-                            <input type="hidden" name="id_dossier" value="{{$dossier->id}}">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="message">Date de sortie</label>
-                                    <input type="date" name="date_sortie" id="message" class="form-control">
+                            <!-- /.widget-user -->
+                            @endadmin
+                            @secretaire
+                            <div class="box box-widget widget-user">
+                                <div class="row">
+                                    <label> Choisir le cardre
+                                        <select class="selectpicker" name="user_id">
+                                            @foreach($users->where('sous_service_id', auth()->user()->sous_service_id)->where('role', 'cardre') as $item )
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--  //Coter a un sous service  --}}
-        <div class="modal fade" id="quotationModal" tabindex="-2" aria-labelledby="quotationModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-12">
-                            @foreach ($services->where('servicegeneral_id', auth()->user()->service_id) as $item )
-                                <a onclick="return confirm('Transferé le dossier a ce service ?');"
-                                   href="{{ route('dossier.quotation_service',['id_service' => $item->id, 'dossier_id' => $dossier->id]) }}" class="col-sm-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header bg-green-active">
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}"
-                                                 width="50px" height="30px" alt="Service">
-                                        </div>
-                                        <div class="box-footer">
-                                            <div class="row">
-                                                <!-- /.col -->
-                                                <div class="col-sm-12">
-                                                    <div class="description-block">
-                                                        <small>{{ $item->name }}</small>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </a>
-                            @endforeach
+                            @endsecretaire
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
-                </div>
             </div>
+            </form>
         </div>
-
-        {{--  //Coter a un sous service  --}}
-        <div class="modal fade" id="transition" tabindex="-2" aria-labelledby="quotationModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-12">
-                            @foreach ($services->where('servicegeneral_id', auth()->user()->service_id) as $item )
-                                <a onclick="return confirm('Transferé le dossier a ce service ?');"
-                                   href="{{ route('dossier.transmis',['id_service' => $item->id, 'dossier_id' => $dossier->id]) }}" class="col-sm-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header bg-green-active">
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}"
-                                                 width="50px" height="30px" alt="Service">
-                                        </div>
-                                        <div class="box-footer">
-                                            <div class="row">
-                                                <!-- /.col -->
-                                                <div class="col-sm-12">
-                                                    <div class="description-block">
-                                                        <small>{{ $item->name }}</small>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
+    </div>
+    </div>
+    {{--  //Modifier Dossier  --}}
+    <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modifierD">Modification du Dossier</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-        </div>
-
-
-        {{-- // Cote numero --}}
-        <div class="modal fade" id="attribureNumero" tabindex="-2" aria-labelledby="quotationModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-12">
-                            <form method="POST" >
-                                @csrf
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Attribuer un Numero au Dossier</label>
-                                        <input type="text" name="num_dossier" id="" class="form-control"
-                                               placeholder="example SDP-34632" required>
-                                    </div>
-                                </div>
-                                </div>
-                                </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                    </div>
-                            </form>
-                </div>
-            </div>
-        </div>
-
-        {{-- Admin cotation  --}}
-        <div class="modal fade" id="qutationgeneral" tabindex="-2" aria-labelledby="quotationModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un Service</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-12">
-                            @foreach ($servicesgenerals as $item )
-                                <a onclick="return confirm('Transferé le dossier a ce service ?');"
-                                   href="{{ route('dossier.quotation',[$item->id,$dossier->id])}}" class="col-sm-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header bg-green-active">
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}"
-                                                 width="50px" height="30px" alt="Service">
-                                        </div>
-                                        <div class="box-footer">
-                                            <div class="row">
-                                                <!-- /.col -->
-                                                <div class="col-sm-12">
-                                                    <div class="description-block">
-                                                        <small class="text-amber-lighter">{{ $item->name }}</small>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        {{-- service delegue cardre  --}}
-        <div class="modal fade" id="giveto" tabindex="-2" aria-labelledby="quotationModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="quotationModalLabel">Selectionnez un cardre</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-12">
-                            @foreach ($users->where('sous_service_id', auth()->user()->sous_service_id)->where('role', 'cardre') as $item )
-                                <a onclick="return confirm('Delegue le dossier à ?');"
-                                   href="{{ route('dossier.delegue',[$dossier->id,$item->id])}}" class="col-sm-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header bg-green-active">
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="{{ asset('dist/img/armoirie.png') }}"
-                                                 width="50px" height="30px" alt="Service">
-                                        </div>
-                                        <div class="box-footer">
-                                            <div class="row">
-                                                <!-- /.col -->
-                                                <div class="col-sm-12">
-                                                    <div class="description-block">
-                                                        <small class="text-amber-lighter">{{ $item->name }}</small>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        {{--  //Modifier User  --}}
-        <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modifierD">Modification du Dossier</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('dossier.update', ['id' => $dossier->id]) }}">
-                            @csrf
-                            @method('patch')
-                            <div class="form-row">
-
-                                <div class="form-group col-md-6">
-                                    <label for="DHR">Numéro DRH</label>
-                                    <input type="text" name="num_drh" value="{{ $dossier->num_drh }}"
-                                           class="form-control" id="DHR" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Nom du Propriétaire</label>
-                                    <input type="text" name="nom" id="" value="{{ $dossier->nom }}" class="form-control"
-                                           placeholder="entre le nom du proprietaire" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Prénom du Propriétaire</label>
-                                    <input type="text" name="prenom" id="" value="{{ $dossier->prenom }}"
-                                           class="form-control" placeholder="entre le prenom du proprietaire" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Matricule</label>
-                                    <input type="text" name="matricule" id="" value="{{ $dossier->matricule }}"
-                                           class="form-control" placeholder="entre le matricule du proprietaire"
-                                           required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Grade</label>
-                                    <input type="text" name="grade" id="" value="{{ $dossier->grade }}"
-                                           class="form-control" placeholder="entre le grade du proprietaire" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Date Entrée</label>
-                                    <input type="date" name="date_entre" value="{{ $dossier->date_entre }}"
-                                           class="form-control" id="inputPassword4" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Date de sortie</label>
-                                    <input type="date" name="date_sortie" class="form-control"
-                                           value="{{ $dossier->date_sortie }}" id="inputPassword4" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Type</label>
-                                    <select class="custom-select form-control" name="type_id">
-                                        {{-- <option selected>Choisir le type</option> --}}
-                                        @foreach ($types as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('dossier.update', ['id' => $dossier->id]) }}">
+                        @csrf
+                        @method('patch')
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="DHR">Numéro Courrier</label>
+                                <input type="text" name="num_courrier" value="{{ $dossier->num_courrier }}"
+                                       class="form-control" id="DHR" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">Note</label>
-                                <textarea name="note" id="" cols="30" placeholder="{{ $dossier->note }}"
-                                          rows="10"></textarea>
+                                <label for="DHR">Numéro Service</label>
+                                <input type="text" name="num_drh" value="{{ $dossier->num_drh }}"
+                                       class="form-control" id="DHR" required>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Nom du Propriétaire</label>
+                                <input type="text" name="nom" id="" value="{{ $dossier->nom }}" class="form-control"
+                                       placeholder="entre le nom du proprietaire" required>
+                            </div>
 
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Prénom du Propriétaire</label>
+                                <input type="text" name="prenom" id="" value="{{ $dossier->prenom }}"
+                                       class="form-control" placeholder="entre le prenom du proprietaire" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Matricule</label>
+                                <input type="text" name="matricule" id="" value="{{ $dossier->matricule }}"
+                                       class="form-control" placeholder="entre le matricule du proprietaire"
+                                       required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Grade</label>
+                                <input type="text" name="grade" id="" value="{{ $dossier->grade }}"
+                                       class="form-control" placeholder="entre le grade du proprietaire" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Date Entrée</label>
+                                <input type="date" name="date_entre" value="{{ $dossier->date_entre }}"
+                                       class="form-control" id="inputPassword4" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Date de sortie</label>
+                                <input type="date" name="date_sortie" class="form-control"
+                                       value="{{ $dossier->date_sortie }}" id="inputPassword4" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Type</label>
+                                <select class="custom-select form-control" name="type_id">
+                                    {{-- <option selected>Choisir le type</option> --}}
+                                    @foreach ($types as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Note</label>
+                            <textarea name="note" id="" cols="30" placeholder="{{ $dossier->note }}"
+                                      rows="10"></textarea>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </form>
+                </div>
             </div>
+
         </div>
+    </div>
 
 
     </div>
-
-    <div class="container">
-            <h2>Informations du dossier sur le service</h2>
-            @if($delegue)
-                <h4>Dossier Delegue à <i class="btn btn-bitbucket">{{ $delegue->users->name}}</i></h4>
-                <small>le {{ $delegue->created_at }}</small>
-            @endif
-            <hr>
-        <div class="col-md-12">
-            @secretaire
-            @foreach ($trace2 as $item)
-                <a href="#" class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-yellow-active">
-                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
-                        </div>
-                        <div class="box-footer">
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-sm-12">
-                                    <div class="description-block">
-                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
-                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                    <button data-toggle="modal" data-target="#modifier_sortire"
-                                            class="btn btn-info btn-secondary">Modifier
-                                    </button>
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
-                </a>
-            @endforeach
-            @endsecretaire
-            @service
-            @foreach ($trace3 as $item)
-                <a href="#" class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-yellow-active">
-                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
-                        </div>
-                        <div class="box-footer">
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-sm-12">
-                                    <div class="description-block">
-                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
-                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                    <button data-toggle="modal" data-target="#modifier_sortire"
-                                            class="btn btn-info btn-secondary">Modifier
-                                    </button>
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
-                </a>
-            @endforeach
-            @endservice
-            @cardre
-            @foreach ($trace3 as $item)
-                <a href="#" class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-yellow-active">
-                            <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
-                        </div>
-                        <div class="box-footer">
-                            <div class="row">
-                                <!-- /.col -->
-                                <div class="col-sm-12">
-                                    <div class="description-block">
-                                        <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
-                                        <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
-                                    </div>
-                                    <button data-toggle="modal" data-target="#modifier_sortire"
-                                            class="btn btn-info btn-secondary">Modifier
-                                    </button>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-                    <!-- /.widget-user -->
-                </a>
-            @endforeach
-            @endcardre
-        </div>
-        @admin
-        @foreach ($trace as $item)
-        <a href="#" class="col-md-4">
-            <!-- Widget: user widget style 1 -->
-            <div class="box box-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-yellow-active">
-                    <h3 class="widget-user-username"><b>Numero : {{ $item->num_dossier }}</b></h3>
-                </div>
-                <div class="box-footer">
-                    <div class="row">
-                        <!-- /.col -->
-                        <div class="col-sm-12">
-                            <div class="description-block">
-                                <h5 class="description-text">Date D'Entrée : {{ $item->created_at }}</h5>
-                                <span class="description-text">Date De sortir : {{ $item->date_sortie }}</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-            </div>
-            <!-- /.widget-user -->
-        </a>
-            @endforeach
-        @endadmin
-
-    </div>
-
 @endsection
+@section('js')
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(function () {
+            //$('#dossiers').DataTable()
+            $('#dossiers').DataTable({
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : true,
+                'autoWidth'   : true
+            })
+        })
+    </script>
+@stop

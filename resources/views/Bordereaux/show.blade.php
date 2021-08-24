@@ -13,7 +13,7 @@
                         <div class="col-xs-12">
                             <a onclick="return confirm('voulez vous vraiment effectuer cette action ?')" href="{{ route("bordreau.delete",$bordereau->id) }}" class="btn btn-danger pull-right">Supprimer</a>
                             <h2 class="page-header">
-                                <i class="fa fa-edit"></i> {{ $bordereau->numero }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$bordereau->date)->format("d/m/Y") }}
+                                <a href="#" data-toggle="modal" data-target="#affectationModal1" class="fa fa-edit"></a> {{ $bordereau->numero }} | {{ Carbon\Carbon::createFromFormat("Y-m-d",$bordereau->date)->format("d/m/Y") }}
                             </h2>
                         </div>
                         <!-- /.col -->
@@ -150,5 +150,66 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="affectationModal1" tabindex="-1" aria-labelledby="AffectationModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier Bordereaux</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('bordreau.store') }}">
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="etat" value="ouvert">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="decision">Numéro de Décision</label>
+                                <input type="text" value="{{ $bordereau->numero  }}" readonly name="numero" id="numero" class="form-control"
+                                       autocomplete="false" placeholder="Numéro de Décision">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="date">Titre</label>
+                                <input type="text" value="{{ $bordereau->titre  }}" name="titre" class="form-control" id="titre"
+                                       autocomplete="false" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="entete">Entête</label>
+                                <input type="text" value="{{ $bordereau->entete  }}" name="entete" class="form-control" id="entete"
+                                       autocomplete="false" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="decision">Date</label>
+                                <input type="date" value="{{ $bordereau->date  }}" name="date" id="date" class="form-control"
+                                       autocomplete="false">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="titre">Service à Transmettre</label>
+                                <textarea name="destinataire" class="form-control" rows="2" id="titre" autocomplete="false"
+                                          required>{{ $bordereau->destinataire  }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="decision">Observation</label>
+                                <textarea name="observation" id="observation" rows="4"
+                                          class="form-control textareaFeat">{{ $bordereau->observation  }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection

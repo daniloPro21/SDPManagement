@@ -54,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('secdrh', function () {
             return auth()->check() && auth()->user()->role === 'secdrh';
         });
+        Blade::if('chefB', function () {
+            return auth()->check() && auth()->user()->role === 'chefB';
+        });
         /*
         Illuminate\Support\Facades\Blade::if('activelink', function (string $url) {
             return \Illuminate\Support\Facades\Request::getFacadeRoot()->getPathInfo()==$url;

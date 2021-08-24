@@ -17,7 +17,9 @@ class CreateTracesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_dossier');
             $table->string('nom_service');
+            $table->string('transmettant');
             $table->string('num_dossier');
+            $table->enum('motif',['traiter','signe','rejete','transmis'])->nullable();
             $table->date('date_sortie')->nullable();
             $table->boolean('is_delete')->nullable();
             $table->timestamps();

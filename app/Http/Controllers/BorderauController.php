@@ -60,19 +60,24 @@ class BorderauController extends Controller
             'observation' => 'required',
             'date' => 'required'
         ));
-        $bordereau = new Borderaux();
-        $bordereau->titre = $data['titre'];
-        $bordereau->destinataire = $data['destinataire'];
-        $bordereau->numero = $data['numero'];
-        $bordereau->entete = $data['entete'];
-        $bordereau->service_id = auth()->user()->service_id;
-        $bordereau->observation = $data['observation'];
-        $bordereau->date = $data['date'];
-        $bordereau->etat = 'ouvert';
-        $bordereau->is_delete = false;
-        $bordereau->save();
-
-        Toastr()->success("Enregistrement Effectué","terminé");
+        $bordereauw = Borderaux::where('numero', $data['numero'])->first();
+        if($bordereauw){
+            Borderaux::where('numero', $data['numero'])->update($data);
+            Toastr()->success("Mise à Effectué","Terminé");
+        }else{
+            $bordereau = new Borderaux();
+            $bordereau->titre = $data['titre'];
+            $bordereau->destinataire = $data['destinataire'];
+            $bordereau->numero = $data['numero'];
+            $bordereau->entete = $data['entete'];
+            $bordereau->service_id = auth()->user()->service_id;
+            $bordereau->observation = $data['observation'];
+            $bordereau->date = $data['date'];
+            $bordereau->etat = 'ouvert';
+            $bordereau->is_delete = false;
+            $bordereau->save();
+            Toastr()->success("Enregistrement Effectué","terminé");
+        }
 
         return redirect()->back();
     }

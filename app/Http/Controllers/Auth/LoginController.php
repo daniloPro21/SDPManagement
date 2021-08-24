@@ -42,6 +42,9 @@ class LoginController extends Controller
         }elseif ($user->role == "secdrh"){
             return route('secdrh.home');
         }
+        elseif ($user->role == "chefB"){
+            return route('chefB.home');
+        }
         elseif ($user->role == "secretaire") {
             return route('secretaire.home');
         } elseif ($user->role == "service") {
@@ -49,7 +52,7 @@ class LoginController extends Controller
         }elseif ($user->role == "cardre"){
             return route('service.home');
         } else {
-            return route('register');
+            return route('welcome');
         }
     }
 }

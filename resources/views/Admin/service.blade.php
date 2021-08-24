@@ -83,6 +83,7 @@
                 <td>{{ $service->name }}</td>
                 <td>{{ $service->description }}</td>
                 <td>{{ $service->servicegenerals->name }}</td>
+                <td><a href="{{ route('service.showGroup', $service->id) }}" class="btn btn-bitbucket">Voir Dossiers</a></td>
               </tr>
             @endforeach
             @endsuperadmin
