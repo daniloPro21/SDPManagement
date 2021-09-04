@@ -282,11 +282,11 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"
-                                   class="btn btn-info btn-sm mb-3">
+                                <button data-toggle="modal" data-id="{{$item->id}}" data-target="#giveto" onclick="$('#cotation_id').val($(this).attr('data-id'))"
+                                        class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"
+                                </button>
+                                <a href="{{ route('dossier.delete.cotation',['id' => $item->id ]) }}"
                                    class="btn btn-danger btn-sm mb-3">
                                     <i class="fa fa-trash"></i>
                                 </a>
@@ -351,7 +351,7 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <button data-toggle="modal" data-target="#giveto"
+                                <button data-toggle="modal" data-id="{{$item->id}}" data-target="#giveto" onclick="$('#cotation_id').val($(this).attr('data-id'))"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </button>
@@ -392,7 +392,7 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                <button data-toggle="modal" data-id="{{$item->id}}" data-target="#giveto" onclick="$('#cotation_id').val($(this).attr('data-id'))"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </button>
@@ -433,7 +433,7 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                <button data-toggle="modal" disabled
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </button>
@@ -474,7 +474,7 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <button data-toggle="modal" data-target="#giveto"
+                                <button data-toggle="modal" data-id="{{$item->id}}" data-target="#giveto" onclick="$('#cotation_id').val($(this).attr('data-id'))"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </button>
@@ -1069,11 +1069,12 @@
                     </button>
                 </div>
                 @if($cotations2 != null )
-                <form action="{{ route("dossier.cotation.update", ['id' => $item->id ]) }}" method = "POST" >
+                <form action="{{ route("dossier.cotation.update") }}" method = "POST" >
                     @endif
                     @csrf
                     <div class="modal-body">
                         <div class="col-sm-12">
+                            <input type="hidden" name="cotation_id"  id="cotation_id" onchange="alert('lol')">
                             @service
                             <div class="box box-widget widget-user">
                                 <div class="row">

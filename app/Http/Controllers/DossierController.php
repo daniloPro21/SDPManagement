@@ -150,10 +150,11 @@ class DossierController extends Controller
         $cotations2 = DB::table('cotations')
             ->join('dossiers', 'dossiers.id', '=' , 'cotations.dossier_id')
             ->where('cotations.servicegeneral_id', '=', auth()->user()->service_id)
-            ->where('cotations.dossier_id', '=', $dossier->id)
+            ->where('cotations.dossier_id', '=',$id)
             ->select('cotations.*')
             ->distinct()
             ->first();
+       // dd($cotations2);
         $tracages = Tracage::all()->where("dossier_id", $id);
         return view('Admin.details', compact('delegue', 'dossier','tracages', 'cotations','cotations2','trace', 'trace2', 'trace3', 'types', 'serviceslier'));
     }
@@ -267,7 +268,7 @@ class DossierController extends Controller
             ->where('servicegeneral_id', auth()->user()->service_id);
         $dossier = Dossier::findOrFail($dossier_id);
         $taille = count($data['sous_service_id']);
-        if($taille < 2){
+        if($taille < 1){
             foreach ($cotation as $c){
                 foreach ($data['sous_service_id'] as $service) {
                     $c->update(['sous_service_id'=> $service]);
@@ -308,10 +309,10 @@ class DossierController extends Controller
         foreach ($data['servicegeneral_id'] as $general_id){
             $cotation = new Cotation();
             $cotation->servicegeneral_id = $general_id;
-            $cotation->id_dossier = $dossier->id;
+            $cotation->dossier_id = $dossier->id;
             $cotation->save();
             $user = User::where('role', '=', 'admin')->where('service_id', '=', $general_id)->first();
-            $user->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
+            $user->notify(new QuottationNorification($dossier->num_service, $dossier->id));
             $dossier->statut = 'encour';
             $dossier->update();
         }
@@ -441,11 +442,12 @@ class DossierController extends Controller
         Toastr()->success("Suppression avec Success");
         return redirect()->back();
     }
-    public function updateacotation(Request $request, $id){
+    public function updateacotation(Request $request){
         $data = $request->validate(array(
             'user_id' => 'required',
+            "cotation_id" => 'required'
         ));
-            $cotation = Cotation::findOrFail($id);
+            $cotation = Cotation::findOrFail($data["cotation_id"]);
             $cotation->update(['user_id' => $data['user_id']]);
         Toastr()->success("Affectation Enregistré");
         return redirect()->back();
