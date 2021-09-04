@@ -279,6 +279,7 @@ class DossierController extends Controller
                     $u->notify(new QuottationNorification($dossier->num_drh, $dossier->id));
                 }
             }
+            die();
         }else{
             foreach ($data['sous_service_id'] as $service) {
                 $cotation = new Cotation();
