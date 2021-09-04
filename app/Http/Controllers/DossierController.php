@@ -7,6 +7,7 @@ use App\Delegue;
 use App\Dossier;
 use App\Notifications\DelegueNorification;
 use App\Notifications\QuottationNorification;
+use App\Tracage;
 use App\Trace;
 use App\TypeDossier;
 use App\User;
@@ -145,6 +146,7 @@ class DossierController extends Controller
         // dd($trace2);
         $serviceslier = Service::all()->where('servicegeneral_id', auth()->user()->service_id);
         $cotations = Cotation::with('dossiers', 'services', 'servicegeneral')->where("dossier_id", '=', $id)->get();
+
         $cotations2 = DB::table('cotations')
             ->join('dossiers', 'dossiers.id', '=' , 'cotations.dossier_id')
             ->where('cotations.servicegeneral_id', '=', auth()->user()->service_id)
@@ -152,8 +154,8 @@ class DossierController extends Controller
             ->select('cotations.*')
             ->distinct()
             ->first();
-
-        return view('Admin.details', compact('delegue', 'dossier', 'cotations','cotations2','trace', 'trace2', 'trace3', 'types', 'serviceslier'));
+        $tracages = Tracage::all()->where("dossier_id", $id);
+        return view('Admin.details', compact('delegue', 'dossier','tracages', 'cotations','cotations2','trace', 'trace2', 'trace3', 'types', 'serviceslier'));
     }
 
     public function find()
@@ -166,7 +168,6 @@ class DossierController extends Controller
         //dd($request->input("matricule"));
         $data = $request->validate(array(
             'num_courrier' => 'required',
-            'num_drh' => 'required',
             'type_id' => 'required',
             'note' => 'required',
             'date_entre' => 'required',
@@ -177,19 +178,42 @@ class DossierController extends Controller
             'telephone' => 'required'
         ));
 
+    $latest =DB::table('dossiers')->latest('id')->first();;
 
         try {
-            $dossier = new Dossier();
-            $dossier->num_drh = $data['num_drh'];
-            $dossier->date_entre = $data['date_entre'];
-            $dossier->nom = $data['nom'];
-            $dossier->prenom = $data['prenom'];
-            $dossier->grade = $data['grade'];
-            $dossier->telephone = $data['telephone'];
-            $dossier->matricule = $data['matricule'];
-            $dossier->type_id = $data['type_id'];
-            $dossier->note = $data['note'];
-            $dossier->save();
+            if(auth()->user()->role == "secretaire"){
+                $dossier = new Dossier();
+                $num = $latest->id ;
+                $dossier->num_service = auth()->user()->general->name.'-'.$num ;
+                $dossier->num_courrier = $data['num_courrier'];
+                $dossier->date_entre = $data['date_entre'];
+                $dossier->nom = $data['nom'];
+                $dossier->prenom = $data['prenom'];
+                $dossier->grade = $data['grade'];
+                $dossier->telephone = $data['telephone'];
+                $dossier->matricule = $data['matricule'];
+                $dossier->type_id = $data['type_id'];
+                $dossier->note = $data['note'];
+                $dossier->statut = "encour";
+                $dossier->save();
+                $cotation = new Cotation();
+                $cotation->dossier_id = $dossier->id;
+                $cotation->servicegeneral_id = auth()->user()->service_id;
+                $cotation->save();
+            }else{
+                $dossier = new Dossier();
+                $dossier->num_service = auth()->user()->general->name + 1;
+                $dossier->num_courrier = $data['num_courrier'];
+                $dossier->date_entre = $data['date_entre'];
+                $dossier->nom = $data['nom'];
+                $dossier->prenom = $data['prenom'];
+                $dossier->grade = $data['grade'];
+                $dossier->telephone = $data['telephone'];
+                $dossier->matricule = $data['matricule'];
+                $dossier->type_id = $data['type_id'];
+                $dossier->note = $data['note'];
+                $dossier->save();
+            }
             Toastr()->success("Enregistrement Effectué", "terminé");
         } catch (\Exception  $exception) {
             Toastr()->error("Erreur durant la sauvegarde " . $exception->getMessage(), "Echec");
@@ -420,9 +444,8 @@ class DossierController extends Controller
     public function updateacotation(Request $request, $id){
         $data = $request->validate(array(
             'user_id' => 'required',
-            'catation_id' => 'required'
         ));
-            $cotation = Cotation::findOrFail($data['catation_id']);
+            $cotation = Cotation::findOrFail($id);
             $cotation->update(['user_id' => $data['user_id']]);
         Toastr()->success("Affectation Enregistré");
         return redirect()->back();

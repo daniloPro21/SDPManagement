@@ -36,7 +36,7 @@ class SuperAdminController extends Controller
     ];
     $dossierChart = new DossierChart;
 
-       $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
+    $dossierChart->labels(['Nouveaux', 'En cours de traitement','Traités']);
     //$dossierChart->minimalist(true);
     $dossierChart->dataset('Statistiques', 'doughnut', [Dossier::where('is_delete', false)->where('service_id',null)->where('statut', null)->count(), Dossier::where('service_id','!=',null)->where('statut',null)->count(), Dossier::where('statut','traiter')->count()])->color($borderColors)->backgroundcolor($fillColors);
 
@@ -65,8 +65,11 @@ class SuperAdminController extends Controller
     $yearChart->dataset('Dossiers Reçus', 'line', $years[1])->color("rgb(219,139,11)")->backgroundcolor("rgb(219,139,60)");
 
        $dossier4Chart = new DossierChart;
-
-    return view('SuperAdmin.home',compact("dossierChart","dossier2Chart","yearChart","dossier4Chart") );
+       $d6 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+           ->select('dossiers.*')
+           ->distinct()
+           ->get();
+    return view('SuperAdmin.home',compact("dossierChart","d6", "dossier2Chart","yearChart","dossier4Chart") );
 
    }
 

@@ -28,10 +28,6 @@
                                         <td>Numéro Courrier</td>
                                         <td><b>{{ $dossier->num_courrier }}</b></td>
                                     </tr>
-                                    <tr>
-                                        <td>Numéro DRH</td>
-                                        <td><b>{{ $dossier->num_drh }}</b></td>
-                                    </tr>
                                     @if ($dossier->num_service != null)
                                         <tr>
                                             <td>Numéro Service</td>
@@ -355,7 +351,7 @@
                                 <td>{{$item->users->name}}</td>
                             @endif
                             <td>
-                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                <button data-toggle="modal" data-target="#giveto"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </button>
@@ -370,7 +366,48 @@
                     </tbody>
                 </table>
                 @endadmin
-                @secretaire
+                @service
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations->where("service_id", auth()->user()->sous_service_id) as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                            <td>
+                                <button data-toggle="modal" data-target="#giveto" data-user="{{$item->id}}"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <a href="{{ route('dossier.delete.cotation',['id' => $item->id ]) }}"
+                                   class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endservice
+                @cardre
                 <table class="table caption-top table-active table-bordered">
                     <caption class="text-bold h2">Informatoin de Cotation</caption>
                     <thead class="bg-aqua">
@@ -410,7 +447,49 @@
                     @endforeach
                     </tbody>
                 </table>
+                @endcardre
+                @secretaire
+                <table class="table caption-top table-active table-bordered">
+                    <caption class="text-bold h2">Informatoin de Cotation</caption>
+                    <thead class="bg-aqua">
+                    <tr>
+                        <th scope="col">Sous Direction</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Attribuer à</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($cotations->where("servicegeneral_id", auth()->user()->service_id) as $item)
+                        <tr>
+                            <td>{{$item->servicegeneral->name}}</td>
+                            @if($item->services == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->services->name}}</td>
+                            @endif
+                            @if($item->users == null)
+                                <td>Non Assigne</td>
+                            @else
+                                <td>{{$item->users->name}}</td>
+                            @endif
+                            <td>
+                                <button data-toggle="modal" data-target="#giveto"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <a href="{{ route('dossier.delete.cotation',['id' => $item->id ]) }}"
+                                   class="btn btn-danger btn-sm mb-3">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
                 @endsecretaire
+
                 <!-- The time line -->
                 <ul class="timeline">
                     <!-- timeline time label -->
@@ -535,10 +614,10 @@
                 @endcardre
                 </tbody>
             </table>
-            <h2>Parcour</h2>
+            <h2>Parcours</h2>
             <hr>
             <h3><u>Trace</u></h3>
-            <table id="example2" class="table table-bordered table-striped">
+            <table id="example" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Service A</th>
@@ -549,13 +628,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($trace as $item)
+                @foreach($tracages as $item)
                     <tr>
-                        <td>{{ $item->num_dossier }}</td>
+                        <td>{{ $item->serviceA }}</td>
+                        <td>{{ $item->serviceB }}</td>
+                        <td>{{ $item->motif }}</td>
                         <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->date_sortie }}</td>
-                        <td>{{ $item->date_sortie }}</td>
-                        <td><button data-toggle="modal" data-target="#modifier_sortire"
+                        <td><button data-toggle="modal" data-target="#transmisedit"
                                     class="btn btn-info btn-secondary">Modifier
                             </button></td>
                     </tr>
@@ -721,7 +800,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{ route('trace.add') }}" method="POST">
+                    <form action="{{ route('tracage.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
                         @secretaire
@@ -755,10 +834,81 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="message">Motif</label>
-                                <select class="selectpicker" name="motif" multiple data-live-search="true">
+                                <select class="selectpicker" name="motif">
                                         <option value="en attente de completude">en attente de completude</option>
                                         <option value="transmis pour visa">transmis pour visa</option>
                                         <option value="transmis pour completude">transmis pour completude</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--Transmission Service edit --}}
+    <div class="modal fade" id="transmisedit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-uppercase text-center" id="exampleModalLabel">Effectuer une transmission</h3>
+                </div>
+                <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ route('tracage.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="dossier_id" value="{{$dossier->id}}">
+                        @secretaire
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->general->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endsecretaire
+                        @service
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endservice
+                        @cardre
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endcardre
+                        @chefB
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="serviceA" id="message" value="{{ auth()->user()->service->name }}" class="form-control"></input>
+                            </div>
+                        </div>
+                        @endchefB
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="message">Motif</label>
+                                <select class="selectpicker" name="motif">
+                                    <option value="en attente de completude">en attente de completude</option>
+                                    <option value="transmis pour visa">transmis pour visa</option>
+                                    <option value="transmis pour completude">transmis pour completude</option>
                                 </select>
                             </div>
                         </div>
@@ -908,7 +1058,7 @@
     </div>
 
     {{-- service delegue cardre  --}}
-    <div class="modal fade" id="giveto" tabindex="-2" aria-labelledby="quotationModalLabel"
+    <div class="modal fade" id="giveto" tabindex="-1" aria-labelledby="quotationModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -919,7 +1069,7 @@
                     </button>
                 </div>
                 @if($cotations2 != null )
-                <form action="{{ route("dossier.cotation.update", ['id' => $cotations2->id]) }}" method = "POST" >
+                <form action="{{ route("dossier.cotation.update", ['id' => $item->id ]) }}" method = "POST" >
                     @endif
                     @csrf
                     <div class="modal-body">
@@ -1083,5 +1233,8 @@
                 'autoWidth'   : true
             })
         })
+
+       $
     </script>
 @stop
+

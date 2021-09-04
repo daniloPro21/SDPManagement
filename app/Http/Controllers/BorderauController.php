@@ -127,10 +127,10 @@ class BorderauController extends Controller
     public function newossier(Request $request, $id)
     {
         $data = $request->validate(array(
-            'num_drh' => 'required',
+            'num_service' => 'required',
         ));
-        $num_drh = $data['num_drh'];
-        $dossier = Dossier::where('num_drh', $num_drh)->first();
+        $num_service = $data['num_service'];
+        $dossier = Dossier::where('num_service', $num_service)->first();
         if($dossier){
             $bordereau = new BorderauDossier();
             $bordereau->id_dossier = $dossier->id;

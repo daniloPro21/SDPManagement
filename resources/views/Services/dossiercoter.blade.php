@@ -1,31 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+<div class="row justify-content-center d-flex align-items-center">
 
     <div class="container">
-      @foreach ($newDossiers as $dossier)
-        <!-- /.col -->
-        <a href="{{route('dossier.detail',$dossier->id)}}" style="text-decoration:none;color:black" class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+        <table id="example" class="table table-bordered table-hover">
 
-            <div class="info-box-content">
-              <span class="info-box-number" style="font-size: 12px;">{{ $dossier->prenom }} {{ $dossier->nom }}</span>
-              <small class="text-mu">{{ $dossier->date_entre}}</small><br>
-              <small class="text-mu">{{ $dossier->track }}</small><br>
-            @if ($dossier->service_id != null)
-                <small><i class="text-truncate" style="font-size: 12px"> {{ $dossier->services->name }}</i></small>
-            @endif
-                @if ($dossier->trace != null)
-                    <small><i class="text-truncate" style="font-size: 12px"> {{ $dossier->trace }}</i></small>
-                @endif
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-        </a>
-      @endforeach
+            <thead>
+            <tr>
+                <th>Numero Service</th>
+                <th>Appartien A</th>
+                <th>Status</th>
+                <th>Date entre</th>
+                <th>Date Sortie</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($newDossiers as $dossier)
+                <tr>
+                    <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_courrier }}</a></td>
+
+                    <td><b>- Nom</b> : {{ $dossier->nom }} <br>
+                        - <b>Matricule</b> : {{ $dossier->matricule }} <br>
+                        - <b>Grade: &nbsp;</b> {{ $dossier->grade }} <br>
+
+                    </td>
+                    @if($dossier->statut == "traiter")
+                        <td class="badge bg-yellow-active"> {{ $dossier->statut }}</td>
+                    @elseif ($dossier->statut == "encour")
+                        <td class="badge bg-green-active"> {{ $dossier->statut }}</td>
+                    @else
+                        <td class="badge bg-secondary">En Attente</td>
+                    @endif
+                    <td> {{ $dossier->date_entre }}</td>
+                    <td>{{ $dossier->date_sortie }} &nbsp;
+
+                    </td>
+                    <form action="{{ route('dossier.delete', ['id' => $dossier->id]) }}" method="post">
+                        <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}" data-toggle="modal"  class="btn btn-primary btn-sm mb-3">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}"  class="btn btn-info btn-sm mb-3">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            @csrf
+                            @method('patch')
+                            <button type="submit"  class="btn btn-danger btn-sm mb-3">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+            @empty
+                <h1 align="center" style="color:rgba(128, 128, 128, 0.781);font-size: 95px !important;position: absolute;top: 40%;left:35%;">Aucun Resultat !</h1>
+            @endforelse
+        </table>
+
+        <!-- /.col -->
     </div>
-  </div>
-<center>  {{ $newDossiers->links() }}</center>
+</div>
 @endsection

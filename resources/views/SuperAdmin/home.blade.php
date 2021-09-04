@@ -54,7 +54,7 @@
                                 <!-- /.col -->
                               <div class="col-sm-12">
                                   <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('service_id','!=',null)->where('statut','encour')->count() }}</h5>
+                                    <h5 class="description-header">{{ $d6->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
                                   </div>
                                   <!-- /.description-block -->

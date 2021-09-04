@@ -47,7 +47,7 @@ Route::get('/dossier/find/result', 'DossierController@findresult')->name('dossie
 Route::patch('/dossier/update/{id}', 'DossierController@update')->name('dossier.update');
 Route::patch('/dossier/delete/{id}', 'DossierController@delete')->name('dossier.delete');
 Route::get('/cotation/delete/{id}', 'DossierController@destroyCotation')->name('dossier.delete.cotation');
-Route::post('/cotation/update', 'DossierController@updateacotation')->name('dossier.cotation.update');
+Route::post('/cotation/update/{id}', 'DossierController@updateacotation')->name('dossier.cotation.update');
 
 /**
  * Route Personnel
@@ -250,5 +250,5 @@ Route::get('/notification/{id}', 'DossierController@markRead')->name('asread');
 /**
  * Transmissoin route
  */
-Route::post('/tracage/create', 'TracageController@sotre')->name('tracage.store');
+Route::post('/tracage/create', 'TracageController@store')->name('tracage.store');
 

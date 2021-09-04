@@ -112,9 +112,23 @@ class HomeController extends Controller
 
     public function secretaire()
     {
+        $d1 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
+
+        $d3 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.servicegeneral_id", "=", auth()->user()->service_id)
+            ->where("cotations.service_id", "!=", null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
         $dossierssecre = Trace::with('dossier')
             ->where('nom_service', '=', auth()->user()->general->name)
             ->get();
+
         //dd($dossierssecre);
         $d2 =  Dossier::with('type','service','services')
             ->where('service_id', '=', auth()->user()->service_id)
@@ -123,17 +137,29 @@ class HomeController extends Controller
             ->where('is_delete', false)
             ->orderByDesc('id')->get();
         $types = TypeDossier::all();
-        return view('Secretaire.home', compact('types','dossierssecre', 'd2'));
+        return view('Secretaire.home', compact('types','dossierssecre', 'd2', 'd1', 'd3'));
     }
 
     public function service()
     {
+        $d1 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.service_id", "=", auth()->user()->sous_service_id)
+            ->where('dossiers.statut', 'encour')
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
+        $d3 =  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("cotations.service_id", "=", auth()->user()->sous_service_id)
+            ->where('dossiers.statut', 'traite')
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
         $cotation_service = Trace::with('dossier')
             ->where('nom_service', '=', auth()->user()->service->name)
             ->get();
         //dd($cotation_service);
         $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
-        return view('Services.home', compact('service_name','cotation_service'));
+        return view('Services.home', compact('service_name','cotation_service', 'd1', 'd3'));
     }
 
     public function index()

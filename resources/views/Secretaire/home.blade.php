@@ -25,7 +25,7 @@
                                 <!-- /.col -->
                             <div class="col-sm-12">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{ $dossiers->where('service_id',auth()->user()->service_id)->where('statut', 'encour')->where('sous_service_id',null)->count() }}</h5>
+                                    <h5 class="description-header">{{ $d1->count() }}</h5>
                                     <span class="description-text">Dossier(s)</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -54,7 +54,7 @@
                                   <!-- /.col -->
                                 <div class="col-sm-12">
                                     <div class="description-block">
-                                      <h5 class="description-header">{{ $d2->count() }}</h5>
+                                      <h5 class="description-header">{{ $d3->count() }}</h5>
                                       <span class="description-text">Dossier(s)</span>
                                     </div>
                                     <!-- /.description-block -->
@@ -185,6 +185,12 @@
     <section class="container">
         <div class="row">
           <div class="col-lg-12">
+              <div class="row">
+                  <button data-toggle="modal" data-target="#modifier"
+                          class="btn btn-bitbucket">Ajouté un dossier
+
+                  </button>
+              </div>
             <hr>
             <div class="box">
               <div class="box-header">
@@ -196,7 +202,7 @@
                 <table id="example" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>DRH</th>
+                    <th>Numero Courrier</th>
                     <th>{{ auth()->user()->general->name }}</th>
                     <th>Propriétaire</th>
                     <th>Date entrée</th>
@@ -209,7 +215,7 @@
                   <tbody>
                       @foreach ($dossierssecre as $dossier)
                       <tr>
-                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->dossier->id]) }}">{{ $dossier->dossier->num_drh }}</a></td>
+                          <td><a href="{{ route('dossier.detail', ['id' => $dossier->dossier->id]) }}">{{ $dossier->dossier->num_courrier }}</a></td>
                           <td>{{ $dossier->num_dossier }}</td>
                             <td>
                               <div><b>- Nom</b> : {{ $dossier->dossier->nom }}</div>
@@ -247,86 +253,98 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifierD" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter Un Dossier</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('dossier.store') }}">
-                        @csrf
-                        <div class="form-row">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modifierD">Ajouter Un Dossier</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('dossier.store') }}">
+                            @csrf
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="DHR">Numero Courier</label>
+                                    <input type="text" name="num_courrier" class="form-control"  autocomplete="false" id="DHR" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="DHR">Numero Service</label>
+                                    <input type="text"  readonly  class="form-control"  autocomplete="false" id="DHR" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Nom du destinataire</label>
+                                    <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label for="DHR">Numéro DRH</label>
-                            <input type="text" name="num_drh" class="form-control" id="DHR"  autocomplete="false" required>
-                          </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <label for="inputEmail4">Nom du Propriétaire</label>
-                              <input type="text" name="nom" id="" class="form-control" placeholder="entre le nom du proprietaire" required>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Prénom</label>
+                                    <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Matricule</label>
+                                    <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Telephone</label>
+                                    <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Grade</label>
+                                    <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Date d entrée</label>
+                                    <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="sexe">Sexe</label>
+                                    <select class="form-control" name="sexe">
+                                        <option value="Masculin">Masculin</option>
+                                        <option value="Feminin">Feminin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Type</label>
+                                    <select class="custom-select form-control" name="type_id">
+                                        {{-- <option selected>Choisir le type</option> --}}
+                                        @foreach ($types as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputPassword4">Constitution du dossier</label>
+                                        <textarea name="constitution" id="" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputPassword4">Mention</label>
+                                        <textarea name="note" id="" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Prénom</label>
-                                <input type="text" name="prenom" id="" class="form-control" placeholder="entre le prenom du proprietaire" required>
-                              </div>
-
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Matricule</label>
-                                <input type="text" name="matricule" id="" class="form-control" placeholder="entre le matricule du proprietaire" required>
-                              </div>
-
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Grade</label>
-                                <input type="text" name="grade" id="" class="form-control" placeholder="entre le grade du proprietaire" required>
-                              </div>
-
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Téléphone</label>
-                                <input type="text" name="telephone" id="" class="form-control" placeholder="entre le telephone du proprietaire" required>
-                              </div>
-                            <div class="form-group col-md-6">
-                                <label for="sexe">Sexe</label>
-                                <select class="form-control" name="sexe">
-                                    <option value="Masculin">Masculin</option>
-                                    <option value="Feminin">Féminin</option>
-                                </select>
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Type</label>
-                                <select class="custom-select form-control" name="type_id">
-                                    {{-- <option selected>Choisir le type</option> --}}
-                                    @foreach ($types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                  </select>
-                              </div>
-                              <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Date d entrée</label>
-                                  <input type="date" name="date_entre" class="form-control" id="inputPassword4" required>
-                              </div>
-                          </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputPassword4">Note</label>
-                                <textarea name="note" class="form-control" id=""  rows="8"></textarea>
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         <button type="submit"  class="btn btn-primary">Enregistrer</button>
-                    </form>
+                        </form>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
 

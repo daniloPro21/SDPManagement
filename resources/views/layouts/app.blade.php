@@ -425,7 +425,7 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a href="{{ route('dossiers.all') }}">
                         <i class="fa fa-book"></i>
                         <span>Dossiers</span>
                     </a>
@@ -699,6 +699,14 @@
             ]
         });
     });
+    $(document).ready(function () {
+        $('#example3').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
 
     function imprimer() {
         $('#no-print').remove();
@@ -708,6 +716,15 @@
         window.location.reload();
     }
     $('select').selectpicker();
+
+    $(document).ready(function () {
+        $('#example1').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
 
     // TODO : customize textarea editor
     /* $('.textareaFeat').wysihtml5({

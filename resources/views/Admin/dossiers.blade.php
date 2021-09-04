@@ -45,7 +45,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="DHR">Numero Service</label>
-                                        <input type="text" name="num_drh" class="form-control"  autocomplete="false" id="DHR" required>
+                                        <input type="text" readonly class="form-control"  autocomplete="false" id="DHR" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -80,6 +80,13 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
+                                        <label for="sexe">Sexe</label>
+                                        <select class="form-control" name="sexe">
+                                            <option value="Masculin">Masculin</option>
+                                            <option value="Feminin">Feminin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label for="inputPassword4">Type</label>
                                         <select class="custom-select form-control" name="type_id">
                                             {{-- <option selected>Choisir le type</option> --}}
@@ -89,19 +96,19 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="sexe">Sexe</label>
-                                        <select class="form-control" name="sexe">
-                                            <option value="Masculin">Masculin</option>
-                                            <option value="Feminin">Feminin</option>
-                                        </select>
+                                        <div class="form-group col-md-12">
+                                            <label for="inputPassword4">Constitution du dossier</label>
+                                            <textarea name="constitution" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
+                                            <label for="inputPassword4">Mention</label>
+                                            <textarea name="note" id="" cols="30" rows="10"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputPassword4">Mension</label>
-                                        <textarea name="note" id="" cols="30" rows="10"></textarea>
-                                    </div>
-                                </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

@@ -11,8 +11,9 @@ class Dossier extends Model
 
 
     protected $fillable = [
-        'service_id', 'num_courrier', 'date_entre', 'telephone', 'date_sortie', 'note', 'num_drh', 'statut',
+        'service_id', 'num_courrier', 'date_entre', 'telephone', 'date_sortie', 'note', 'num_service', 'statut',
         'type_id', 'nom', 'prenom', 'matricule', 'grade', 'sous_service_id'];
+
 
     public function Type()
     {

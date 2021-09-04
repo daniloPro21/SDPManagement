@@ -11,20 +11,18 @@
 
                         <thead>
                         <tr>
-                            <th>Numero DRH</th>
+                            <th>Numero Courrier</th>
                             <th>Appartien A</th>
                             <th>Status</th>
                             <th>Date entre</th>
                             <th>Date Sortie</th>
                             <th>Actions</th>
-
-
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($dossiersTrie as $dossier)
                             <tr>
-                                <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_drh }}</a></td>
+                                <td><a href="{{ route('dossier.detail', ['id' => $dossier->id]) }}">{{ $dossier->num_courrier }}</a></td>
 
                                 <td><b>- Nom</b> : {{ $dossier->nom }} <br>
                                     - <b>Matricule</b> : {{ $dossier->matricule }} <br>

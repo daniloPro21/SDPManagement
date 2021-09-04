@@ -29,7 +29,7 @@
                         <!-- /.col -->
                       <div class="col-sm-12">
                           <div class="description-block">
-                                <h5 class="description-header">{{ $dossiers->where('sous_service_id', '=', auth()->user()->sous_service_id)->where('statut', 'encour')->where('is_deleted',false)->count()}}</h5>
+                                <h5 class="description-header">{{ $d1->count()}}</h5>
                             <span class="description-text">Dossier(s)</span>
                           </div>
                           <!-- /.description-block -->
@@ -85,7 +85,7 @@
                              <!-- /.col -->
                              <div class="col-sm-12">
                                  <div class="description-block">
-                                     <h5 class="description-header">{{ $dossiers->where('sous_service_id', '=', auth()->user()->sous_service_id)->where('statut', 'rejete')->where('is_deleted',false)->count()}}</h5>
+                                     <h5 class="description-header">{{ $d3->count()}}</h5>
                                      <span class="description-text">Dossier(s)</span>
                                  </div>
                                  <!-- /.description-block -->

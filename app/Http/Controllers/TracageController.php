@@ -15,8 +15,9 @@ class TracageController extends Controller
     public function store(Request $request){
        $tracage = new Tracage();
        $tracage->serviceA = $request->serviceA;
-       $tracage->serviceB = $request->serviceB;
+       $tracage->serviceB = auth()->user()->general->name;
        $tracage->motif = $request->motif;
+       $tracage->dossier_id = $request->dossier_id;
        $tracage->save();
         Toastr()->success("Enregistrement Effectué");
        return redirect()->back();

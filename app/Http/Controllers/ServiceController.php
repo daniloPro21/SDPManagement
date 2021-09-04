@@ -32,11 +32,12 @@ class ServiceController extends Controller
     }
      public function listcoter()
     {
-       $newDossiers = Dossier::with('type','track','services')
-            ->where('sous_service_id', '=', auth()->user()->sous_service_id)
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->paginate(21);
+       $newDossiers = Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+           ->where("cotations.service_id", "=", auth()->user()->sous_service_id)
+           ->where('dossiers.statut', 'encour')
+           ->select('dossiers.*')
+           ->distinct()
+           ->get();
 
        // $service_name = ServiceGeneral::findOrfail(auth()->user()->service_id);
 

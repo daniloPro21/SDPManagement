@@ -39,19 +39,18 @@ class DossierRepository
     }
     public function getNewDossiers()
     {
-        return Dossier::with('type','service','services')
-            ->where('service_id', '=', auth()->user()->service_id)
-            ->where('sous_service_id', '=', null)
-            ->where('statut', '=', 'encour')
-            ->where('is_delete', false)
-            ->orderByDesc('id')->paginate(21);
-
+        return Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
+            ->where("dossiers.statut", "encour")
+            ->where("cotations.servicegeneral_id", auth()->user()->service_id)
+            ->where("cotations.service_id",null)
+            ->select('dossiers.*')
+            ->distinct()
+            ->get();
     }
 
     public function getAssignDossiers()
     {
-        return Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
-            ->where("dossiers.statut", "encour")
+        return  Dossier::join("cotations", 'cotations.dossier_id', '=', 'dossiers.id')
             ->select('dossiers.*')
             ->distinct()
             ->get();
